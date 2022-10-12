@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 12 oct. 2022 à 14:41
+-- Généré le : mer. 12 oct. 2022 à 15:00
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -43,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
   PRIMARY KEY (`COL_MATRICULE`),
   UNIQUE KEY `collaborateur_login0_AK` (`LOG_ID`),
   KEY `collaborateur_habilitation0_FK` (`HAB_ID`),
-  KEY `collaborateur_secteur0_FK` (`SEC_CODE`),
-  KEY `collaborateur_region1_FK` (`REG_CODE`)
+  KEY `collaborateur_secteur0_FK` (`SEC_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
 --
@@ -612,6 +611,22 @@ INSERT INTO `specialite` (`SPE_CODE`, `SPE_LIBELLE`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `travailler`
+--
+
+DROP TABLE IF EXISTS `travailler`;
+CREATE TABLE IF NOT EXISTS `travailler` (
+  `COL_MATRICULE` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `REG_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `TRA_ROLE` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  PRIMARY KEY (`COL_MATRICULE`,`REG_CODE`),
+  KEY `COL_MATRICULE` (`COL_MATRICULE`),
+  KEY `REG_CODE` (`REG_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `type_individu`
 --
 
@@ -650,6 +665,14 @@ INSERT INTO `type_praticien` (`TYP_CODE`, `TYP_LIBELLE`, `TYP_LIEU`) VALUES
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `collaborateur`
+--
+ALTER TABLE `collaborateur`
+  ADD CONSTRAINT `FK_collaborateur_habilitation` FOREIGN KEY (`HAB_ID`) REFERENCES `habilitation` (`HAB_ID`),
+  ADD CONSTRAINT `FK_collaborateur_login` FOREIGN KEY (`LOG_ID`) REFERENCES `login` (`LOG_ID`),
+  ADD CONSTRAINT `FK_collaborateur_secteur` FOREIGN KEY (`SEC_CODE`) REFERENCES `secteur` (`SEC_CODE`);
 
 --
 -- Contraintes pour la table `formuler`
@@ -720,7 +743,15 @@ ALTER TABLE `rapport_visite`
 -- Contraintes pour la table `region`
 --
 ALTER TABLE `region`
+  ADD CONSTRAINT `FK_region_secteur` FOREIGN KEY (`SEC_CODE`) REFERENCES `secteur` (`SEC_CODE`),
   ADD CONSTRAINT `region_secteur0_FK` FOREIGN KEY (`SEC_CODE`) REFERENCES `secteur` (`SEC_CODE`);
+
+--
+-- Contraintes pour la table `travailler`
+--
+ALTER TABLE `travailler`
+  ADD CONSTRAINT `FK_travailler_collaborateur` FOREIGN KEY (`COL_MATRICULE`) REFERENCES `collaborateur` (`COL_MATRICULE`),
+  ADD CONSTRAINT `FK_travailler_region` FOREIGN KEY (`REG_CODE`) REFERENCES `region` (`REG_CODE`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
