@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 12 oct. 2022 à 12:26
+-- Généré le : mer. 12 oct. 2022 à 12:42
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -155,10 +155,10 @@ INSERT INTO `habilitation` (`HAB_ID`, `HAB_LIB`) VALUES
 
 DROP TABLE IF EXISTS `interagir`;
 CREATE TABLE IF NOT EXISTS `interagir` (
-  `MED_DEPOTLEGAL` varchar(10) COLLATE utf8mb3_bin NOT NULL,
-  `MED_DEPOTLEGAL_medicament` varchar(10) COLLATE utf8mb3_bin NOT NULL,
-  PRIMARY KEY (`MED_DEPOTLEGAL`,`MED_DEPOTLEGAL_medicament`),
-  KEY `INTERAGIR_medicament1_FK` (`MED_DEPOTLEGAL_medicament`)
+  `MED_DEPOTLEGAL_perturbe` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `MED_DEPOTLEGAL_perturbateur` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  PRIMARY KEY (`MED_DEPOTLEGAL_perturbe`,`MED_DEPOTLEGAL_perturbateur`),
+  KEY `FK_interagir_medicament_perturbateur` (`MED_DEPOTLEGAL_perturbateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
 -- --------------------------------------------------------
@@ -584,8 +584,8 @@ ALTER TABLE `formuler`
 -- Contraintes pour la table `interagir`
 --
 ALTER TABLE `interagir`
-  ADD CONSTRAINT `INTERAGIR_medicament0_FK` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
-  ADD CONSTRAINT `INTERAGIR_medicament1_FK` FOREIGN KEY (`MED_DEPOTLEGAL_medicament`) REFERENCES `medicament` (`MED_DEPOTLEGAL`);
+  ADD CONSTRAINT `FK_interagir_medicament_perturbateur` FOREIGN KEY (`MED_DEPOTLEGAL_perturbateur`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
+  ADD CONSTRAINT `FK_interagir_medicament_perturbe` FOREIGN KEY (`MED_DEPOTLEGAL_perturbe`) REFERENCES `medicament` (`MED_DEPOTLEGAL`);
 
 --
 -- Contraintes pour la table `login`
