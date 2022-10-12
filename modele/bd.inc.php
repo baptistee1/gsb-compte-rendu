@@ -5,7 +5,7 @@ session_start();
 function connexionPDO() {
     $login = 'root';
     $mdp = '';
-    $bd = 'gsbcr0';
+    $bd = 'rapports_gsb_v1';
     $serveur = 'localhost';
 
     try {
