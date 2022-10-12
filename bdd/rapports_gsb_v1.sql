@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 05 oct. 2022 à 15:04
+-- Généré le : mer. 12 oct. 2022 à 12:26
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -385,8 +385,8 @@ CREATE TABLE IF NOT EXISTS `prescrire` (
   `MED_DEPOTLEGAL` varchar(10) COLLATE utf8mb3_bin NOT NULL,
   `PRE_POSOLOGIE` varchar(50) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`TIN_CODE`,`DOS_CODE`,`MED_DEPOTLEGAL`),
-  KEY `PRESCRIRE_dosage1_FK` (`DOS_CODE`),
-  KEY `PRESCRIRE_medicament2_FK` (`MED_DEPOTLEGAL`)
+  KEY `FK_prescrire_dosage` (`DOS_CODE`),
+  KEY `FK_prescrire_medicament` (`MED_DEPOTLEGAL`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
 -- --------------------------------------------------------
@@ -397,10 +397,10 @@ CREATE TABLE IF NOT EXISTS `prescrire` (
 
 DROP TABLE IF EXISTS `presentation`;
 CREATE TABLE IF NOT EXISTS `presentation` (
-  `PRE_CODE` varchar(2) COLLATE utf8mb3_bin NOT NULL,
-  `PRE_LIBELLE` varchar(20) COLLATE utf8mb3_bin DEFAULT NULL,
+  `PRE_CODE` varchar(2) NOT NULL,
+  `PRE_LIBELLE` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`PRE_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -578,8 +578,7 @@ INSERT INTO `type_praticien` (`TYP_CODE`, `TYP_LIBELLE`, `TYP_LIEU`) VALUES
 -- Contraintes pour la table `formuler`
 --
 ALTER TABLE `formuler`
-  ADD CONSTRAINT `FORMULER_medicament0_FK` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
-  ADD CONSTRAINT `FORMULER_presentation1_FK` FOREIGN KEY (`PRE_CODE`) REFERENCES `presentation` (`PRE_CODE`);
+  ADD CONSTRAINT `FORMULER_medicament0_FK` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`);
 
 --
 -- Contraintes pour la table `interagir`
@@ -617,9 +616,9 @@ ALTER TABLE `praticien`
 -- Contraintes pour la table `prescrire`
 --
 ALTER TABLE `prescrire`
-  ADD CONSTRAINT `PRESCRIRE_dosage1_FK` FOREIGN KEY (`DOS_CODE`) REFERENCES `dosage` (`DOS_CODE`),
-  ADD CONSTRAINT `PRESCRIRE_medicament2_FK` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
-  ADD CONSTRAINT `PRESCRIRE_type_individu0_FK` FOREIGN KEY (`TIN_CODE`) REFERENCES `type_individu` (`TIN_CODE`);
+  ADD CONSTRAINT `FK_prescrire_dosage` FOREIGN KEY (`DOS_CODE`) REFERENCES `dosage` (`DOS_CODE`),
+  ADD CONSTRAINT `FK_prescrire_medicament` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
+  ADD CONSTRAINT `FK_prescrire_type_individu` FOREIGN KEY (`TIN_CODE`) REFERENCES `type_individu` (`TIN_CODE`);
 
 --
 -- Contraintes pour la table `region`
