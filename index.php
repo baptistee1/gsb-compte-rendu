@@ -1,5 +1,6 @@
 <?php
     require_once ('modele/medicament.modele.inc.php');
+    require_once ('modele/praticien.modele.inc.php');
    
     require_once ('modele/connexion.modele.inc.php');
 
@@ -31,7 +32,20 @@
             }
             break;
         }
-    
+
+
+
+        case 'praticiens' :
+            {   
+                if(!empty($_SESSION['login'])){
+                    include("controleur/c_praticiens.php");
+                }else{
+                    include("vues/v_accesInterdit.php");
+                }
+                break;
+            }
+
+
         case 'connexion' :
         {   
                         include("controleur/c_connexion.php");
