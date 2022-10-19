@@ -48,8 +48,9 @@
     </nav>
     <?php
     if(isset($_SESSION['login'])){
-        ?><div class="alert alert-primary" role="alert">
-        Vous êtes connecté en tant que <?php //echo $_SESSION[''] ?>
+        ?><div class="alert alert-primary m-1" role="alert">
+        Vous êtes connecté en tant que <?php //echo $_SESSION[''] ?></div>
+        <?php
     }
     ?>
 </body>
