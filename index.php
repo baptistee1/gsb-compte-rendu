@@ -24,6 +24,7 @@
             include("vues/v_accueil.php");
             break;
         }
+
         case 'medicaments' :
         {   
             if(!empty($_SESSION['login'])){
@@ -34,27 +35,30 @@
             break;
         }
 
-
-
         case 'praticiens' :
-            {   
-                if(!empty($_SESSION['login'])){
-                    include("controleur/c_praticiens.php");
-                }else{
-                    include("vues/v_accesInterdit.php");
-                }
-                break;
+        {   
+            if(!empty($_SESSION['login'])){
+                include("controleur/c_praticiens.php");
+            }else{
+                include("vues/v_accesInterdit.php");
             }
-
+            break;
+        }
 
         case 'connexion' :
         {   
-                        include("controleur/c_connexion.php");
+            include("controleur/c_connexion.php");
             break; 
         }
+
+        case 'rapports' :
+        {
+            include("controleur/c_rapports.php");
+            break;
+        }
+        
         default :
         {   
-           
             include("vues/v_accueil.php");
             break;
         }
