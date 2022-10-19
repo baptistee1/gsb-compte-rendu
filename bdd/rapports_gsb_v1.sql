@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 12 oct. 2022 à 12:42
+-- Généré le : mer. 19 oct. 2022 à 12:03
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -51,11 +51,11 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
 --
 
 INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRESSE`, `COL_CP`, `COL_VILLE`, `COL_DATEEMBAUCHE`, `HAB_ID`, `LOG_ID`, `SEC_CODE`, `REG_CODE`) VALUES
-('a131', 'Villechalane', 'Louis', '8 cours Lafontaine', '29000', 'BREST', '1992-12-11 00:00:00', 2, 1, 'E', 'BN'),
+('a131', 'Villechalane', 'Louis', '8 cours Lafontaine', '29000', 'BREST', '1992-12-11 00:00:00', 1, 1, 'E', 'BN'),
 ('a17', 'Andre', 'David', '1 r Aimon de Chissée', '38100', 'GRENOBLE', '1991-08-26 00:00:00', 1, 2, NULL, 'RA'),
 ('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'RO'),
 ('a93', 'Tusseau', 'Louis', '22 r Renou', '86000', 'POITIERS', '1999-01-02 00:00:00', 2, 4, NULL, 'PC'),
-('t60', 'Tusseau', 'Josselin', '63 r Bon Repos', '28000', 'CHARTRES', '1991-03-29 00:00:00', 1, 67, NULL, 'CE');
+('t60', 'Tusseau', 'Josselin', '63 r Bon Repos', '28000', 'CHARTRES', '1991-03-29 00:00:00', 3, 67, NULL, 'CE');
 
 -- --------------------------------------------------------
 
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `motifs` (
   `MOT_ID` int(11) NOT NULL AUTO_INCREMENT,
   `MOT_LIBELLE` varchar(255) NOT NULL,
   PRIMARY KEY (`MOT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `motifs`
@@ -261,7 +261,8 @@ CREATE TABLE IF NOT EXISTS `motifs` (
 
 INSERT INTO `motifs` (`MOT_ID`, `MOT_LIBELLE`) VALUES
 (1, 'Périodicité'),
-(2, 'Nouveautés / Actualisations');
+(2, 'Nouveautés / Actualisations'),
+(3, 'Autre');
 
 -- --------------------------------------------------------
 
@@ -436,12 +437,6 @@ CREATE TABLE IF NOT EXISTS `prescrire` (
 
 DROP TABLE IF EXISTS `presentation`;
 CREATE TABLE IF NOT EXISTS `presentation` (
-<<<<<<< HEAD
-  `PRE_CODE` varchar(2) NOT NULL,
-  `PRE_LIBELLE` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`PRE_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-=======
   `PRE_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `PRE_LIBELLE` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`PRE_CODE`)
@@ -480,10 +475,9 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
 --
 
 INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`) VALUES
-('a131', 3, 23, '2002-04-18 00:00:00', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12 00:00:00', 1, NULL, NULL, NULL),
-('a131', 7, 41, '2003-03-23 00:00:00', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12 00:00:00', 1, NULL, NULL, NULL),
-('a17', 4, 4, '2003-05-21 00:00:00', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12 00:00:00', 1, NULL, NULL, NULL);
->>>>>>> 3fab6aece17cec9ea25e4fc16e25500dd887a156
+('a131', 3, 23, '2002-04-18 00:00:00', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12 00:00:00', 3, NULL, NULL, NULL),
+('a131', 7, 41, '2003-03-23 00:00:00', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12 00:00:00', 3, NULL, NULL, NULL),
+('a17', 4, 4, '2003-05-21 00:00:00', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12 00:00:00', 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -734,8 +728,6 @@ ALTER TABLE `prescrire`
   ADD CONSTRAINT `FK_prescrire_dosage` FOREIGN KEY (`DOS_CODE`) REFERENCES `dosage` (`DOS_CODE`),
   ADD CONSTRAINT `FK_prescrire_medicament` FOREIGN KEY (`MED_DEPOTLEGAL`) REFERENCES `medicament` (`MED_DEPOTLEGAL`),
   ADD CONSTRAINT `FK_prescrire_type_individu` FOREIGN KEY (`TIN_CODE`) REFERENCES `type_individu` (`TIN_CODE`);
-<<<<<<< HEAD
-=======
 
 --
 -- Contraintes pour la table `rapport_visite`
@@ -747,7 +739,6 @@ ALTER TABLE `rapport_visite`
   ADD CONSTRAINT `FK_rapport_visite_motif` FOREIGN KEY (`MOT_ID`) REFERENCES `motifs` (`MOT_ID`),
   ADD CONSTRAINT `FK_rapport_visite_praticien` FOREIGN KEY (`PRA_NUM`) REFERENCES `praticien` (`PRA_NUM`),
   ADD CONSTRAINT `FK_rapport_visite_praticien_remp` FOREIGN KEY (`PRA_NUM_REMP`) REFERENCES `praticien` (`PRA_NUM`);
->>>>>>> 3fab6aece17cec9ea25e4fc16e25500dd887a156
 
 --
 -- Contraintes pour la table `region`
