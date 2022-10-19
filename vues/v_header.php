@@ -49,8 +49,7 @@
     <?php
     if(isset($_SESSION['login'])){
         ?><div class="alert alert-primary" role="alert">
-        Vous êtes connecté en tant que <?php echo $_SESSION[''] ?>
-          </div><?php
+        Vous êtes connecté en tant que <?php //echo $_SESSION[''] ?>
     }
     ?>
 </body>
