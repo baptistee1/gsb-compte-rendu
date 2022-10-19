@@ -34,7 +34,11 @@
                         <li class="nav-item ">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=praticiens&action=formulairepratic">Praticiens</a>
                         </li>
-                       
+
+                        <li class="nav-item ">
+                            <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=saisirRapp">Rapports</a>
+                        </li>
+
                         <li class="nav-item ">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=connexion&action=profil">Profil</a>
                         </li>
@@ -50,7 +54,7 @@
     $lib=getHabilitation($_SESSION['habilitation']);
     $_SESSION['libHab']=$lib['lib'];
     if(isset($_SESSION['login'])){
-        ?><div class="alert alert-primary m-1" role="alert">
+        ?><div class="alert alert-success m-1" role="alert">
         Vous êtes connecté en tant que <?php echo ($_SESSION['libHab']) ?></div>
         <?php
     }
