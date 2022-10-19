@@ -46,3 +46,11 @@
             </div>
         </div>
     </nav>
+    <?php
+    if(isset($_SESSION['login'])){
+        ?><div class="alert alert-primary" role="alert">
+        Vous êtes connecté en tant que <?php echo ?>
+          </div><?php
+    }
+    ?>
+</body>

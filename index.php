@@ -1,7 +1,7 @@
 <?php
+    session_start();
     require_once ('modele/medicament.modele.inc.php');
     require_once ('modele/praticien.modele.inc.php');
-   
     require_once ('modele/connexion.modele.inc.php');
 
     if(!isset($_REQUEST['uc']) || empty($_REQUEST['uc']))
@@ -14,6 +14,7 @@
     if(empty($_SESSION['login'])){
         include("vues/v_headerDeconnexion.php");
     }else{
+
         include("vues/v_header.php");
     }    
     switch($uc)
