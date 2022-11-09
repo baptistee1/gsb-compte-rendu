@@ -13,6 +13,7 @@ switch ($action) {
     
     case 'saisirRapp' :
     {
+        $matricule = $_SESSION['matricule'];
         include("vues/v_saisirRapport.php");
         break;
     }

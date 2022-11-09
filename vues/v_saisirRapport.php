@@ -11,7 +11,7 @@
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="matricule" list="matriculeList" autocomplete="off">
                             <datalist id="matriculeList" >
-                                <option value="test">
+                                <option value="<?= $matricule ?>">
                             </datalist>
                         </div>
                     </div>
