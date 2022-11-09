@@ -20,26 +20,33 @@ switch ($action) {
 
 
     case 'formulaireRapport' :
-        {
-            //$result = getAllRapport();
-            include("vues/v_formulaireRapport.php");
-            break;
-        }
+    {
+        $result = getAllNomPraticien();
+        include("vues/v_formulaireRapport.php");
+        break;
+    }
 
 
 
     case 'afficherRapport' :
     {
-        if(isset($_REQUEST['praticien']) && getAllRapport($_REQUEST['praticien'])){
-            include("vues/v_afficherRapport.php");
-        }else{
-            $_SESSION['erreur'] = true;
-            header("Location: index.php?uc=praticiens&action=formulairepratic");
-        }
+        var_dump($_REQUEST['date1']);
+        var_dump($_REQUEST['date2']);
+        var_dump($_SESSION['matricule']);
+        $date1=$_REQUEST['date1'];
+        $date2=$_REQUEST['date2'];
+        $matricule=$_REQUEST['matricule'];
+        $carac=getRapportVisite($date1,$date2,$matricule);
+        
+        include("vues/v_afficherRapport.php");
+        break;
         
 
-        break;
     }
+        
+
+        
+    
 
     default:
     {
