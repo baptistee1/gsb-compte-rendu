@@ -9,10 +9,7 @@
                     <div class="mb-3 row mt-3">
                         <label for="matricule" class="col-sm-4 col-form-label">Matricule :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="matricule" list="matriculeList" autocomplete="off">
-                            <datalist id="matriculeList" >
-                                <option value="<?= $matricule ?>">
-                            </datalist>
+                            <input type="text" class="form-control" id="matricule" list="matriculeList" value="<?= $matricule ?>" disabled>
                         </div>
                     </div>
                     <div class="mb-3 row mt-3">

@@ -14,8 +14,6 @@ switch ($action) {
     case 'saisirRapp' :
     {
         $matricule = $_SESSION['matricule'];
-        var_dump($matricule);
-        var_dump($_SESSION['matricule']);
         include("vues/v_saisirRapport.php");
         break;
     }
