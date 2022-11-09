@@ -9,7 +9,7 @@
                     <div class="mb-3 row mt-3">
                         <label for="matricule" class="col-sm-4 col-form-label">Matricule :</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="matricule" list="matriculeList" value="<?= $matricule ?>" disabled>
+                            <input type="text" class="form-control-plaintext" id="matricule" list="matriculeList" value="<?= $matricule ?>" readonly>
                         </div>
                     </div>
                     <div class="mb-3 row mt-3">
@@ -26,7 +26,12 @@
                     </div>
                 </div>
                 <div class="card col">
-                    <p>test</p>
+                    <div class="mb-3 row mt-3">
+                        <label for="date" class="col-sm-4 col-form-label">Motif</label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="date">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
