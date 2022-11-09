@@ -14,7 +14,7 @@ switch ($action) {
 
     case 'consulterRapp' :
     {
-
+        include("vues/v_afficherRapport");
         break;
     }
 
