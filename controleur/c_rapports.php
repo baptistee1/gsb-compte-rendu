@@ -8,6 +8,7 @@ switch ($action) {
 	case 'choixRapp' :
     {
         include("vues/v_choixRapport.php");
+
         break;
     }
     
@@ -17,9 +18,26 @@ switch ($action) {
         break;
     }
 
-    case 'consulterRapp' :
+
+    case 'formulaireRapport' :
+        {
+            //$result = getAllRapport();
+            include("vues/v_formulaireRapport.php");
+            break;
+        }
+
+
+
+    case 'afficherRapport' :
     {
-        include("vues/v_afficherRapport");
+        if(isset($_REQUEST['praticien']) && getAllRapport($_REQUEST['praticien'])){
+            include("vues/v_afficherRapport.php");
+        }else{
+            $_SESSION['erreur'] = true;
+            header("Location: index.php?uc=praticiens&action=formulairepratic");
+        }
+        
+
         break;
     }
 

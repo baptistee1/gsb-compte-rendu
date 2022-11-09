@@ -2,7 +2,7 @@
     <a href="index.php?uc=rapports&action=saisirRapp" type="button" class="btn btn-primary btn-lg">
         Saisir un rapport de visite
     </a>
-    <a href="index.php?uc=rapports&action=consulterRapp" type="button" class="btn btn-primary btn-lg">
+    <a href="index.php?uc=rapports&action=formulaireRapport" type="button" class="btn btn-primary btn-lg">
         Consulter les rapports de visite
     </a>
 </div>
