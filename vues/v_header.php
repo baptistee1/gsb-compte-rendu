@@ -35,7 +35,7 @@
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=praticiens&action=formulairepratic">Praticiens</a>
                         </li>
 
-                        <li class="nav-item ">
+                        <li class="nav-item dropdown">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=choixRapp">Rapports</a>
                         </li>
 
