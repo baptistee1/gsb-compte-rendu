@@ -8,7 +8,6 @@ switch ($action) {
 	case 'choixRapp' :
     {
         include("vues/v_choixRapport.php");
-
         break;
     }
     
