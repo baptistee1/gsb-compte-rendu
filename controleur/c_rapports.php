@@ -1,4 +1,9 @@
 <?php
+if (!isset($_REQUEST['action']) || empty($_REQUEST['action'])) {
+	$action = "formulairemedoc";
+} else {
+	$action = $_REQUEST['action'];
+}
 switch ($action) {
 	case 'choixRapp' :
     {
