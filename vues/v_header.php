@@ -36,7 +36,7 @@
                         </li>
 
                         <li class="nav-item ">
-                            <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=saisirRapp">Rapports</a>
+                            <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=choixRapp">Rapports</a>
                         </li>
 
                         <li class="nav-item ">
