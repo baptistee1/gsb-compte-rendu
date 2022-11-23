@@ -1,7 +1,11 @@
 <?php
 
 include_once 'bd.inc.php';
-
+    /**
+     * Fonction récupérant la liste du depot-legal et du nom commercial des medicaments de la base de données
+     *
+     * @return $results la liste des depot-legal et des nom commercial des medicaments
+     */
     function getAllNomMedicament(){
 
         try{
