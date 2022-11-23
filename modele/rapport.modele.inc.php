@@ -68,4 +68,28 @@ function getMotifs()
     }
 }
 
+function testValeurNulle(string $key)
+{
+    if(empty($_POST[$key])) {
+        $result = NULL;
+    } else {
+        $result = $_POST[$key];
+    }
+    return $result;
+}
+
+function insertRapport()
+{
+    try {
+        $monPdo=connexionPDO();
+
+
+
+    }
+    catch(PDOException $e)
+    {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
 ?>
