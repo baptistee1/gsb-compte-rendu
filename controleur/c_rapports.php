@@ -14,6 +14,7 @@ switch ($action) {
     case 'saisirRapp' :
     {
         $matricule = $_SESSION['matricule'];
+        $motifs = getMotifs();
         include("vues/v_saisirRapport.php");
         break;
     }

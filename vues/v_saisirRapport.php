@@ -17,7 +17,13 @@
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="motif1" list="motifsList">
                             <datalist id="motifsList">
-                                <option value=""> //ajouter les motifs via la base de données
+                                <?php
+                                    foreach ($motifs as $motif){
+                                        ?>
+                                            <option value="<?= $motifs['MOT_ID'] ?>"><?= $motifs['MOT_LIBELLE'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
                             </datalist>
                         </div>
                     </div>

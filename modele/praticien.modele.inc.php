@@ -1,6 +1,10 @@
 <?php
 include_once 'bd.inc.php';
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     function getAllnomPraticien(){
 
         try{
@@ -16,9 +20,12 @@ include_once 'bd.inc.php';
         }
 
     }
-
-
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $nom
+     * @return void
+     */
     function getAllInformationPraticien($nom){
 
         try{
