@@ -40,7 +40,6 @@ switch ($action) {
         $date2=$_REQUEST['date2'];
         $matricule=$_REQUEST['matricule'];
         $carac=getRapportVisite($date1,$date2,$matricule);
-        
         include("vues/v_afficherRapport.php");
         break;
         
