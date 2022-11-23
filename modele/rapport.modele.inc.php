@@ -78,14 +78,17 @@ function testValeurNulle(string $key)
     return $result;
 }
 
-function insertRapport()
+function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2)
 {
     try {
         $monPdo=connexionPDO();
 
-
-
-    }
+        $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
+        VALUES (":matricule", ":praticien", ":dateVisite", ":bilan", ":motifAutre", ":dateSaisie", ":motif", ":praticienRemp", ":med1", ":med2")');
+        $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
+    } //demander pour le numéro de rapport s'il est en auto-increment
+    //changer les datalists pour que value soit uniquement le numéro du praticien
     catch(PDOException $e)
     {
         print "Erreur !: " . $e->getMessage();
