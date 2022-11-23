@@ -1,9 +1,9 @@
 <?php
 include_once 'bd.inc.php';
     /**
-     * Fonction récupérant la liste des praticiens de la base de données
+     * Fonction récupérant la liste des ids, noms, et prenoms des praticiens de la base de données
      *
-     * @return $results la liste des praticiens
+     * @return $results la liste des ids, noms, et prenoms des praticiens
      */
     function getAllNomPraticien(){
 

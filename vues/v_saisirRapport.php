@@ -89,13 +89,33 @@
                         <div class="mb-3 row mt-3">
                             <label for="med11" class="col-sm-4 col-form-label">Premier médicament présenté :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="med1">
+                                <input type="text" class="form-control" id="med1" list="medicamentsList">
+                                <datalist id="medicamentsList">
+                                    <?php
+                                    foreach ($medicaments as $medicament) 
+                                    {
+                                        ?>
+                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] . " - " . $medicament['MED_NOMCOMMERCIAL'] ?>"></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="med2" class="col-sm-4 col-form-label">Deuxième médicament présenté :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="med2">
+                                <input type="text" class="form-control" id="med2" list="medicamentsList">
+                                <datalist id="medicamentsList">
+                                    <?php
+                                    foreach ($medicaments as $medicament) 
+                                    {
+                                        ?>
+                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] . " - " . $medicament['MED_NOMCOMMERCIAL'] ?>"></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </datalist>
                             </div>
                         </div>
                     </div>

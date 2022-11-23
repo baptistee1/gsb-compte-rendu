@@ -1,6 +1,7 @@
 <?php
 include_once('modele/rapport.modele.inc.php');
 include_once('modele/praticien.modele.inc.php');
+include_once('modele/medicament.modele.inc.php');
 
 if (!isset($_REQUEST['action']) || empty($_REQUEST['action'])) {
 	$action = "formulairemedoc";
@@ -19,6 +20,7 @@ switch ($action) {
         $matricule = $_SESSION['matricule'];
         $motifs = getMotifs();
         $praticiens = getAllNomPraticien();
+        $medicaments = getAllNomMedicament();
         include("vues/v_saisirRapport.php");
         break;
     }
