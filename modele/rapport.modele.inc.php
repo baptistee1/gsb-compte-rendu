@@ -12,12 +12,16 @@ function getRapportVisite($date1,$date2,$matricule){
 
     try{
         $monPdo=connexionPDO();
-        $req=$monPdo->prepare('SELECT RAP_NUM, praticien.PRA_NUM, PRA_NOM, MOT_LIBELLE, RAP_DATEVISITE
-        FROM rapport_visite
-        INNER JOIN praticien
-        ON rapport_visite.PRA_NUM=praticien.PRA_NUM
-        INNER JOIN motifs
-        ON rapport_visite.MOT_ID=motifs.MOT_ID
+        $req=$monPdo->prepare('SELECT RAP_NUM, praticien.PRA_NUM, PRA_NOM, MOT_LIBELLE, RAP_DATEVISITE,MED_DEPOTLEGAL_1,MED_DEPOTLEGAL_2,m1.MED_DEPOTLEGAL,m2.MED_NOMCOMMERCIAL
+        FROM rapport_visite r
+        INNER JOIN praticien p
+        ON r.PRA_NUM=p.PRA_NUM
+        INNER JOIN motifs mo
+        ON r.MOT_ID=mo.MOT_ID
+        INNER JOIN medicament m1
+        ON r.MED_DEPOTLEGAL_1=m1.MED_DEPOTLEGAL
+        INNER JOIN medicament m2
+        ON r.MED_DEPOTLEGAL_2=m2.MED_DEPOTLEGAL
         WHERE COL_MATRICULE=:matricule AND RAP_DATEVISITE BETWEEN :date1 AND :date2');
         $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
         $req->bindValue(':date1',$date1,PDO::PARAM_STR);
