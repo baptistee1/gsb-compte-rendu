@@ -51,14 +51,20 @@ switch ($action) {
 
     case 'afficherRapport' :
     {
-        var_dump($_REQUEST['date1']);
-        var_dump($_REQUEST['date2']);
-        var_dump($_SESSION['matricule']);
+        //var_dump($_REQUEST['date1']);
+        //var_dump($_REQUEST['date2']);
+        //var_dump($_SESSION['matricule']);
+
         $date1=$_REQUEST['date1'];
         $date2=$_REQUEST['date2'];
         $matricule=$_REQUEST['matricule'];
-        $carac=getRapportVisite($date1,$date2,$matricule);
-        
+
+        var_dump($date1);
+        var_dump($date2);
+        var_dump($matricule);
+
+        $rapports=getRapportVisite($date1,$date2,$matricule);
+        var_dump($rapports);
         include("vues/v_afficherRapport.php");
         break;
         
