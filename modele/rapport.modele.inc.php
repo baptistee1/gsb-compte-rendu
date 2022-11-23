@@ -31,4 +31,15 @@ function getRapportVisite($date1,$date2,$matricule){
 
 }
 
+function getMedDepotLegal($date1,$date2,$matricule){
+
+    try {
+        $monPdo=connexionPdo();
+        $req=$monPdo->prepare('');
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
 ?>
