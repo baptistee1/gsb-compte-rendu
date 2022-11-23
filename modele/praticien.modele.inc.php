@@ -1,20 +1,21 @@
 <?php
 include_once 'bd.inc.php';
     /**
-     * Undocumented function
+     * Fonction récupérant la liste des praticiens de la base de données
      *
-     * @return void
+     * @return $results la liste des praticiens
      */
-    function getAllnomPraticien(){
+    function getAllNomPraticien(){
 
         try{
             $monPdo=connexionPDO();
-            $req='SELECT PRA_NOM, PRA_PRENOM FROM praticien';
+            $req='SELECT PRA_NUM, PRA_NOM, PRA_PRENOM FROM praticien';
             $res =$monPdo->query($req);
             $result=$res->fetchAll();
             return $result;
         }
-        catch (PDOException $e){
+        catch (PDOException $e)
+        {
             print "Erreur !: " . $e->getMessage();
             die();
         }
