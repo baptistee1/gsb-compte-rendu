@@ -1,4 +1,6 @@
 <?php
+include_once('modele/rapport.modele.inc.php');
+
 if (!isset($_REQUEST['action']) || empty($_REQUEST['action'])) {
 	$action = "formulairemedoc";
 } else {

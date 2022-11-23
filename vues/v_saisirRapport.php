@@ -20,7 +20,7 @@
                                 <?php
                                     foreach ($motifs as $motif){
                                         ?>
-                                            <option value="<?= $motifs['MOT_ID'] ?>"><?= $motifs['MOT_LIBELLE'] ?></option>
+                                            <option value="<?= $motif['MOT_ID']. " - " . $motif['MOT_LIBELLE'] ?>"></option>
                                         <?php
                                     }
                                     ?>

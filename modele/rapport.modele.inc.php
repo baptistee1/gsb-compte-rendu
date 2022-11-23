@@ -41,7 +41,11 @@ function getMedDepotLegal($date1,$date2,$matricule){
         die();
     }
 }
-
+/**
+ * Fonction récupérant la liste des motifs dans la base de données
+ *
+ * @return $motifs  la liste des motifs
+ */
 function getMotifs()
 {
     try {
