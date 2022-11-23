@@ -11,6 +11,18 @@ if (!isset($_REQUEST['action']) || empty($_REQUEST['action'])) {
 switch ($action) {
 	case 'choixRapp' :
     {
+        if (isset($_POST)){
+            $matricule = $_POST['matricule'];
+            $motif = $_POST['motif1'];
+            $motifAutre = testValeurNulle('motif2');
+            $dateVisite = testValeurNulle('dateVisite');
+            $dateSaisie = $_POST['dateSaisie'];
+            $praticien = $_POST['praticien'];
+            $praticienRemp = testValeurNulle('praticienRemp');
+            $bilan = testValeurNulle('bilan');
+            $medicament1 = testValeurNulle('med1');
+            $medicament2 = testValeurNulle('med2');
+        }
         include("vues/v_choixRapport.php");
         break;
     }

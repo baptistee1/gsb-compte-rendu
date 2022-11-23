@@ -10,13 +10,13 @@
                         <div class="mb-3 row mt-3">
                             <label for="matricule" class="col-sm-4 col-form-label">Matricule :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control-plaintext" id="matricule" list="matriculeList" value="<?= $matricule ?>" readonly>
+                                <input type="text" class="form-control-plaintext" name="matricule" id="matricule" list="matriculeList" value="<?= $matricule ?>" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="motif1" class="col-sm-4 col-form-label">Motif :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="motif1" list="motifsList">
+                                <input type="text" class="form-control" id="motif1" name="motif1" list="motifsList" required>
                                 <datalist id="motifsList">
                                     <?php
                                     foreach ($motifs as $motif) {
@@ -31,25 +31,25 @@
                         <div class="mb-3 row mt-3">
                             <label for="motif2" class="col-sm-4 col-form-label">Motif autre :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="motif2">
+                                <input type="text" class="form-control" name="motif2" id="motif2">
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="dateVisite" class="col-sm-4 col-form-label">Date de la visite :</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="dateVisite">
+                                <input type="date" class="form-control" name="dateVisite" id="dateVisite">
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="dateSaisie" class="col-sm-4 col-form-label">Date de la saisie :</label>
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="dateSaisie">
+                                <input type="date" class="form-control" name="dateSaisie" id="dateSaisie" required>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="praticien" class="col-sm-4 col-form-label">Numéro du praticien :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="praticien" list="praticiensList">
+                                <input type="text" class="form-control" id="praticien" name="praticien" list="praticiensList" required>
                                 <datalist id="praticiensList">
                                     <?php
                                     foreach ($praticiens as $praticien) 
@@ -67,7 +67,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="praticienRemp" class="col-sm-4 col-form-label">Numéro du praticien remplaçant :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="praticienRemp" list="praticiensList">
+                                <input type="text" class="form-control" id="praticienRemp" name="praticienRemp" list="praticiensList">
                                 <datalist id="praticiensList">
                                     <?php
                                     foreach ($praticiens as $praticien) 
@@ -83,13 +83,13 @@
                         <div class="mb-3 row mt-3">
                             <label for="bilan" class="form-label">Bilan :</label>
                             <div class="col-sm-12">
-                                <textarea class="form-control" id="bilan" rows="5"></textarea>
+                                <textarea class="form-control" id="bilan" name="bilan" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="med11" class="col-sm-4 col-form-label">Premier médicament présenté :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="med1" list="medicamentsList">
+                                <input type="text" class="form-control" id="med1" name="med1" list="medicamentsList">
                                 <datalist id="medicamentsList">
                                     <?php
                                     foreach ($medicaments as $medicament) 
@@ -105,7 +105,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="med2" class="col-sm-4 col-form-label">Deuxième médicament présenté :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="med2" list="medicamentsList">
+                                <input type="text" class="form-control" id="med2" name="med2" list="medicamentsList">
                                 <datalist id="medicamentsList">
                                     <?php
                                     foreach ($medicaments as $medicament) 
