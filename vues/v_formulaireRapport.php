@@ -22,11 +22,11 @@
                         <input type="date" name=date1>
                         <input type="date" name=date2>
 
-                        <select name="praticien" class="form-select mt-3">
+                        <select name="matricule" class="form-select mt-3">
                         <option value class="text-center">- Choisissez un praticiens -</option>
                         <?php
                         foreach ($result as $key) {
-                            echo '<option value="' . $key['PRA_NOM'] . '" class="form-control">' . $key['PRA_NOM'] . ' - ' . $key['PRA_PRENOM'] . '</option>';
+                            echo '<option value="' . $key['PRA_NUM'] . '" class="form-control">' . $key['PRA_NOM'] . ' - ' . $key['PRA_PRENOM'] . '</option>';
                         }
                         ?>
                         </select>
