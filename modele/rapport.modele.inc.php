@@ -42,4 +42,23 @@ function getMedDepotLegal($date1,$date2,$matricule){
     }
 }
 
+function getMotifs()
+{
+    try {
+        $monPdo=connexionPDO();
+
+        $req = 'SELECT MOT_ID, MOT_LIBELLE FROM motifs';
+        $res = $monPdo->query($req);
+        $motifs = $res->fetchAll(PDO::FETCH_ASSOC);
+        return $motifs;
+
+    }
+    catch(PDOException $e)
+    {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+
 ?>
