@@ -23,7 +23,7 @@ function getRapportVisite($date1,$date2,$matricule){
         ON r.MED_DEPOTLEGAL_1=med1.MED_DEPOTLEGAL
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2=med2.MED_DEPOTLEGAL
-        WHERE p.PRA_NUM= :matricule AND RAP_DATESAISIE BETWEEN :date1 AND :date2');
+        WHERE COL_MATRICULE= ":matricule" AND RAP_DATESAISIE BETWEEN :date1 AND :date2');
         $req->bindValue(':matricule',$matricule,PDO::PARAM_INT);
         $req->bindValue(':date1',$date1,PDO::PARAM_STR);
         $req->bindValue(':date2',$date2,PDO::PARAM_STR);

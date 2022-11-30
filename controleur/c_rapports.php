@@ -57,7 +57,7 @@ switch ($action) {
 
         $date1=$_REQUEST['date1'];
         $date2=$_REQUEST['date2'];
-        $matricule=$_REQUEST['matricule'];
+        $matricule=$_SESSION['matricule'];
 
         var_dump($date1);
         var_dump($date2);
