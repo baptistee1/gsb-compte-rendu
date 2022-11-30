@@ -90,7 +90,7 @@ function getNbRapByIdCol($idCol)
 {
     try {
         $monPdo=connexionPDO();
-        $req = $monPdo->prepare('SELECT MAX(RAP_NUM) FROM rapport_visite WHERE COL_MATRICULE = ":idCol"');
+        $req = $monPdo->prepare('SELECT MAX(RAP_NUM) FROM rapport_visite WHERE COL_MATRICULE = :idCol');
         $req->bindValue(':idCol', $idCol, PDO::PARAM_STR);
         $req->execute();
         $matricule = $req->fetch(PDO::FETCH_ASSOC);
@@ -122,19 +122,52 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
     try {
         $monPdo=connexionPDO();
 
+        $numRap = getNbRapByIdCol($matricule);  //numéro du dernier rapport de visite
+        $numRap['MAX(RAP_NUM)'] += 1;
+
         $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
-        VALUES (":matricule", ":numRapport", ":praticien", ":dateVisite", ":bilan", ":motifAutre", ":dateSaisie", ":motif", ":praticienRemp", ":med1", ":med2")');
+        VALUES (:matricule, :numRapport, :praticien, :dateVisite, :bilan, :motifAutre, :dateSaisie, :motif, :praticienRemp, :med1, :med2)');
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
-        $req->bindValue(':numRapport', getNbRapByIdCol($matricule)+1, PDO::PARAM_INT);
+        $req->bindValue(':numRapport', $numRap['MAX(RAP_NUM)'], PDO::PARAM_INT);
         $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
-        $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
-        $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
-        $req->bindValue(':motifAutre', $motifAutre, PDO::PARAM_STR);
+        if(empty($dateVisite))
+        {
+            $req->bindValue(':dateVisite', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
+        }
+        if(empty($bilan))
+        {
+            $req->bindValue(':bilan', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
+        }
+        if(empty($motifAutre))
+        {
+            $req->bindValue(':motifAutre', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':motifAutre', $motifAutre, PDO::PARAM_STR);
+        }
         $req->bindValue(':dateSaisie', $dateSaisie, PDO::PARAM_STR);
         $req->bindValue(':motif', $motif, PDO::PARAM_INT);
-        $req->bindValue(':praticienRemp', $praticienRemp, PDO::PARAM_INT);
-        $req->bindValue(':med1', $medicament1, PDO::PARAM_STR);
-        $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
+        if(empty($praticienRemp))
+        {
+            $req->bindValue(':praticienRemp', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':praticienRemp', $praticienRemp, PDO::PARAM_INT);
+        }
+        if(empty($medicament1))
+        {
+            $req->bindValue(':med1', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':med1', $medicament1, PDO::PARAM_STR);
+        }
+        if(empty($medicament2))
+        {
+            $req->bindValue(':med2', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
+        }
         $req->execute();
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
         return $reussite;
