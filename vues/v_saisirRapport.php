@@ -8,13 +8,13 @@
                 <div class="row justify-content-center gap-2 m-1">
                     <div class="card col">
                         <div class="mb-3 row mt-3">
-                            <label for="matricule" class="col-sm-4 col-form-label">Matricule :</label>
+                            <label for="matricule" class="col-sm-4 col-form-label">Matricule* :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control-plaintext" name="matricule" id="matricule" list="matriculeList" value="<?= $matricule ?>" readonly>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
-                            <label for="motif1" class="col-sm-4 col-form-label">Motif :</label>
+                            <label for="motif1" class="col-sm-4 col-form-label">Motif* :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="motif1" name="motif1" list="motifsList" required>
                                 <datalist id="motifsList">
@@ -41,13 +41,13 @@
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
-                            <label for="dateSaisie" class="col-sm-4 col-form-label">Date de la saisie :</label>
+                            <label for="dateSaisie" class="col-sm-4 col-form-label">Date de la saisie* :</label>
                             <div class="col-sm-8">
                                 <input type="date" class="form-control" name="dateSaisie" id="dateSaisie" required>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
-                            <label for="praticien" class="col-sm-4 col-form-label">Numéro du praticien :</label>
+                            <label for="praticien" class="col-sm-4 col-form-label">Numéro du praticien* :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="praticien" name="praticien" list="praticiensList" required>
                                 <datalist id="praticiensList">
