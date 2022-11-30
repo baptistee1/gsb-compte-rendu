@@ -42,7 +42,9 @@ switch ($action) {
 
     case 'formulaireRapport' :
     {
-        $result = getAllNomPraticien();
+        $matricule=$_SESSION['matricule'];
+        $result = getAllInformationMesPraticiens($matricule);
+
         include("vues/v_formulaireRapport.php");
         break;
     }
@@ -51,19 +53,18 @@ switch ($action) {
 
     case 'afficherRapport' :
     {
-        //var_dump($_REQUEST['date1']);
-        //var_dump($_REQUEST['date2']);
-        //var_dump($_SESSION['matricule']);
 
         $date1=$_REQUEST['date1'];
         $date2=$_REQUEST['date2'];
         $matricule=$_SESSION['matricule'];
+        $pranum=$_REQUEST['matricule'];
 
         var_dump($date1);
         var_dump($date2);
         var_dump($matricule);
+        var_dump($pranum);
 
-        $rapports=getRapportVisite($date1,$date2,$matricule);
+        $rapports=getRapportVisite($date1,$date2,$matricule,$pranum);
         var_dump($rapports);
         include("vues/v_afficherRapport.php");
         break;

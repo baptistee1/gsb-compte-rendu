@@ -43,4 +43,28 @@ include_once 'bd.inc.php';
         }
 
     }
+    /**
+     * Fonction qui renvoie la liste des praticiens lié au matricule du collaborateur
+     *
+     * @param String $matricule
+     * @return $res la liste de tous les praticiens par rapport au matricule du collaborateur
+     */
+    function getAllInformationMesPraticiens($matricule)
+    {
+        try{
+            $monPdo=connexionPDO();
+            $req=$monPdo->prepare('SELECT praticien.PRA_NUM,PRA_NOM,PRA_PRENOM FROM praticien 
+            INNER JOIN rapport_visite
+            ON praticien.PRA_NUM=rapport_visite.PRA_NUM
+            WHERE COL_MATRICULE=:matricule');
+            $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
+            $req->execute();
+            $result=$req->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch (PDOException $e){
+            print "Erreur !: " . $e->getMessage();
+            die();
+        }
+    }
 ?>
