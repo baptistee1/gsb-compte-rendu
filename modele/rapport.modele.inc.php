@@ -9,7 +9,6 @@ include_once 'bd.inc.php';
  * @param String $matricule
  * @return $res la liste des rapports de visite
  */
-
 function getRapportVisite($date1,$date2,$matricule){
 
     try{
@@ -37,7 +36,6 @@ function getRapportVisite($date1,$date2,$matricule){
     }
 
 }
-
 
 /**
  * Fonction récupérant la liste des motifs dans la base de données
@@ -71,17 +69,65 @@ function testValeurNulle(string $key)
     }
     return $result;
 }
-
+/**
+ * fonction retournant le numéro du dernier rapport écrit par un collaborateur
+ *
+ * @param string $idCol l'id du collaborateur en question
+ * @return int le numéro du dernier rapport écrit
+ */
+function getNbRapByIdCol($idCol)
+{
+    try {
+        $monPdo=connexionPDO();
+        $req = $monPdo->prepare('SELECT MAX(RAP_NUM) FROM rapport_visite WHERE COL_MATRICULE = ":idCol"');
+        $req->bindValue(':idCol', $idCol, PDO::PARAM_STR);
+        $req->execute();
+        $matricule = $req->fetch(PDO::FETCH_ASSOC);
+        return $matricule;
+    }
+    catch(PDOException $e)
+    {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+/**
+ * fonction insérant dans la base de données les données d'une saisie d'un rapport et retournant vrai si la requête à été correctement exécutée
+ *
+ * @param String $matricule le matricule du collaborateur
+ * @param int $motif le motif de la visite
+ * @param String $motifAutre un deuxième motif (facultatif)
+ * @param date $dateVisite la date de la visite
+ * @param date $dateSaisie la date de la saisie
+ * @param int $praticien le numéro du praticien qui à eu une visite
+ * @param int $praticienRemp le numéro du praticien remplaçant ayant eu une visite (facultatif)
+ * @param String $bilan le bilan de la visite
+ * @param String $medicament1 le premier médicament proposé
+ * @param String $medicament2 le deuxième médicament proposé 
+ * @return return boolean si la requête à bien été exécutée
+ */
 function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2)
 {
     try {
         $monPdo=connexionPDO();
 
-        $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
-        VALUES (":matricule", ":praticien", ":dateVisite", ":bilan", ":motifAutre", ":dateSaisie", ":motif", ":praticienRemp", ":med1", ":med2")');
+        $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
+        VALUES (":matricule", ":numRapport", ":praticien", ":dateVisite", ":bilan", ":motifAutre", ":dateSaisie", ":motif", ":praticienRemp", ":med1", ":med2")');
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':numRapport', getNbRapByIdCol($matricule), PDO::PARAM_INT);
         $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
-    } //demander pour le numéro de rapport s'il est en auto-increment
+        $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
+        $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
+        $req->bindValue(':motifAutre', $motifAutre, PDO::PARAM_STR);
+        $req->bindValue(':dateSaisie', $dateSaisie, PDO::PARAM_STR);
+        $req->bindValue(':motif', $motif, PDO::PARAM_INT);
+        $req->bindValue(':praticienRemp', $praticienRemp, PDO::PARAM_INT);
+        $req->bindValue(':med1', $medicament1, PDO::PARAM_STR);
+        $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
+        $req->execute();
+        $reussite = $req->fetch(PDO::FETCH_ASSOC);
+        return $reussite;
+    }
     //changer les datalists pour que value soit uniquement le numéro du praticien
     catch(PDOException $e)
     {

@@ -21,7 +21,7 @@
                                     <?php
                                     foreach ($motifs as $motif) {
                                     ?>
-                                        <option value="<?= $motif['MOT_ID'] . " - " . $motif['MOT_LIBELLE'] ?>"></option>
+                                        <option value="<?= $motif['MOT_ID'] ?>"><?= $motif['MOT_LIBELLE'] ?></option>
                                     <?php
                                     }
                                     ?>
@@ -55,7 +55,7 @@
                                     foreach ($praticiens as $praticien) 
                                     {
                                         ?>
-                                        <option value="<?= $praticien['PRA_NUM'] . " - " . $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?>"></option>
+                                        <option value="<?= $praticien['PRA_NUM'] ?>"><?= $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?></option>
                                         <?php
                                     }
                                     ?>
@@ -73,7 +73,7 @@
                                     foreach ($praticiens as $praticien) 
                                     {
                                         ?>
-                                        <option value="<?= $praticien['PRA_NUM'] . " - " . $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?>"></option>
+                                        <option value="<?= $praticien['PRA_NUM'] ?>"><?= $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?></option>
                                         <?php
                                     }
                                     ?>
@@ -95,7 +95,7 @@
                                     foreach ($medicaments as $medicament) 
                                     {
                                         ?>
-                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] . " - " . $medicament['MED_NOMCOMMERCIAL'] ?>"></option>
+                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
                                         <?php
                                     }
                                     ?>
@@ -111,7 +111,7 @@
                                     foreach ($medicaments as $medicament) 
                                     {
                                         ?>
-                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] . " - " . $medicament['MED_NOMCOMMERCIAL'] ?>"></option>
+                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
                                         <?php
                                     }
                                     ?>
