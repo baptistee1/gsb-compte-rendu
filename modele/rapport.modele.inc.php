@@ -114,7 +114,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
         VALUES (":matricule", ":numRapport", ":praticien", ":dateVisite", ":bilan", ":motifAutre", ":dateSaisie", ":motif", ":praticienRemp", ":med1", ":med2")');
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
-        $req->bindValue(':numRapport', getNbRapByIdCol($matricule), PDO::PARAM_INT);
+        $req->bindValue(':numRapport', getNbRapByIdCol($matricule)+1, PDO::PARAM_INT);
         $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
         $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
         $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
