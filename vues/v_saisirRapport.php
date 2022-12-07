@@ -16,7 +16,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="motif1" class="col-sm-4 col-form-label">Motif* :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="motif1" name="motif1" list="motifsList" required>
+                                <input type="text" class="form-control" id="motif1" name="motif1" list="motifsList" onchange="testMotifAutre(this.value)" required>
                                 <datalist id="motifsList">
                                     <?php
                                     foreach ($motifs as $motif) {
@@ -31,7 +31,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="motif2" class="col-sm-4 col-form-label">Motif autre :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="motif2" id="motif2">
+                                <input type="text" class="form-control" name="motif2" id="motif2" disabled>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="row justify-content-start">
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary">Valider le rapport</button>
+                        <button type="submit" class="btn btn-primary" onclick="">Valider le rapport</button>
                     </div>
                     <div class="col-4">
                     <button type="reset" class="btn btn-secondary">Réinitialiser le rapport</button>
@@ -138,3 +138,5 @@
         </form>
     </div>
 </div>
+
+<script src="assets/js/js_rap.js"></script>
