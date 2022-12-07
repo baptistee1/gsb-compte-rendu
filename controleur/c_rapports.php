@@ -44,10 +44,18 @@ switch ($action) {
     {
         $matricule=$_SESSION['matricule'];
         $result = getAllInformationMesPraticiens($matricule);
-
         include("vues/v_formulaireRapport.php");
         break;
     }
+
+    case 'formulaireRapportNonDefinitif':
+        {
+            $matricule=$_SESSION['matricule'];
+        $result = getAllInformationMesPraticiens($matricule);
+        include("vues/v_formulaireRapportNDF.php");
+        break;
+
+        }
 
 
 
@@ -58,23 +66,37 @@ switch ($action) {
         $date2=$_REQUEST['date2'];
         $matricule=$_SESSION['matricule'];
         $pranum=$_REQUEST['matricule'];
-
-        var_dump($date1);
-        var_dump($date2);
-        var_dump($matricule);
-        var_dump($pranum);
-
-        $rapports=getRapportVisite($date1,$date2,$matricule,$pranum);
-        var_dump($rapports);
+        $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'O');
+        if(!empty($rapports)){
         include("vues/v_afficherRapport.php");
+        }else{
+        include("vues/v_formulaireRapport.php");
+        $message="Vous n'avez aucun rapports de visite";
+        include("vues/v_message.php");
+        }
         break;
-        
-
     }
-        
+
+    case 'afficherRapportNonDefinitif' :
+        {
+    
+            $date1=$_REQUEST['date1'];
+            $date2=$_REQUEST['date2'];
+            $matricule=$_SESSION['matricule'];
+            $pranum=$_REQUEST['matricule'];
+            $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'N');
+            if(!empty($rapports)){
+            include("vues/v_afficherRapport.php");
+            }else{
+            include("vues/v_formulaireRapport.php");
+            $message="Vous n'avez aucun rapports de visite";
+            include("vues/v_message.php");
+            }
+            break;
+        }
+    
 
         
-    
 
     default:
     {

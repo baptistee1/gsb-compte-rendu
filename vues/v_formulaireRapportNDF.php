@@ -1,7 +1,7 @@
 <section class="bg-light">
     <div class="container">
         <div class="structure-hero pt-lg-5 pt-4">
-            <h1 class="titre text-center">Consulter ses rapports de visite</h1>
+            <h1 class="titre text-center">Consulter ses rapports de visite non définitif</h1>
             <p class="text text-center">
                 Formulaire permettant d'afficher toutes les informations
                 à propos d'un praticien en particulier.
@@ -16,7 +16,7 @@
 
 
 
-            <form action="index.php?uc=rapports&action=afficherRapport" method="post" class="formulaire-recherche col-12 m-0">
+            <form action="index.php?uc=rapports&action=afficherRapportNonDefinitif" method="post" class="formulaire-recherche col-12 m-0">
                     <label class="titre-formulaire" for="listepratic">Vos rapports de visite :</label>
                         <p>Veuiilez choisir une fourchette :</p>
                         <input type="date" name=date1>
@@ -31,7 +31,6 @@
                         ?>
                         </select>
                     <input class="btn btn-info text-light valider" type="submit" value="Afficher les informations">
-                    <a href='index.php?uc=rapports&action=formulaireRapportNonDefinitif'>Rapports non définitif<a>
                 </form>
     </div>
 </section>

@@ -2,7 +2,7 @@
 <section class="bg-light">
     <div class="container">
         <div class="structure-hero pt-lg-5 pt-4">
-            <h1 class="titre text-center">Informations rapport <span class="carac"></span></h1>
+            <h1 class="titre text-center">Informations rapport non définitif<span class="carac"></span></h1>
         </div>
         <div class="row align-items-center justify-content-center">
             <div class="test col-12 col-sm-8 col-lg-6 col-xl-5 col-xxl-4 py-lg-5">

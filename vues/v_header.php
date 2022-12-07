@@ -54,9 +54,11 @@
     $lib=getHabilitation($_SESSION['habilitation']);
     $_SESSION['libHab']=$lib['lib'];
     if(isset($_SESSION['login'])){
+        
         ?><div class="alert alert-success m-1" role="alert">
         Vous êtes connecté en tant que <?php echo ($_SESSION['libHab']) ?></div>
         <?php
-    }
+        }
     ?>
+
 </body>

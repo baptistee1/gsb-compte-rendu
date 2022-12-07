@@ -9,7 +9,7 @@ include_once 'bd.inc.php';
  * @param String $matricule
  * @return $res la liste des rapports de visite
  */
-function getRapportVisite($date1,$date2,$matricule,$pranum){
+function getRapportVisite($date1,$date2,$matricule,$pranum,$char){
 
     try{
         $monPdo=connexionPDO();
@@ -22,21 +22,31 @@ function getRapportVisite($date1,$date2,$matricule,$pranum){
         ON r.MED_DEPOTLEGAL_1=med1.MED_DEPOTLEGAL
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2=med2.MED_DEPOTLEGAL
-        WHERE AND COL_MATRICULE= :matricule ';
+        WHERE COL_MATRICULE= :matricule AND RAP_DEF= :carac';
         if(!empty($pranum))
         {
-            $ch = $ch.'AND r.PRA_NUM=:pranum';
+            $ch = $ch.'AND r.PRA_NUM=:pranum ';
         }
         if(!empty($date1)&& !empty($date2))
         {
-            $ch= $ch.'AND RAP_DATESAISIE BETWEEN :date1 AND :date2';
+            $ch= $ch.'AND RAP_DATESAISIE BETWEEN :date1 AND :date2 ';
         }
         
         $req=$monPdo->prepare($ch);
         $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
-        $req->bindValue(':date1',$date1,PDO::PARAM_STR);
-        $req->bindValue(':date2',$date2,PDO::PARAM_STR);
-        $req->bindValue(':pranum',$pranum,PDO::PARAM_INT);
+        $req->bindValue(':carac',$char,PDO::PARAM_STR_CHAR);
+        if(!empty($pranum))
+        {
+            $req->bindValue(':pranum',$pranum,PDO::PARAM_INT);
+        }
+        if(!empty($date1)&& !empty($date2))
+        {
+            $req->bindValue(':date1',$date1,PDO::PARAM_STR);
+            $req->bindValue(':date2',$date2,PDO::PARAM_STR);
+        }
+
+        
+        
         $req->execute();
         $res=$req->fetchAll(PDO::FETCH_ASSOC);
         return $res;

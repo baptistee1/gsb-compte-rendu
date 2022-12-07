@@ -1,4 +1,4 @@
-<div id="work_banner" class="banner-wrapper bg-light w-100 py-12">
+s<div id="work_banner" class="banner-wrapper bg-light w-100 py-12">
     <div class="banner-vertical-center-work container text-light d-flex justify-content-center align-items-center py-12 p-0">
         <div class="banner-content col-lg-8 col-12 m-lg-auto text-center">
             <h1 class="banner-heading h2 display-3 pb-5 semi-bold-600"><u>Projet GSB</u></h1>
