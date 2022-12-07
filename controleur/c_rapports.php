@@ -22,8 +22,13 @@ switch ($action) {
             $bilan = testValeurNulle('bilan');
             $medicament1 = testValeurNulle('med1');
             $medicament2 = testValeurNulle('med2');
+            if(isset($_POST['checkSaisie'])){
+                $def = "D";
+            } else {
+                $def = "A";
+            }
 
-            insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2);
+            insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
         }
         include("vues/v_choixRapport.php");
         break;

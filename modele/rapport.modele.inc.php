@@ -127,7 +127,7 @@ function getNbRapByIdCol($idCol)
  * @param String $medicament2 le deuxième médicament proposé 
  * @return return boolean si la requête à bien été exécutée
  */
-function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2)
+function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def)
 {
     try {
         $monPdo=connexionPDO();
@@ -135,8 +135,8 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $numRap = getNbRapByIdCol($matricule);  //numéro du dernier rapport de visite
         $numRap['MAX(RAP_NUM)'] += 1;
 
-        $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2)
-        VALUES (:matricule, :numRapport, :praticien, :dateVisite, :bilan, :motifAutre, :dateSaisie, :motif, :praticienRemp, :med1, :med2)');
+        $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2, STATUS)
+        VALUES (:matricule, :numRapport, :praticien, :dateVisite, :bilan, :motifAutre, :dateSaisie, :motif, :praticienRemp, :med1, :med2, :status)');
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
         $req->bindValue(':numRapport', $numRap['MAX(RAP_NUM)'], PDO::PARAM_INT);
         $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
@@ -178,6 +178,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         } else {
             $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
         }
+        $req->bindValue(':status', $def, PDO::PARAM_STR_CHAR);
         $req->execute();
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
         return $reussite;
