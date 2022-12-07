@@ -53,7 +53,7 @@ include_once 'bd.inc.php';
     {
         try{
             $monPdo=connexionPDO();
-            $req=$monPdo->prepare('SELECT praticien.PRA_NUM,PRA_NOM,PRA_PRENOM FROM praticien 
+            $req=$monPdo->prepare('SELECT DISTINCT praticien.PRA_NUM,PRA_NOM,PRA_PRENOM FROM praticien 
             INNER JOIN rapport_visite
             ON praticien.PRA_NUM=rapport_visite.PRA_NUM
             WHERE COL_MATRICULE=:matricule');

@@ -22,7 +22,7 @@ function getRapportVisite($date1,$date2,$matricule,$pranum,$char){
         ON r.MED_DEPOTLEGAL_1=med1.MED_DEPOTLEGAL
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2=med2.MED_DEPOTLEGAL
-        WHERE COL_MATRICULE= :matricule AND RAP_DEF= :carac';
+        WHERE COL_MATRICULE= :matricule AND STATUS= :carac ';
         if(!empty($pranum))
         {
             $ch = $ch.'AND r.PRA_NUM=:pranum ';
