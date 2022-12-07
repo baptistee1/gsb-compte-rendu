@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 19 oct. 2022 à 13:45
+-- Généré le : mer. 07 déc. 2022 à 16:03
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
 --
 
 INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRESSE`, `COL_CP`, `COL_VILLE`, `COL_DATEEMBAUCHE`, `HAB_ID`, `LOG_ID`, `SEC_CODE`, `REG_CODE`) VALUES
-
 ('a131', 'Villechalane', 'Louis', '8 cours Lafontaine', '29000', 'BREST', '1992-12-11 00:00:00', 1, 1, 'E', 'BN'),
 ('a17', 'Andre', 'David', '1 r Aimon de Chissée', '38100', 'GRENOBLE', '1991-08-26 00:00:00', 1, 2, NULL, 'RA'),
 ('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'RO'),
@@ -524,6 +523,7 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
   `PRA_NUM_REMP` int(11) DEFAULT NULL,
   `MED_DEPOTLEGAL_1` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `MED_DEPOTLEGAL_2` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `STATUS` char(1) NOT NULL,
   PRIMARY KEY (`COL_MATRICULE`,`RAP_NUM`),
   KEY `PRA_NUM` (`PRA_NUM`),
   KEY `COL_MATRICULE` (`COL_MATRICULE`),
@@ -537,10 +537,13 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
 -- Déchargement des données de la table `rapport_visite`
 --
 
-INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`) VALUES
-('a131', 3, 23, '2002-04-18 00:00:00', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12 00:00:00', 3, NULL, NULL, NULL),
-('a131', 7, 41, '2003-03-23 00:00:00', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12 00:00:00', 3, NULL, NULL, NULL),
-('a17', 4, 4, '2003-05-21 00:00:00', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12 00:00:00', 3, NULL, NULL, NULL);
+INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`, `STATUS`) VALUES
+('a131', 3, 23, '2002-04-18 00:00:00', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
+('a131', 7, 41, '2003-03-23 00:00:00', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
+('a17', 4, 4, '2003-05-21 00:00:00', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
+('t60', 5, 52, '2022-11-29 00:00:00', 'RAS', NULL, '2022-11-30 00:00:00', 1, NULL, 'BITALV', NULL, 'D'),
+('t60', 6, 52, '2022-11-29 00:00:00', 'RAS doublon', NULL, '2022-11-30 00:00:00', 1, NULL, 'BITALV', NULL, 'D'),
+('t60', 7, 8, NULL, NULL, NULL, '2022-12-07 00:00:00', 2, NULL, NULL, NULL, 'A');
 
 -- --------------------------------------------------------
 
