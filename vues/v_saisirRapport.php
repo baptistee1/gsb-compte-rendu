@@ -118,6 +118,12 @@
                                 </datalist>
                             </div>
                         </div>
+                        <div class="mb-3 row mt-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="checkSaisie" id="checkSaisie">
+                                <label class="form-check-label" for="checkSaisie">Saisie définitive</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row justify-content-start">
