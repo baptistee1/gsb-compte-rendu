@@ -15,7 +15,7 @@
 
 
 
-            <form action="index.php?uc=rapports&action=afficherRapport" method="post" class="formulaire-recherche col-12 m-0">
+            <form action="index.php?uc=médecins&action=afficherMedecin" method="post" class="formulaire-recherche col-12 m-0">
                     <label class="titre-formulaire" for="listepratic">Vos medecins:</label>
 
                         <select name="matricule" class="form-select mt-3">
