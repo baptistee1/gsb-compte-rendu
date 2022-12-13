@@ -3,6 +3,7 @@
     require_once ('modele/medicament.modele.inc.php');
     require_once ('modele/praticien.modele.inc.php');
     require_once ('modele/connexion.modele.inc.php');
+    require_once('modele/medecin.modele.inc.php');
 
     if(!isset($_REQUEST['uc']) || empty($_REQUEST['uc']))
         $uc = 'accueil';
@@ -56,6 +57,12 @@
             include("controleur/c_rapports.php");
             break;
         }
+
+        case 'médecins' :
+            {
+                include("controleur/c_medecin.php");
+                break;
+            }
         
         default :
         {   
