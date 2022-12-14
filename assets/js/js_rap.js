@@ -15,8 +15,10 @@ docGetElem.onclick = () => {
 function testMotifAutre(valeur){
     if (valeur == 3){
         document.getElementById('divMotif2').hidden = false;
+        document.getElementById('motif2').required = true;
     } else {
         document.getElementById('divMotif2').hidden = true;
+        document.getElementById('motif2').required = false;
     }
 }
 

@@ -27,8 +27,10 @@ switch ($action) {
             } else {
                 $def = "A";
             }
+            $echs1 = testValeurNulle('echs1');
+            $qteEchs1 = testValeurNulle('echs1Qte');
 
-            insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
+            var_dump($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
         }
         include("vues/v_choixRapport.php");
         break;

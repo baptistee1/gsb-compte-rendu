@@ -30,7 +30,7 @@
                         <div class="mb-3 row mt-3" id="divMotif2" hidden>
                             <label for="motif2" class="col-sm-4 col-form-label">Motif autre :</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="motif2" id="motif2">
+                                <input type="text" class="form-control" name="motif2" id="motif2" required>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
@@ -136,8 +136,18 @@
                             <label for="echantillons" class=" col-sm-4 form-label">Échantillon <?= $i ?> :</label>
                             <div class="col-sm-8">
                                 <div class="input-group mb-3">
-                                    <input type="text" placeholder="Nom du médicament" class="form-control" id="echantillon<?=$i?>Name" name="echantillon<?=$i?>Name">
-                                    <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echantillon<?=$i?>Qte" name="echantillon<?=$i?>Qte">
+                                    <input type="text" placeholder="Nom du médicament" list="medicamentsList" class="form-control" id="echs<?=$i?>" name="echantillon<?=$i?>Name">
+                                    <datalist id="medicamentsList">
+                                    <?php
+                                    foreach ($medicaments as $medicament) 
+                                    {
+                                        ?>
+                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
+                                        <?php
+                                    }
+                                    ?>
+                                    </datalist>
+                                    <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echs<?=$i?>Qte" name="echantillon<?=$i?>Qte">
                                 </div>
                             </div>
                         </div>
@@ -146,11 +156,15 @@
                         ?>  
                     </div>
                 </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" name="checkSaisie" type="checkbox" role="switch" id="switchSaisie">
+                    <label class="form-check-label" for="switchSaisie">Saisie définitive</label>
+                </div>
                 <div class="row justify-content-start">
-                    <div class="col-4">
+                    <div class="col-2">
                         <button type="submit" class="btn btn-primary">Valider le rapport</button>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <button type="reset" class="btn btn-secondary">Réinitialiser le rapport</button>
                     </div>
                 </div>
