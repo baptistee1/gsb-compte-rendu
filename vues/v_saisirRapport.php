@@ -81,6 +81,12 @@
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
+                            <label for="echantillons" class=" col-sm-4 form-label">Nombre d'échantillons offert :</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" onchange="ajoutEchantillons(this.value)" id="echantillons" name="echantillons">
+                            </div>
+                        </div>
+                        <div class="mb-3 row mt-3">
                             <label for="bilan" class="form-label">Bilan :</label>
                             <div class="col-sm-12">
                                 <textarea class="form-control" id="bilan" name="bilan" rows="5"></textarea>
