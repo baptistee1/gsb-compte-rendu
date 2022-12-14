@@ -29,6 +29,25 @@ switch ($action) {
             }
             $echs1 = testValeurNulle('echs1');
             $qteEchs1 = testValeurNulle('echs1Qte');
+            $echs2 = testValeurNulle('echs2');
+            $qteEchs2 = testValeurNulle('echs2Qte');
+            $echs3 = testValeurNulle('echs3');
+            $qteEchs3 = testValeurNulle('echs3Qte');
+            $echs4 = testValeurNulle('echs4');
+            $qteEchs4 = testValeurNulle('echs4Qte');
+            $echs5 = testValeurNulle('echs5');
+            $qteEchs5 = testValeurNulle('echs5Qte');
+            $echs6 = testValeurNulle('echs6');
+            $qteEchs6 = testValeurNulle('echs6Qte');
+            $echs7 = testValeurNulle('echs7');
+            $qteEchs7 = testValeurNulle('echs7Qte');
+            $echs8 = testValeurNulle('echs8');
+            $qteEchs8 = testValeurNulle('echs8Qte');
+            $echs9 = testValeurNulle('echs9');
+            $qteEchs9 = testValeurNulle('echs9Qte');
+            $echs10 = testValeurNulle('echs10');
+            $qteEchs10 = testValeurNulle('echs10Qte');
+
 
             var_dump($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
         }
