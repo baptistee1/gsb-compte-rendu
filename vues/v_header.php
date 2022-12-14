@@ -35,6 +35,25 @@
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=praticiens&action=formulairepratic">Praticiens</a>
                         </li>
 
+                        <?php 
+                            
+                        $lib=getHabilitation($_SESSION['habilitation']);
+                         if(isset($_SESSION['login'])){
+
+                            if($lib['lib']="Délégué Régional"){
+                                ?>
+
+                                    <li class="nav-item ">
+                                        <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=médecins&action=formulaireMedecin">Médecins</a>
+                                    </li>
+                                <?php
+
+                            }
+
+                         }
+
+                        ?>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=choixRapp">Rapports</a>
                         </li>

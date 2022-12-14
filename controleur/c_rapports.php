@@ -71,7 +71,7 @@ switch ($action) {
         $date2=$_REQUEST['date2'];
         $matricule=$_SESSION['matricule'];
         $pranum=$_REQUEST['matricule'];
-        $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'O');
+        $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'D');
         if(!empty($rapports)){
         include("vues/v_afficherRapport.php");
         }else{
@@ -89,11 +89,11 @@ switch ($action) {
             $date2=$_REQUEST['date2'];
             $matricule=$_SESSION['matricule'];
             $pranum=$_REQUEST['matricule'];
-            $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'N');
+            $rapports=getRapportVisite($date1,$date2,$matricule,$pranum,'A');
             if(!empty($rapports)){
             include("vues/v_afficherRapport.php");
             }else{
-            include("vues/v_formulaireRapport.php");
+            include("vues/v_formulaireRapportNDF.php");
             $message="Vous n'avez aucun rapports de visite";
             include("vues/v_message.php");
             }
