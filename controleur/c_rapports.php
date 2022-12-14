@@ -94,7 +94,7 @@ switch ($action) {
             include("vues/v_afficherRapport.php");
             }else{
             include("vues/v_formulaireRapportNDF.php");
-            $message="Vous n'avez aucun rapports de visite";
+            $message="Vous n'avez aucun rapports de visite non définitif";
             include("vues/v_message.php");
             }
             break;

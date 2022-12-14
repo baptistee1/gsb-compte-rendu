@@ -39,7 +39,7 @@
                             
                         $lib=getHabilitation($_SESSION['habilitation']);
                          if(isset($_SESSION['login'])){
-
+                            
                             if($lib['lib']="Délégué Régional"){
                                 ?>
 
