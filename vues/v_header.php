@@ -39,10 +39,9 @@
                             
                         $lib=getHabilitation($_SESSION['habilitation']);
                          if(isset($_SESSION['login'])){
-
-                            if($lib['lib']="Délégué Régional"){
+                            $delegue = "Délégué Régional";
+                            if($delegue == $lib['lib']){
                                 ?>
-
                                     <li class="nav-item ">
                                         <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=médecins&action=formulaireMedecin">Médecins</a>
                                     </li>
