@@ -225,12 +225,13 @@ function setMonnaieMedoc($a,$id,$i){
 } FONCTIONS PLUS UTILES */
 
 
-function getHabilitation($idMat){
-    try{
-        $monPdo=connexionPDO();
-        $req='SELECT HAB_LIB as \'lib\' FROM habilitation WHERE HAB_ID ="'.$idMat.'"';
-        $res=$monPdo->query($req);
-        $result= $res->fetch();
+function getHabilitation($idMat)
+{
+    try {
+        $monPdo = connexionPDO();
+        $req = 'SELECT HAB_LIB as \'lib\' FROM habilitation WHERE HAB_ID ="' . $idMat . '"';
+        $res = $monPdo->query($req);
+        $result = $res->fetch();
         return $result;
     } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();

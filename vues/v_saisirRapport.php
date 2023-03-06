@@ -51,15 +51,14 @@
                                 <input type="text" class="form-control" id="praticien" name="praticien" list="praticiensList" required>
                                 <datalist id="praticiensList">
                                     <?php
-                                    foreach ($praticiens as $praticien) 
-                                    {
-                                        ?>
+                                    foreach ($praticiens as $praticien) {
+                                    ?>
                                         <option value="<?= $praticien['PRA_NUM'] ?>"><?= $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?></option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </datalist>
-                             </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card col">
@@ -69,11 +68,10 @@
                                 <input type="text" class="form-control" id="praticienRemp" name="praticienRemp" list="praticiensList">
                                 <datalist id="praticiensList">
                                     <?php
-                                    foreach ($praticiens as $praticien) 
-                                    {
-                                        ?>
+                                    foreach ($praticiens as $praticien) {
+                                    ?>
                                         <option value="<?= $praticien['PRA_NUM'] ?>"><?= $praticien['PRA_NOM'] . " - " . $praticien['PRA_PRENOM'] ?></option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </datalist>
@@ -91,14 +89,13 @@
                                 <input type="text" class="form-control" id="med1" name="med1" list="medicamentsList">
                                 <datalist id="medicamentsList">
                                     <?php
-                                    foreach ($medicaments as $medicament) 
-                                    {
-                                        ?>
+                                    foreach ($medicaments as $medicament) {
+                                    ?>
                                         <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
-                                </datalist>
+                                </datalist>dunc
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
@@ -107,11 +104,10 @@
                                 <input type="text" class="form-control" id="med2" name="med2" list="medicamentsList">
                                 <datalist id="medicamentsList">
                                     <?php
-                                    foreach ($medicaments as $medicament) 
-                                    {
-                                        ?>
+                                    foreach ($medicaments as $medicament) {
+                                    ?>
                                         <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
                                 </datalist>
@@ -129,31 +125,29 @@
                             </div>
                         </div>
                         <?php
-                        for ($i = 1; $i <= 10; $i++)
-                        {
+                        for ($i = 1; $i <= 10; $i++) {
                         ?>
-                        <div class="mb-3 row mt-3" id="divEchs<?=$i?>" hidden>
-                            <label for="echantillons" class=" col-sm-4 form-label">Échantillon <?= $i ?> :</label>
-                            <div class="col-sm-8">
-                                <div class="input-group mb-3">
-                                    <input type="text" placeholder="Nom du médicament" list="medicamentsList" class="form-control" id="echs<?=$i?>" name="echantillon<?=$i?>Name">
-                                    <datalist id="medicamentsList">
-                                    <?php
-                                    foreach ($medicaments as $medicament) 
-                                    {
-                                        ?>
-                                        <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
-                                        <?php
-                                    }
-                                    ?>
-                                    </datalist>
-                                    <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echs<?=$i?>Qte" name="echantillon<?=$i?>Qte">
+                            <div class="mb-3 row mt-3" id="divEchs<?= $i ?>" hidden>
+                                <label for="echantillons" class=" col-sm-4 form-label">Échantillon <?= $i ?> :</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group mb-3">
+                                        <input type="text" placeholder="Nom du médicament" list="medicamentsList" class="form-control" id="echs<?= $i ?>" name="echantillon<?= $i ?>Name">
+                                        <datalist id="medicamentsList">
+                                            <?php
+                                            foreach ($medicaments as $medicament) {
+                                            ?>
+                                                <option value="<?= $medicament['MED_DEPOTLEGAL'] ?>"><?= $medicament['MED_NOMCOMMERCIAL'] ?> </option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </datalist>
+                                        <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echs<?= $i ?>Qte" name="echantillon<?= $i ?>Qte">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <?php
                         }
-                        ?>  
+                        ?>
                     </div>
                 </div>
                 <div class="form-check form-switch">
