@@ -14,3 +14,31 @@ function getAllNomMedecinByREG($REG)
         die();
     }
 }
+
+function getAllType()
+{
+    try {
+        $monPdo = connexionPDO();
+        $req = 'SELECT TYP_CODE,TYP_LIBELLE FROM type_praticien';
+        $res = $monPdo->query($req);
+        $result = $res->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+function getAllReg()
+{
+    try {
+        $monPdo = connexionPDO();
+        $req = 'SELECT REG_CODE, REG_NOM FROM region';
+        $res = $monPdo->query($req);
+        $result = $res->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}

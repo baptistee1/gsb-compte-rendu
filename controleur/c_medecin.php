@@ -18,7 +18,7 @@ switch ($action) {
             break;
         }
     case 'GererMedecin': {
-            echo 'bonjour';
+            include("vues/v_formulaireMedecin.php");
             break;
         }
 
