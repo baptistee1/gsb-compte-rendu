@@ -181,7 +181,6 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $req->bindValue(':status', $def, PDO::PARAM_STR_CHAR);
         $req->execute();
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
-        return $reussite;
     }
     //changer les datalists pour que value soit uniquement le numéro du praticien
     catch(PDOException $e)
@@ -190,4 +189,27 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         die();
     }
 }
+
+/**
+ * Undocumented function
+ *
+ * @return void
+ */
+function existeRapNonDef()
+{
+    try {
+        $requete='SELECT COUNT(COL_MATRICULE) FROM rapport_visite WHERE STATUS = "A" GROUP BY COL_MATRICULE;';
+        $monPdo=connexionPDO();
+        $req = $monPdo->prepare($requete);
+
+        $reussite = $req->fetch(PDO::FETCH_ASSOC);
+        return $reussite;        
+    }
+    catch(PDOException $e)
+    {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
 ?>

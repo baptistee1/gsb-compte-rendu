@@ -61,6 +61,7 @@ switch ($action) {
         $motifs = getMotifs();
         $praticiens = getAllNomPraticien();
         $medicaments = getAllNomMedicament();
+        var_dump(existeRapNonDef());
         include("vues/v_saisirRapport.php");
         break;
     }
