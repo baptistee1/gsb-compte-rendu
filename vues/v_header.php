@@ -30,33 +30,8 @@
                         <li class="nav-item ">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=medicaments&action=formulairemedoc">Médicaments</a>
                         </li>
-
-                        <li class="nav-item ">
-                            <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=praticiens&action=formulairepratic">Praticiens</a>
-                        </li>
-
-                        <?php 
-                            
-                        $lib=getHabilitation($_SESSION['habilitation']);
-                         if(isset($_SESSION['login'])){
-                            $delegue = "Délégué Régional";
-                            if($delegue == $lib['lib']){
-                                ?>
-                                    <li class="nav-item ">
-                                        <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=médecins&action=formulaireMedecin">Médecins</a>
-                                    </li>
-                                <?php
-
-                            }
-
-                         }
-
-                        ?>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=rapports&action=choixRapp">Rapports</a>
-                        </li>
-
+                       
+                        
                         <li class="nav-item ">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=connexion&action=profil">Profil</a>
                         </li>
@@ -68,13 +43,3 @@
             </div>
         </div>
     </nav>
-    <?php
-    $lib=getHabilitation($_SESSION['habilitation']);
-    $_SESSION['libHab']=$lib['lib'];
-    if(isset($_SESSION['login'])){
-        
-        ?><div class="alert alert-success m-1" role="alert">
-        Vous êtes connecté en tant que <?php echo ($_SESSION['libHab']) ?></div>
-        <?php
-        }
-    ?>

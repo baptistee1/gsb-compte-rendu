@@ -1,5 +1,4 @@
 <div id="foot">
-
     <footer class="pt-4 d-flex flex-column justify-content-between">
         <div class="container">
             <div class="row pt-4">

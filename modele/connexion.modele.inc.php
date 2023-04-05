@@ -223,18 +223,3 @@ function setMonnaieMedoc($a,$id,$i){
         $req = 'UPDATE medicament SET `MED_PRIXECHANTILLON`='.$id.' WHERE `MED_DEPOTLEGAL`="'.$a[$i][0].'"' ;
         $res = $monPdo->query($req);
 } FONCTIONS PLUS UTILES */
-
-
-function getHabilitation($idMat)
-{
-    try {
-        $monPdo = connexionPDO();
-        $req = 'SELECT HAB_LIB as \'lib\' FROM habilitation WHERE HAB_ID ="' . $idMat . '"';
-        $res = $monPdo->query($req);
-        $result = $res->fetch();
-        return $result;
-    } catch (PDOException $e) {
-        print "Erreur !: " . $e->getMessage();
-        die();
-    }
-}

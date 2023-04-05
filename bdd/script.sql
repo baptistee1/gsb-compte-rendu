@@ -283,6 +283,22 @@ CREATE TABLE IF NOT EXISTS `presentation` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `presentation_produit`
+--
+
+DROP TABLE IF EXISTS `presentation_produit`;
+CREATE TABLE IF NOT EXISTS `presentation_produit` (
+  `MED_DEPOTLEGAL` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `COL_MATRICULE` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `RAP_NUM` int(11) NOT NULL,
+  PRIMARY KEY (`MED_DEPOTLEGAL`,`COL_MATRICULE`,`RAP_NUM`),
+  KEY `PRESENTATION_PRODUIT_rapport_visite1_FK` (`COL_MATRICULE`,`RAP_NUM`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+-------------------------------------
+
+--
 -- Structure de la table `region`
 --
 
