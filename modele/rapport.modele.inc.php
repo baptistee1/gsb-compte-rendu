@@ -81,6 +81,12 @@ function getMotifs()
     }
 }
 
+/**
+ * Permet de mettre une variable à null si elle n'est pas remplie
+ *
+ * @param string $key clé du post
+ * @return ?string la variable
+ */
 function testValeurNulle(string $key)
 {
     if(empty($_POST[$key])) {
@@ -193,17 +199,23 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
 /**
  * Undocumented function
  *
- * @return void
+ * @return boolean
  */
-function existeRapNonDef()
+function existeRapNonDef(): bool
 {
     try {
         $requete='SELECT COUNT(COL_MATRICULE) FROM rapport_visite WHERE STATUS = "A" GROUP BY COL_MATRICULE;';
         $monPdo=connexionPDO();
         $req = $monPdo->prepare($requete);
+        $res = $req->execute();
 
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
-        return $reussite;        
+        if ($reussite > 0){
+            $result = true;
+        } else {
+            $result = false;
+        }
+        return $result;        
     }
     catch(PDOException $e)
     {

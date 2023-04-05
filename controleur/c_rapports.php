@@ -122,9 +122,6 @@ switch ($action) {
             break;
         }
     
-
-        
-
     default:
     {
         header('Location: index.php?uc=rapports&action=choixRapp');
