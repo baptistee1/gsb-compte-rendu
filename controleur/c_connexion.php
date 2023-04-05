@@ -18,7 +18,7 @@ switch ($action) {
 	case 'deconnexion': {
 
 			session_destroy();
-			header('location: index.php?uc=accueil');
+			header('location: index.php?uc=connexion&action=connexion');
 			break;
 		}
 
@@ -29,6 +29,7 @@ switch ($action) {
 			} else {
 				$info = getAllInformationCompte($_SESSION['matricule']);
 				$_SESSION['region'] = $info[9];
+
 				for ($i = 7; $i <= 8; $i++) {
 					if (empty($info[$i])) {
 						$info[$i] = 'Non défini(e)';
@@ -44,4 +45,3 @@ switch ($action) {
 			break;
 		}
 }
-?>

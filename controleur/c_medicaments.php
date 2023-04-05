@@ -1,7 +1,8 @@
 <?php
 if (!isset($_REQUEST['action']) || empty($_REQUEST['action'])) {
 	$action = "formulairemedoc";
-} else {
+}
+else {
 	$action = $_REQUEST['action'];
 }
 switch ($action) {
@@ -21,7 +22,8 @@ switch ($action) {
 					$carac[7] = 'Non défini(e)';
 				}
 				include("vues/v_afficherMedicament.php");
-			} else {
+			}
+			else {
 				$_SESSION['erreur'] = true;
 				header("Location: index.php?uc=medicaments&action=formulairemedoc");
 			}

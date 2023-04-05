@@ -11,33 +11,34 @@
                 </strong>
             </p>
             <?php
-            /* 
-                $a = getColMatricule();
-                $b = getCountMatricule();
-                for($i = 0; $i < $b['nb']; $i ++){
-                    setAllHabil($a,random_int(1,2),$i);
-                    setAllLogin($a,$i);
-                }   
-                $a = getIdMedoc();
-                $b = getNbMedoc();
-                for($i = 0; $i < $b[0]; $i ++){
-                    setMonnaieMedoc($a,random_int(15,99),$i);
-                }   C'EST POUR LES LOGINS, HABILITATIONS ET MONNAIE DES MDOCS
-            */
-            if (empty($_SESSION['login']) && empty($_SESSION['habilitation'])) {
-            ?>
+/* 
+ $a = getColMatricule();
+ $b = getCountMatricule();
+ for($i = 0; $i < $b['nb']; $i ++){
+ setAllHabil($a,random_int(1,2),$i);
+ setAllLogin($a,$i);
+ }   
+ $a = getIdMedoc();
+ $b = getNbMedoc();
+ for($i = 0; $i < $b[0]; $i ++){
+ setMonnaieMedoc($a,random_int(15,99),$i);
+ }   C'EST POUR LES LOGINS, HABILITATIONS ET MONNAIE DES MDOCS
+ */
+if (empty($_SESSION['login']) && empty($_SESSION['habilitation'])) {
+?>
                 <a href="index.php?uc=connexion&action=connexion">
                     <button type="submit" class="btn rounded-pill btn-outline-light px-4 me-4 light-300">Se connecter</button>
                 </a>
             <?php
-            } else {
-            ?>
+}
+else {
+?>
                 <a href="index.php?uc=connexion&action=profil">
                     <button type="submit" class="btn rounded-pill btn-outline-light px-4 me-4 light-300">Profil</button>
                 </a>
             <?php
-            }
-            ?>
+}
+?>
         </div>
     </div>
 </div>

@@ -1,20 +1,19 @@
 <?php
 
-session_start();
-
-function connexionPDO() {
+function connexionPDO()
+{
     $login = 'root';
     $mdp = '';
-    $bd = 'rapports_gsb_v0';
-    $serveur = 'localhost:3307';
+    $bd = 'rapports_gsb_v1';
+    $serveur = 'localhost';
 
     try {
-        $conn = new PDO("mysql:host=$serveur;port=3307;dbname=$bd",$login,$mdp, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'')); 
+        $conn = new PDO("mysql:host=$serveur;port=3307;dbname=$bd", $login, $mdp, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $conn;
     } catch (PDOException $e) {
         print("Erreur de connexion PDO :");
-		print($e);
+        print($e);
         die();
     }
 }
