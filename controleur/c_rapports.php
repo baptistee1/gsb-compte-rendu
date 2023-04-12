@@ -28,37 +28,18 @@ switch ($action) {
                 $def = "A";
             }
             $nbEchs = testValeurNulle('echantillons');
-            $echs1 = testValeurNulle('echs1');
-            $qteEchs1 = testValeurNulle('echs1Qte');
-            $echs2 = testValeurNulle('echs2');
-            $qteEchs2 = testValeurNulle('echs2Qte');
-            $echs3 = testValeurNulle('echs3');
-            $qteEchs3 = testValeurNulle('echs3Qte');
-            $echs4 = testValeurNulle('echs4');
-            $qteEchs4 = testValeurNulle('echs4Qte');
-            $echs5 = testValeurNulle('echs5');
-            $qteEchs5 = testValeurNulle('echs5Qte');
-            $echs6 = testValeurNulle('echs6');
-            $qteEchs6 = testValeurNulle('echs6Qte');
-            $echs7 = testValeurNulle('echs7');
-            $qteEchs7 = testValeurNulle('echs7Qte');
-            $echs8 = testValeurNulle('echs8');
-            $qteEchs8 = testValeurNulle('echs8Qte');
-            $echs9 = testValeurNulle('echs9');
-            $qteEchs9 = testValeurNulle('echs9Qte');
-            $echs10 = testValeurNulle('echs10');
-            $qteEchs10 = testValeurNulle('echs10Qte');
 
             //récupération de l'id venant d'être inséré
             $id = insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
-        
-            // for ($i = 0; $i<$nbEchs; $i++)
-            // {
-            //     $med = "echs" . $i;
-            //     $qte = "qteEchs" . $i;
-            //     insertEchs($matricule, $id, $med, $qte);
-            //     var_dump($matricule, $id, $med, $qte);
-            // }
+            if (!is_null($nbEchs))
+            {
+                for ($i = 1; $i <= $nbEchs; $i++)
+                {
+                    $med = $_POST["echantillon".$i."Name"];
+                    $qte = $_POST["echantillon".$i."Qte"];
+                    insertEchs($matricule, $id, $med, $qte);
+                }
+            }
         }
 
         // s'il existe des rapports non définitif renvoie vers une page qui les affiche
@@ -74,9 +55,10 @@ switch ($action) {
     
     case 'choisirRappNDF' :
     {
+        $delegue = false;
         $matricule = $_SESSION['matricule'];
         $rapports = getRapportsVisitesNDF($matricule);
-        include("vues/v_choisirRappNonDef.php");
+        include("vues/v_choisirRappNDNC.php");
         break;
     }
 
@@ -105,7 +87,7 @@ switch ($action) {
 
     case 'formulaireRapport' :
     {
-        $matricule=$_SESSION['matricule'];
+        $matricule = $_SESSION['matricule'];
         $result = getAllInformationMesPraticiens($matricule);
         include("vues/v_formulaireRapport.php");
         break;
@@ -119,6 +101,21 @@ switch ($action) {
         break;
 
         }
+
+    case 'newRappReg':
+    {
+        $delegue = true;
+        $region = getRegByLogId($_SESSION["login"]);
+        $rapports = getRapportVisiteByReg($region['REG_CODE']);
+        include("vues/v_choisirRappNDNC.php");
+        break;
+    }
+
+    case 'consulterRapport':
+    {
+        include("vues/test.php");
+        break;
+    }
 
     case 'afficherRapport' :
     {

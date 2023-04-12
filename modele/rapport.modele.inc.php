@@ -270,12 +270,12 @@ function getRapportsVisitesNDF(string $matricule){
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
         WHERE COL_MATRICULE = :matricule AND STATUS = :carac';
         
-        $req=$monPdo->prepare($ch);
+        $req = $monPdo->prepare($ch);
         $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
         $req->bindValue(':carac',"A",PDO::PARAM_STR_CHAR);
         $req->execute();
 
-        $res=$req->fetchAll(PDO::FETCH_ASSOC);
+        $res = $req->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
     catch (PDOException $e){
@@ -305,11 +305,76 @@ function getRapportVisiteById(int $idR)
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
         WHERE RAP_NUM = :id';
         
-        $req=$monPdo->prepare($ch);
+        $req = $monPdo->prepare($ch);
         $req->bindValue(':id',$idR,PDO::PARAM_INT);
         $req->execute();
 
-        $res=$req->fetch(PDO::FETCH_ASSOC);
+        $res = $req->fetch(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (PDOException $e){
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+/**
+ * Récupère le code la region d'un délégué
+ *
+ * @param int $login l'id du login du délégué
+ * @return array le code de la region du délégué
+ */
+function getRegByLogId($login)
+{
+    try{
+        $monPdo=connexionPDO();
+        $ch='SELECT REG_CODE FROM collaborateur c
+            INNER JOIN login l
+            ON c.LOG_ID = l.LOG_ID
+            WHERE l.LOG_ID = :login';
+        
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':login',$login,PDO::PARAM_STR);
+        $req->execute();
+
+        $res = $req->fetch(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (PDOException $e){
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+/**
+ * Permet de récupérer les rapports de visite d'un collaborateur sur une région ayant l'état "non consulté"
+ *
+ * @param string $region la region recherchée
+ * @return array tous les rapports de visite de la région
+ */
+function getRapportVisiteByReg($region)
+{
+    try{
+        $monPdo=connexionPDO();
+        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+        INNER JOIN praticien p
+        ON r.PRA_NUM=p.PRA_NUM
+        INNER JOIN motifs m
+        ON r.MOT_ID = m.MOT_ID
+        LEFT JOIN medicament med1
+        ON r.MED_DEPOTLEGAL_1 = med1.MED_DEPOTLEGAL
+        LEFT JOIN medicament med2
+        ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
+        INNER JOIN collaborateur c
+        ON r.COL_MATRICULE = c.COL_MATRICULE
+        WHERE c.REG_CODE = :region AND RAP_ETAT = "N"
+        ORDER BY r.RAP_DATEVISITE';
+        
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':region',$region,PDO::PARAM_STR);
+        $req->execute();
+
+        $res = $req->fetchAll(PDO::FETCH_ASSOC);
         return $res;
     }
     catch (PDOException $e){

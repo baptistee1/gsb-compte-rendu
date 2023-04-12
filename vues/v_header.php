@@ -36,7 +36,6 @@
                         </li>
 
                         <?php 
-                            
                         $lib=getHabilitation($_SESSION['habilitation']);
                          if(isset($_SESSION['login'])){
                             $delegue = "Délégué Régional";
@@ -46,11 +45,8 @@
                                         <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=médecins&action=formulaireMedecin">Médecins</a>
                                     </li>
                                 <?php
-
                             }
-
                          }
-
                         ?>
 
                         <li class="nav-item dropdown">
@@ -60,6 +56,7 @@
                         <li class="nav-item ">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=connexion&action=profil">Profil</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link btn-outline-info rounded-pill px-3 fw-bold" href="index.php?uc=connexion&action=deconnexion" onclick="return confirm('Voulez-vous vraiment vous déconnecter ?');">Déconnexion</a>
                         </li>
