@@ -66,9 +66,6 @@ switch ($action) {
     case 'choisirRappNDF' :
     {
         $matricule = $_SESSION['matricule'];
-        // $motifs = getMotifs();
-        // $praticiens = getAllNomPraticien();
-        // $medicaments = getAllNomMedicament();
         $rapports = getRapportsVisitesNDF($matricule);
         include("vues/v_choisirRappNonDef.php");
         break;
@@ -80,11 +77,23 @@ switch ($action) {
         $motifs = getMotifs();
         $praticiens = getAllNomPraticien();
         $medicaments = getAllNomMedicament();
-        var_dump(existeRapNonDef());
         include("vues/v_saisirRapport.php");
         break;
     }
 
+    case 'terminerRapport' :
+    {
+        if (isset($_GET['idR']) && is_numeric($_GET['idR'])) {
+            $matricule = $_SESSION['matricule'];
+            $motifs = getMotifs();
+            $praticiens = getAllNomPraticien();
+            $medicaments = getAllNomMedicament();
+            var_dump(getRapportVisiteById($_GET['idR']));
+            $rapport = getRapportVisiteById($_GET['idR']);
+        }
+        include("vues/v_terminerRapport.php");
+        break;
+    }
 
     case 'formulaireRapport' :
     {
@@ -102,8 +111,6 @@ switch ($action) {
         break;
 
         }
-
-
 
     case 'afficherRapport' :
     {

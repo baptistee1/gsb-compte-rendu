@@ -259,4 +259,38 @@ function getRapportsVisitesNDF(string $matricule){
     }
 }
 
+/**
+ * Fonction qui récupère les données d'un rapport de visite
+ *
+ * @param integer $idR l'id du rapport
+ * @return array un rapport de visite
+ */
+function getRapportVisiteById(int $idR)
+{
+    try{
+        $monPdo=connexionPDO();
+        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+        INNER JOIN praticien p
+        ON r.PRA_NUM=p.PRA_NUM
+        INNER JOIN motifs m
+        ON r.MOT_ID = m.MOT_ID
+        LEFT JOIN medicament med1
+        ON r.MED_DEPOTLEGAL_1 = med1.MED_DEPOTLEGAL
+        LEFT JOIN medicament med2
+        ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
+        WHERE RAP_NUM = :id';
+        
+        $req=$monPdo->prepare($ch);
+        $req->bindValue(':id',$idR,PDO::PARAM_INT);
+        $req->execute();
+
+        $res=$req->fetch(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (PDOException $e){
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
 ?>

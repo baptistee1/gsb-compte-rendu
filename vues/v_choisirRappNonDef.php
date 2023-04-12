@@ -18,7 +18,7 @@
                             <?php 
                         } else { 
                         ?>
-                            <input type="date" class="form-control" id="dateVisite" value=<?= $rapport['RAP_DATEVISITE'] ?> readonly>
+                            <input type="date" class="form-control" id="dateVisite" value="<?= $rapport['RAP_DATEVISITE'] ?>" readonly>
                         <?php } ?>
                     </div>
                 </div>
@@ -28,18 +28,18 @@
                         <?php 
                         if ($rapport['MOT_LIBELLE'] == "Autre") {
                         ?>
-                            <input type="text"class="form-control" id="motif" value=<?= $rapport['RAP_MOTIFAUTRE'] ?> readonly>
+                            <input type="text"class="form-control" id="motif" value="<?= $rapport['RAP_MOTIFAUTRE'] ?>" readonly>
                         <?php 
                         } else { 
                         ?>
-                            <input type="text"class="form-control" id="motif" value=<?= $rapport['MOT_LIBELLE'] ?> readonly>
+                            <input type="text"class="form-control" id="motif" value="<?= $rapport['MOT_LIBELLE'] ?>" readonly>
                         <?php } ?>
                     </div>
                 </div>
                 <div class="row">
                     <label for="praticien" class="col-sm-5 col-form-label">Praticien</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" id="praticien" value=<?= $rapport['PRA_NOM'] ?> readonly>
+                        <input type="text" class="form-control" id="praticien" value="<?= $rapport['PRA_NOM'] ?>" readonly>
                     </div>
                 </div>
             </div>
