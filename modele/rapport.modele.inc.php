@@ -131,7 +131,7 @@ function getNbRapByIdCol($idCol)
  * @param String $bilan le bilan de la visite
  * @param String $medicament1 le premier médicament proposé
  * @param String $medicament2 le deuxième médicament proposé 
- * @return return boolean si la requête à bien été exécutée
+ * @return int l'id du rapport venant d'être inséré
  */
 function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def)
 {
@@ -141,6 +141,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $numRap = getNbRapByIdCol($matricule);  //numéro du dernier rapport de visite
         $numRap['MAX(RAP_NUM)'] += 1;
 
+        //insertion dans la table rapport_visite
         $req = $monPdo->prepare('INSERT INTO rapport_visite (COL_MATRICULE, RAP_NUM, PRA_NUM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, MOT_ID, PRA_NUM_REMP, MED_DEPOTLEGAL_1, MED_DEPOTLEGAL_2, STATUS)
         VALUES (:matricule, :numRapport, :praticien, :dateVisite, :bilan, :motifAutre, :dateSaisie, :motif, :praticienRemp, :med1, :med2, :status)');
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
@@ -187,8 +188,32 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $req->bindValue(':status', $def, PDO::PARAM_STR_CHAR);
         $req->execute();
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
+
+        return $numRap['MAX(RAP_NUM)'];
     }
-    //changer les datalists pour que value soit uniquement le numéro du praticien
+    catch(PDOException $e)
+    {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+function insertEchs($matricule, $idR, $medDepolegal, $qte)
+{
+    try {
+        $monPdo=connexionPDO();
+        //insertion dans la table offrir
+        $req = $monPdo->prepare('INSERT INTO offrir (COL_MATRICULE, RAP_NUM, MED_DEPOTLEGAL, OFF_QTE)
+        VALUES (:matricule, :numRapp, :depolegal, :quantite)');
+
+        $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':numRapp', $idR, PDO::PARAM_INT);
+        $req->bindValue(':depolegal', $medDepolegal, PDO::PARAM_STR);
+        $req->bindValue(':quantite', $qte, PDO::PARAM_INT);
+
+        $req->execute();
+        $reussite = $req->fetch(PDO::FETCH_ASSOC);
+    }
     catch(PDOException $e)
     {
         print "Erreur !: " . $e->getMessage();

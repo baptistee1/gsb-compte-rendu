@@ -16,7 +16,8 @@
                         <div class="mb-3 row mt-3">
                             <label for="motif1" class="col-sm-4 col-form-label">Motif* :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" onchange="testMotifAutre(this.value)" required>
+                                <select class="form-control" name="motif1" onchange="testMotifAutre(this.value)" required>
+                                    <option hidden></option>
                                     <?php
                                     foreach ($motifs as $motif) {
                                     ?>
@@ -141,7 +142,7 @@
                                             }
                                             ?>
                                         </datalist>
-                                        <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echs<?= $i ?>Qte" name="echantillon<?= $i ?>Qte">
+                                        <input type="text" placeholder="Quantité" pattern="[0-9]" class="form-control" id="echs<?= $i ?>Qte" name="echantillon<?= $i ?>Qte">
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +153,7 @@
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" name="checkSaisie" type="checkbox" role="switch" id="switchSaisie">
-                    <label class="form-check-label" for="switchSaisie">Saisie définitive</label>
+                    <label class="form-check-label" id="switchSaisie" for="switchSaisie">Saisie définitive</label>
                 </div>
                 <div class="row justify-content-start">
                     <div class="col-2">

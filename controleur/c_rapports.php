@@ -27,6 +27,7 @@ switch ($action) {
             } else {
                 $def = "A";
             }
+            $nbEchs = testValeurNulle('echantillons');
             $echs1 = testValeurNulle('echs1');
             $qteEchs1 = testValeurNulle('echs1Qte');
             $echs2 = testValeurNulle('echs2');
@@ -48,8 +49,16 @@ switch ($action) {
             $echs10 = testValeurNulle('echs10');
             $qteEchs10 = testValeurNulle('echs10Qte');
 
-
-            var_dump($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
+            //récupération de l'id venant d'être inséré
+            $id = insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
+        
+            // for ($i = 0; $i<$nbEchs; $i++)
+            // {
+            //     $med = "echs" . $i;
+            //     $qte = "qteEchs" . $i;
+            //     insertEchs($matricule, $id, $med, $qte);
+            //     var_dump($matricule, $id, $med, $qte);
+            // }
         }
 
         // s'il existe des rapports non définitif renvoie vers une page qui les affiche
@@ -88,7 +97,6 @@ switch ($action) {
             $motifs = getMotifs();
             $praticiens = getAllNomPraticien();
             $medicaments = getAllNomMedicament();
-            var_dump(getRapportVisiteById($_GET['idR']));
             $rapport = getRapportVisiteById($_GET['idR']);
         }
         include("vues/v_terminerRapport.php");

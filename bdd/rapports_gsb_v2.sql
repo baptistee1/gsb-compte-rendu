@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : lun. 06 mars 2023 à 16:39
--- Version du serveur : 10.10.2-MariaDB
--- Version de PHP : 8.0.26
+-- Généré le : mer. 12 avr. 2023 à 12:42
+-- Version du serveur : 10.6.5-MariaDB
+-- Version de PHP : 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `rapports_gsb_v1`
+-- Base de données : `rapports_gsb_v2`
 --
 
 -- --------------------------------------------------------
@@ -29,17 +29,17 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `collaborateur`;
 CREATE TABLE IF NOT EXISTS `collaborateur` (
-  `COL_MATRICULE` varchar(10) NOT NULL,
-  `COL_NOM` varchar(25) DEFAULT NULL,
-  `COL_PRENOM` varchar(50) DEFAULT NULL,
-  `COL_ADRESSE` varchar(50) DEFAULT NULL,
-  `COL_CP` varchar(5) DEFAULT NULL,
-  `COL_VILLE` varchar(30) DEFAULT NULL,
+  `COL_MATRICULE` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `COL_NOM` varchar(25) COLLATE utf8mb3_bin DEFAULT NULL,
+  `COL_PRENOM` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
+  `COL_ADRESSE` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
+  `COL_CP` varchar(5) COLLATE utf8mb3_bin DEFAULT NULL,
+  `COL_VILLE` varchar(30) COLLATE utf8mb3_bin DEFAULT NULL,
   `COL_DATEEMBAUCHE` datetime DEFAULT NULL,
   `HAB_ID` int(11) DEFAULT NULL,
   `LOG_ID` int(11) DEFAULT NULL,
-  `SEC_CODE` varchar(1) DEFAULT NULL,
-  `REG_CODE` varchar(2) DEFAULT NULL,
+  `SEC_CODE` varchar(1) COLLATE utf8mb3_bin DEFAULT NULL,
+  `REG_CODE` varchar(2) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`COL_MATRICULE`),
   UNIQUE KEY `collaborateur_login0_AK` (`LOG_ID`),
   KEY `collaborateur_habilitation0_FK` (`HAB_ID`),
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
 INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRESSE`, `COL_CP`, `COL_VILLE`, `COL_DATEEMBAUCHE`, `HAB_ID`, `LOG_ID`, `SEC_CODE`, `REG_CODE`) VALUES
 ('a131', 'Villechalane', 'Louis', '8 cours Lafontaine', '29000', 'BREST', '1992-12-11 00:00:00', 1, 1, 'E', 'BN'),
 ('a17', 'Andre', 'David', '1 r Aimon de Chissée', '38100', 'GRENOBLE', '1991-08-26 00:00:00', 1, 2, NULL, 'RA'),
-('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'BG'),
+('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'RO'),
 ('a93', 'Tusseau', 'Louis', '22 r Renou', '86000', 'POITIERS', '1999-01-02 00:00:00', 2, 4, NULL, 'PC'),
 ('b13', 'Bentot', 'Pascal', '11 av 6 Juin', '67000', 'STRASBOURG', '1996-03-11 00:00:00', 1, NULL, NULL, NULL),
 ('b16', 'Bioret', 'Luc', '1 r Linne', '35000', 'RENNES', '1997-03-21 00:00:00', 1, NULL, NULL, NULL),
@@ -122,14 +122,128 @@ INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRE
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `departement`
+--
+
+DROP TABLE IF EXISTS `departement`;
+CREATE TABLE IF NOT EXISTS `departement` (
+  `NoDEPT` int(11) NOT NULL,
+  `Departement` varchar(30) NOT NULL,
+  `REG_CODE` varchar(2) NOT NULL,
+  PRIMARY KEY (`NoDEPT`),
+  KEY `REG_CODE` (`REG_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `departement`
+--
+
+INSERT INTO `departement` (`NoDEPT`, `Departement`, `REG_CODE`) VALUES
+(1, 'Ain', 'AA'),
+(2, 'Aisne', 'PI'),
+(3, 'Allier', 'AA'),
+(4, 'Alpes-de-Haute-Provence', 'PA'),
+(5, 'Hautes-Alpes', 'PA'),
+(6, 'Alpes-Maritimes', 'PA'),
+(7, 'Ardeche', 'AA'),
+(8, 'Ardennes', 'GE'),
+(9, 'Ariege', 'LG'),
+(10, 'Aube', 'GE'),
+(11, 'Aude', 'RO'),
+(12, 'Aveyron', 'RO'),
+(13, 'Bouches-du-Rhone', 'PA'),
+(14, 'Calvados', 'NO'),
+(15, 'Cantal', 'AA'),
+(16, 'Charente', 'NA'),
+(17, 'Charente-Maritime', 'NA'),
+(18, 'Cher', 'CE'),
+(19, 'Correze', 'NA'),
+(22, 'Cotes-du-Nord', 'BG'),
+(23, 'Creuse', 'NA'),
+(24, 'Dordogne', 'NA'),
+(25, 'Doubs', 'BC'),
+(26, 'Drome', 'AA'),
+(27, 'Eure', 'NO'),
+(28, 'Eure-et-Loir', 'CE'),
+(29, 'Finistere', 'BG'),
+(30, 'Gard', 'MP'),
+(31, 'Haute-Garonne', 'MP'),
+(32, 'Gers', 'MP'),
+(33, 'Gironde', 'NA'),
+(34, 'Herault', 'RO'),
+(35, 'Ille-et-Vilaine', 'BG'),
+(36, 'Indre', 'CE'),
+(37, 'Indre-et-Loire', 'CE'),
+(38, 'Isere', 'AA'),
+(39, 'Jura', 'BC'),
+(40, 'Landes', 'NA'),
+(41, 'Loir-et-Cher', 'CE'),
+(42, 'Loire', 'AA'),
+(43, 'Haute-Loire', 'AA'),
+(44, 'Loire-Atlantique', 'PL'),
+(45, 'Loiret', 'CE'),
+(46, 'Lot', 'LG'),
+(47, 'Lot-et-Garonne', 'NA'),
+(48, 'Lozere', 'MP'),
+(49, 'Maine-et-Loire', 'PL'),
+(50, 'Manche', 'NO'),
+(51, 'Marne', 'GE'),
+(52, 'Haute-Marne', 'GE'),
+(53, 'Mayenne', 'PL'),
+(54, 'Meurthe-et-Moselle', 'GE'),
+(55, 'Meuse', 'GE'),
+(56, 'Morbihan', 'BG'),
+(57, 'Moselle', 'GE'),
+(58, 'Nievre', 'BC'),
+(59, 'Nord', 'NP'),
+(60, 'Oise', 'PI'),
+(61, 'Orne', 'NO'),
+(62, 'Pas-de-Calais', 'NP'),
+(63, 'Puy-de-Dome', 'AA'),
+(64, 'Pyrenees-Atlantiques', 'NA'),
+(65, 'Hautes-Pyrenees', 'MP'),
+(66, 'Pyrenees-Orientales', 'MP'),
+(67, 'Bas-Rhin', 'GE'),
+(68, 'Haut-Rhin', 'GE'),
+(69, 'Rhone', 'AA'),
+(70, 'Haute-Saone', 'BC'),
+(71, 'Saone-et-Loire', 'BC'),
+(72, 'Sarthe', 'PL'),
+(73, 'Savoie', 'AA'),
+(74, 'Haute-Savoie', 'AA'),
+(75, 'Paris', 'IF'),
+(76, 'Seine-Maritime', 'NO'),
+(77, 'Seine-et-Marne', 'IF'),
+(78, 'Yvelines', 'IF'),
+(79, 'Deux-Sevres', 'NA'),
+(80, 'Somme', 'PI'),
+(81, 'Tarn', 'MP'),
+(82, 'Tarn-et-Garonne', 'MP'),
+(83, 'Var', 'PA'),
+(84, 'Vaucluse', 'PA'),
+(85, 'Vendee', 'PL'),
+(86, 'Vienne', 'NA'),
+(87, 'Haute-Vienne', 'NA'),
+(88, 'Vosges', 'GE'),
+(89, 'Yonne', 'BC'),
+(90, 'Territoire-de-Belfort', 'BC'),
+(91, 'Essonne', 'IF'),
+(92, 'Hauts-de-Seine', 'IF'),
+(93, 'Seine-St-Denis', 'IF'),
+(94, 'Val-de-Marne', 'IF'),
+(95, 'Val-d-Oise', 'IF');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `dosage`
 --
 
 DROP TABLE IF EXISTS `dosage`;
 CREATE TABLE IF NOT EXISTS `dosage` (
-  `DOS_CODE` varchar(10) NOT NULL,
-  `DOS_QUANTITE` varchar(10) DEFAULT NULL,
-  `DOS_UNITE` varchar(10) DEFAULT NULL,
+  `DOS_CODE` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `DOS_QUANTITE` varchar(10) COLLATE utf8mb3_bin DEFAULT NULL,
+  `DOS_UNITE` varchar(10) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`DOS_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
@@ -141,8 +255,8 @@ CREATE TABLE IF NOT EXISTS `dosage` (
 
 DROP TABLE IF EXISTS `famille`;
 CREATE TABLE IF NOT EXISTS `famille` (
-  `FAM_CODE` varchar(3) NOT NULL,
-  `FAM_LIBELLE` varchar(80) DEFAULT NULL,
+  `FAM_CODE` varchar(3) COLLATE utf8mb3_bin NOT NULL,
+  `FAM_LIBELLE` varchar(80) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`FAM_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
@@ -180,8 +294,8 @@ INSERT INTO `famille` (`FAM_CODE`, `FAM_LIBELLE`) VALUES
 
 DROP TABLE IF EXISTS `formuler`;
 CREATE TABLE IF NOT EXISTS `formuler` (
-  `MED_DEPOTLEGAL` varchar(10) NOT NULL,
-  `PRE_CODE` varchar(2) NOT NULL,
+  `MED_DEPOTLEGAL` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `PRE_CODE` varchar(2) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`MED_DEPOTLEGAL`,`PRE_CODE`),
   KEY `FORMULER_presentation1_FK` (`PRE_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
@@ -195,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `formuler` (
 DROP TABLE IF EXISTS `habilitation`;
 CREATE TABLE IF NOT EXISTS `habilitation` (
   `HAB_ID` int(11) NOT NULL,
-  `HAB_LIB` varchar(30) NOT NULL,
+  `HAB_LIB` varchar(30) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`HAB_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
@@ -216,8 +330,8 @@ INSERT INTO `habilitation` (`HAB_ID`, `HAB_LIB`) VALUES
 
 DROP TABLE IF EXISTS `interagir`;
 CREATE TABLE IF NOT EXISTS `interagir` (
-  `MED_DEPOTLEGAL_perturbe` varchar(10) NOT NULL,
-  `MED_DEPOTLEGAL_perturbateur` varchar(10) NOT NULL,
+  `MED_DEPOTLEGAL_perturbe` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `MED_DEPOTLEGAL_perturbateur` varchar(10) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`MED_DEPOTLEGAL_perturbe`,`MED_DEPOTLEGAL_perturbateur`),
   KEY `FK_interagir_medicament_perturbateur` (`MED_DEPOTLEGAL_perturbateur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
@@ -231,9 +345,9 @@ CREATE TABLE IF NOT EXISTS `interagir` (
 DROP TABLE IF EXISTS `login`;
 CREATE TABLE IF NOT EXISTS `login` (
   `LOG_ID` int(11) NOT NULL,
-  `LOG_LOGIN` varchar(50) NOT NULL,
-  `LOG_MOTDEPASSE` varchar(255) NOT NULL,
-  `COL_MATRICULE` varchar(10) NOT NULL,
+  `LOG_LOGIN` varchar(50) COLLATE utf8mb3_bin NOT NULL,
+  `LOG_MOTDEPASSE` varchar(255) COLLATE utf8mb3_bin NOT NULL,
+  `COL_MATRICULE` varchar(10) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`LOG_ID`),
   UNIQUE KEY `login_collaborateur0_AK` (`COL_MATRICULE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
@@ -257,14 +371,14 @@ INSERT INTO `login` (`LOG_ID`, `LOG_LOGIN`, `LOG_MOTDEPASSE`, `COL_MATRICULE`) V
 
 DROP TABLE IF EXISTS `medicament`;
 CREATE TABLE IF NOT EXISTS `medicament` (
-  `MED_DEPOTLEGAL` varchar(10) NOT NULL,
-  `MED_NOMCOMMERCIAL` varchar(25) DEFAULT NULL,
-  `MED_COMPOSITION` varchar(255) DEFAULT NULL,
-  `MED_EFFETS` varchar(255) DEFAULT NULL,
-  `MED_CONTREINDIC` varchar(255) DEFAULT NULL,
+  `MED_DEPOTLEGAL` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `MED_NOMCOMMERCIAL` varchar(25) COLLATE utf8mb3_bin DEFAULT NULL,
+  `MED_COMPOSITION` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
+  `MED_EFFETS` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
+  `MED_CONTREINDIC` varchar(255) COLLATE utf8mb3_bin DEFAULT NULL,
   `MED_PRIXECHANTILLON` float DEFAULT NULL,
-  `FAM_CODE` varchar(3) NOT NULL,
-  `PRE_CODE` varchar(2) DEFAULT NULL,
+  `FAM_CODE` varchar(3) COLLATE utf8mb3_bin NOT NULL,
+  `PRE_CODE` varchar(2) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`MED_DEPOTLEGAL`),
   KEY `medicament_famille0_FK` (`FAM_CODE`),
   KEY `FK_medicament_presentation` (`PRE_CODE`)
@@ -315,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `motifs` (
   `MOT_ID` int(11) NOT NULL AUTO_INCREMENT,
   `MOT_LIBELLE` varchar(255) NOT NULL,
   PRIMARY KEY (`MOT_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `motifs`
@@ -334,14 +448,14 @@ INSERT INTO `motifs` (`MOT_ID`, `MOT_LIBELLE`) VALUES
 
 DROP TABLE IF EXISTS `offrir`;
 CREATE TABLE IF NOT EXISTS `offrir` (
-  `COL_MATRICULE` varchar(10) NOT NULL,
+  `COL_MATRICULE` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `RAP_NUM` int(11) NOT NULL,
-  `MED_DEPOTLEGAL` varchar(10) NOT NULL,
+  `MED_DEPOTLEGAL` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `OFF_QTE` int(11) DEFAULT NULL,
   PRIMARY KEY (`COL_MATRICULE`,`RAP_NUM`,`MED_DEPOTLEGAL`),
   KEY `MED_DEPOTLEGAL` (`MED_DEPOTLEGAL`),
   KEY `COL_MATRICULE` (`COL_MATRICULE`,`RAP_NUM`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -358,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `posseder` (
   PRIMARY KEY (`PRA_NUM`,`SPE_CODE`),
   KEY `PRA_NUM` (`PRA_NUM`),
   KEY `SPE_CODE` (`SPE_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -369,112 +483,110 @@ CREATE TABLE IF NOT EXISTS `posseder` (
 DROP TABLE IF EXISTS `praticien`;
 CREATE TABLE IF NOT EXISTS `praticien` (
   `PRA_NUM` int(11) NOT NULL,
-  `PRA_NOM` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
-  `PRA_PRENOM` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
-  `PRA_ADRESSE` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
-  `PRA_CP` varchar(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
-  `PRA_VILLE` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
+  `PRA_NOM` varchar(25) DEFAULT NULL,
+  `PRA_PRENOM` varchar(30) DEFAULT NULL,
+  `PRA_ADRESSE` varchar(50) DEFAULT NULL,
+  `PRA_CP` varchar(5) DEFAULT NULL,
+  `PRA_VILLE` varchar(25) DEFAULT NULL,
   `PRA_COEFNOTORIETE` float DEFAULT NULL,
-  `TYP_CODE` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
+  `TYP_CODE` varchar(3) NOT NULL,
   `PRA_COEFFCONFIANCE` float NOT NULL DEFAULT 0,
   `PRA_COEFPRESCRIPTION` float NOT NULL DEFAULT 0,
-  `REG_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`PRA_NUM`),
-  KEY `TYP_CODE` (`TYP_CODE`),
-  KEY `praticien_region0_fk` (`REG_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+  KEY `TYP_CODE` (`TYP_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `praticien`
 --
 
-INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA_CP`, `PRA_VILLE`, `PRA_COEFNOTORIETE`, `TYP_CODE`, `PRA_COEFFCONFIANCE`, `PRA_COEFPRESCRIPTION`, `REG_CODE`) VALUES
-(1, 'Notini', 'Alain', '114 r Authie', '85000', 'LA ROCHE SUR YON', 290.03, 'MH', 0, 0, 'VD'),
-(2, 'Gosselin', 'Albert', '13 r Devon', '41000', 'BLOIS', 307.49, 'MV', 0, 0, 'CE'),
-(3, 'Delahaye', 'André', '36 av 6 Juin', '25000', 'BESANCON', 185.79, 'PS', 0, 0, 'BO'),
-(4, 'Leroux', 'André', '47 av Robert Schuman', '60000', 'BEAUVAIS', 172.04, 'PH', 0, 0, 'PI'),
-(5, 'Desmoulins', 'Anne', '31 r St Jean', '30000', 'NIMES', 94.75, 'PO', 0, 0, 'LG'),
-(6, 'Mouel', 'Anne', '27 r Auvergne', '80000', 'AMIENS', 45.2, 'MH', 0, 0, 'PI'),
-(7, 'Desgranges-Lentz', 'Antoine', '1 r Albert de Mun', '29000', 'MORLAIX', 20.07, 'MV', 0, 0, 'BG'),
-(8, 'Marcouiller', 'Arnaud', '31 r St Jean', '68000', 'MULHOUSE', 396.52, 'PS', 0, 0, 'AL'),
-(9, 'Dupuy', 'Benoit', '9 r Demolombe', '34000', 'MONTPELLIER', 395.66, 'PH', 0, 0, 'LG'),
-(10, 'Lerat', 'Bernard', '31 r St Jean', '59000', 'LILLE', 257.79, 'PO', 0, 0, 'PI'),
-(11, 'Marçais-Lefebvre', 'Bertrand', '86Bis r Basse', '67000', 'STRASBOURG', 450.96, 'MH', 0, 0, 'AL'),
-(12, 'Boscher', 'Bruno', '94 r Falaise', '10000', 'TROYES', 356.14, 'MV', 0, 0, 'AL'),
-(13, 'Morel', 'Catherine', '21 r Chateaubriand', '75000', 'PARIS', 379.57, 'PS', 0, 0, 'IF'),
-(14, 'Guivarch', 'Chantal', '4 av Gén Laperrine', '45000', 'ORLEANS', 114.56, 'PH', 0, 0, 'CE'),
-(15, 'Bessin-Grosdoit', 'Christophe', '92 r Falaise', '6000', 'NICE', 222.06, 'PO', 0, 0, 'PA'),
-(16, 'Rossa', 'Claire', '14 av Thiès', '6000', 'NICE', 529.78, 'MH', 0, 0, 'PA'),
-(17, 'Cauchy', 'Denis', '5 av Ste Thérèse', '11000', 'NARBONNE', 458.82, 'MV', 0, 0, 'PI'),
-(18, 'Gaffé', 'Dominique', '9 av 1ère Armée Française', '35000', 'RENNES', 213.4, 'PS', 0, 0, 'BG'),
-(19, 'Guenon', 'Dominique', '98 bd Mar Lyautey', '44000', 'NANTES', 175.89, 'PH', 0, 0, 'PL'),
-(20, 'Prévot', 'Dominique', '29 r Lucien Nelle', '87000', 'LIMOGES', 151.36, 'PO', 0, 0, 'LI'),
-(21, 'Houchard', 'Eliane', '9 r Demolombe', '49100', 'ANGERS', 436.96, 'MH', 0, 0, 'PL'),
-(22, 'Desmons', 'Elisabeth', '51 r Bernières', '29000', 'QUIMPER', 281.17, 'MV', 0, 0, 'BG'),
-(23, 'Flament', 'Elisabeth', '11 r Pasteur', '35000', 'RENNES', 315.6, 'PS', 0, 0, 'BG'),
-(24, 'Goussard', 'Emmanuel', '9 r Demolombe', '41000', 'BLOIS', 40.72, 'PH', 0, 0, 'CE'),
-(25, 'Desprez', 'Eric', '9 r Vaucelles', '33000', 'BORDEAUX', 406.85, 'PO', 0, 0, 'LI'),
-(26, 'Coste', 'Evelyne', '29 r Lucien Nelle', '19000', 'TULLE', 441.87, 'MH', 0, 0, NULL),
-(27, 'Lefebvre', 'Frédéric', '2 pl Wurzburg', '55000', 'VERDUN', 573.63, 'MV', 0, 0, NULL),
-(28, 'Lemée', 'Frédéric', '29 av 6 Juin', '56000', 'VANNES', 326.4, 'PS', 0, 0, NULL),
-(29, 'Martin', 'Frédéric', 'Bât A 90 r Bayeux', '70000', 'VESOUL', 506.06, 'PH', 0, 0, NULL),
-(30, 'Marie', 'Frédérique', '172 r Caponière', '70000', 'VESOUL', 313.31, 'PO', 0, 0, NULL),
-(31, 'Rosenstech', 'Geneviève', '27 r Auvergne', '75000', 'PARIS', 366.82, 'MH', 0, 0, NULL),
-(32, 'Pontavice', 'Ghislaine', '8 r Gaillon', '86000', 'POITIERS', 265.58, 'MV', 0, 0, NULL),
-(33, 'Leveneur-Mosquet', 'Guillaume', '47 av Robert Schuman', '64000', 'PAU', 184.97, 'PS', 0, 0, NULL),
-(34, 'Blanchais', 'Guy', '30 r Authie', '8000', 'SEDAN', 502.48, 'PH', 0, 0, NULL),
-(35, 'Leveneur', 'Hugues', '7 pl St Gilles', '62000', 'ARRAS', 7.39, 'PO', 0, 0, NULL),
-(36, 'Mosquet', 'Isabelle', '22 r Jules Verne', '76000', 'ROUEN', 77.1, 'MH', 0, 0, NULL),
-(37, 'Giraudon', 'Jean-Christophe', '1 r Albert de Mun', '38100', 'VIENNE', 92.62, 'MV', 0, 0, NULL),
-(38, 'Marie', 'Jean-Claude', '26 r Hérouville', '69000', 'LYON', 120.1, 'PS', 0, 0, NULL),
-(39, 'Maury', 'Jean-François', '5 r Pierre Girard', '71000', 'CHALON SUR SAONE', 13.73, 'PH', 0, 0, NULL),
-(40, 'Dennel', 'Jean-Louis', '7 pl St Gilles', '28000', 'CHARTRES', 550.69, 'PO', 0, 0, NULL),
-(41, 'Ain', 'Jean-Pierre', '4 résid Olympia', '2000', 'LAON', 5.59, 'MH', 0, 0, NULL),
-(42, 'Chemery', 'Jean-Pierre', '51 pl Ancienne Boucherie', '14000', 'CAEN', 396.58, 'MV', 0, 0, NULL),
-(43, 'Comoz', 'Jean-Pierre', '35 r Auguste Lechesne', '18000', 'BOURGES', 340.35, 'PS', 0, 0, NULL),
-(44, 'Desfaudais', 'Jean-Pierre', '7 pl St Gilles', '29000', 'BREST', 71.76, 'PH', 0, 0, NULL),
-(45, 'Phan', 'JérÃ´me', '9 r Clos Caillet', '79000', 'NIORT', 451.61, 'PO', 0, 0, NULL),
-(46, 'Riou', 'Line', '43 bd Gén Vanier', '77000', 'MARNE LA VALLEE', 193.25, 'MH', 0, 0, NULL),
-(47, 'Chubilleau', 'Louis', '46 r Eglise', '17000', 'SAINTES', 202.07, 'MV', 0, 0, NULL),
-(48, 'Lebrun', 'Lucette', '178 r Auge', '54000', 'NANCY', 410.41, 'PS', 0, 0, NULL),
-(49, 'Goessens', 'Marc', '6 av 6 Juin', '39000', 'DOLE', 548.57, 'PH', 0, 0, NULL),
-(50, 'Laforge', 'Marc', '5 résid Prairie', '50000', 'SAINT LO', 265.05, 'PO', 0, 0, NULL),
-(51, 'Millereau', 'Marc', '36 av 6 Juin', '72000', 'LA FERTE BERNARD', 430.42, 'MH', 0, 0, NULL),
-(52, 'Dauverne', 'Marie-Christine', '69 av Charlemagne', '21000', 'DIJON', 281.05, 'MV', 0, 0, NULL),
-(53, 'Vittorio', 'Myriam', '3 pl Champlain', '94000', 'BOISSY SAINT LEGER', 356.23, 'PS', 0, 0, NULL),
-(54, 'Lapasset', 'Nhieu', '31 av 6 Juin', '52000', 'CHAUMONT', 107, 'PH', 0, 0, NULL),
-(55, 'Plantet-Besnier', 'Nicole', '10 av 1ère Armée Française', '86000', 'CHATELLEREAULT', 369.94, 'PO', 0, 0, NULL),
-(56, 'Chubilleau', 'Pascal', '3 r Hastings', '15000', 'AURRILLAC', 290.75, 'MH', 0, 0, NULL),
-(57, 'Robert', 'Pascal', '31 r St Jean', '93000', 'BOBIGNY', 162.41, 'MV', 0, 0, NULL),
-(58, 'Jean', 'Pascale', '114 r Authie', '49100', 'SAUMUR', 375.52, 'PS', 0, 0, NULL),
-(59, 'Chanteloube', 'Patrice', '14 av Thiès', '13000', 'MARSEILLE', 478.01, 'PH', 0, 0, NULL),
-(60, 'Lecuirot', 'Patrice', 'résid St Pères 55 r Pigacière', '54000', 'NANCY', 239.66, 'PO', 0, 0, NULL),
-(61, 'Gandon', 'Patrick', '47 av Robert Schuman', '37000', 'TOURS', 599.06, 'MH', 0, 0, NULL),
-(62, 'Mirouf', 'Patrick', '22 r Puits Picard', '74000', 'ANNECY', 458.42, 'MV', 0, 0, NULL),
-(63, 'Boireaux', 'Philippe', '14 av Thiès', '10000', 'CHALON EN CHAMPAGNE', 454.48, 'PS', 0, 0, NULL),
-(64, 'Cendrier', 'Philippe', '7 pl St Gilles', '12000', 'RODEZ', 164.16, 'PH', 0, 0, NULL),
-(65, 'Duhamel', 'Philippe', '114 r Authie', '34000', 'MONTPELLIER', 98.62, 'PO', 0, 0, NULL),
-(66, 'Grigy', 'Philippe', '15 r Mélingue', '44000', 'CLISSON', 285.1, 'MH', 0, 0, NULL),
-(67, 'Linard', 'Philippe', '1 r Albert de Mun', '81000', 'ALBI', 486.3, 'MV', 0, 0, NULL),
-(68, 'Lozier', 'Philippe', '8 r Gaillon', '31000', 'TOULOUSE', 48.4, 'PS', 0, 0, NULL),
-(69, 'Dechâtre', 'Pierre', '63 av Thiès', '23000', 'MONTLUCON', 253.75, 'PH', 0, 0, NULL),
-(70, 'Goessens', 'Pierre', '22 r Jean Romain', '40000', 'MONT DE MARSAN', 426.19, 'PO', 0, 0, NULL),
-(71, 'Leménager', 'Pierre', '39 av 6 Juin', '57000', 'METZ', 118.7, 'MH', 0, 0, NULL),
-(72, 'Née', 'Pierre', '39 av 6 Juin', '82000', 'MONTAUBAN', 72.54, 'MV', 0, 0, NULL),
-(73, 'Guyot', 'Pierre-Laurent', '43 bd Gén Vanier', '48000', 'MENDE', 352.31, 'PS', 0, 0, NULL),
-(74, 'Chauchard', 'Roger', '9 r Vaucelles', '13000', 'MARSEILLE', 552.19, 'PH', 0, 0, NULL),
-(75, 'Mabire', 'Roland', '11 r Boutiques', '67000', 'STRASBOURG', 422.39, 'PO', 0, 0, NULL),
-(76, 'Leroy', 'Soazig', '45 r Boutiques', '61000', 'ALENCON', 570.67, 'MH', 0, 0, NULL),
-(77, 'Guyot', 'Stéphane', '26 r Hérouville', '46000', 'FIGEAC', 28.85, 'MV', 0, 0, NULL),
-(78, 'Delposen', 'Sylvain', '39 av 6 Juin', '27000', 'DREUX', 292.01, 'PS', 0, 0, NULL),
-(79, 'Rault', 'Sylvie', '15 bd Richemond', '2000', 'SOISSON', 526.6, 'PH', 0, 0, NULL),
-(80, 'Renouf', 'Sylvie', '98 bd Mar Lyautey', '88000', 'EPINAL', 425.24, 'PO', 0, 0, NULL),
-(81, 'Alliet-Grach', 'Thierry', '14 av Thiès', '7000', 'PRIVAS', 451.31, 'MH', 0, 0, NULL),
-(82, 'Bayard', 'Thierry', '92 r Falaise', '42000', 'SAINT ETIENNE', 271.71, 'MV', 0, 0, NULL),
-(83, 'Gauchet', 'Thierry', '7 r Desmoueux', '38100', 'GRENOBLE', 406.1, 'PS', 0, 0, NULL),
-(84, 'Bobichon', 'Tristan', '219 r Caponière', '9000', 'FOIX', 218.36, 'PH', 0, 0, NULL),
-(85, 'Duchemin-Laniel', 'Véronique', '130 r St Jean', '33000', 'LIBOURNE', 265.61, 'PO', 0, 0, NULL),
-(86, 'Laurent', 'Younès', '34 r Demolombe', '53000', 'MAYENNE', 496.1, 'MH', 0, 0, NULL);
+INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA_CP`, `PRA_VILLE`, `PRA_COEFNOTORIETE`, `TYP_CODE`, `PRA_COEFFCONFIANCE`, `PRA_COEFPRESCRIPTION`) VALUES
+(1, 'Notini', 'Alain', '114 r Authie', '85000', 'LA ROCHE SUR YON', 290.03, 'MH', 0, 0),
+(2, 'Gosselin', 'Albert', '13 r Devon', '41000', 'BLOIS', 307.49, 'MV', 0, 0),
+(3, 'Delahaye', 'André', '36 av 6 Juin', '25000', 'BESANCON', 185.79, 'PS', 0, 0),
+(4, 'Leroux', 'André', '47 av Robert Schuman', '60000', 'BEAUVAIS', 172.04, 'PH', 0, 0),
+(5, 'Desmoulins', 'Anne', '31 r St Jean', '30000', 'NIMES', 94.75, 'PO', 0, 0),
+(6, 'Mouel', 'Anne', '27 r Auvergne', '80000', 'AMIENS', 45.2, 'MH', 0, 0),
+(7, 'Desgranges-Lentz', 'Antoine', '1 r Albert de Mun', '29000', 'MORLAIX', 20.07, 'MV', 0, 0),
+(8, 'Marcouiller', 'Arnaud', '31 r St Jean', '68000', 'MULHOUSE', 396.52, 'PS', 0, 0),
+(9, 'Dupuy', 'Benoit', '9 r Demolombe', '34000', 'MONTPELLIER', 395.66, 'PH', 0, 0),
+(10, 'Lerat', 'Bernard', '31 r St Jean', '59000', 'LILLE', 257.79, 'PO', 0, 0),
+(11, 'Marçais-Lefebvre', 'Bertrand', '86Bis r Basse', '67000', 'STRASBOURG', 450.96, 'MH', 0, 0),
+(12, 'Boscher', 'Bruno', '94 r Falaise', '10000', 'TROYES', 356.14, 'MV', 0, 0),
+(13, 'Morel', 'Catherine', '21 r Chateaubriand', '75000', 'PARIS', 379.57, 'PS', 0, 0),
+(14, 'Guivarch', 'Chantal', '4 av Gén Laperrine', '45000', 'ORLEANS', 114.56, 'PH', 0, 0),
+(15, 'Bessin-Grosdoit', 'Christophe', '92 r Falaise', '6000', 'NICE', 222.06, 'PO', 0, 0),
+(16, 'Rossa', 'Claire', '14 av Thiès', '6000', 'NICE', 529.78, 'MH', 0, 0),
+(17, 'Cauchy', 'Denis', '5 av Ste Thérèse', '11000', 'NARBONNE', 458.82, 'MV', 0, 0),
+(18, 'Gaffé', 'Dominique', '9 av 1ère Armée Française', '35000', 'RENNES', 213.4, 'PS', 0, 0),
+(19, 'Guenon', 'Dominique', '98 bd Mar Lyautey', '44000', 'NANTES', 175.89, 'PH', 0, 0),
+(20, 'Prévot', 'Dominique', '29 r Lucien Nelle', '87000', 'LIMOGES', 151.36, 'PO', 0, 0),
+(21, 'Houchard', 'Eliane', '9 r Demolombe', '49100', 'ANGERS', 436.96, 'MH', 0, 0),
+(22, 'Desmons', 'Elisabeth', '51 r Bernières', '29000', 'QUIMPER', 281.17, 'MV', 0, 0),
+(23, 'Flament', 'Elisabeth', '11 r Pasteur', '35000', 'RENNES', 315.6, 'PS', 0, 0),
+(24, 'Goussard', 'Emmanuel', '9 r Demolombe', '41000', 'BLOIS', 40.72, 'PH', 0, 0),
+(25, 'Desprez', 'Eric', '9 r Vaucelles', '33000', 'BORDEAUX', 406.85, 'PO', 0, 0),
+(26, 'Coste', 'Evelyne', '29 r Lucien Nelle', '19000', 'TULLE', 441.87, 'MH', 0, 0),
+(27, 'Lefebvre', 'Frédéric', '2 pl Wurzburg', '55000', 'VERDUN', 573.63, 'MV', 0, 0),
+(28, 'Lemée', 'Frédéric', '29 av 6 Juin', '56000', 'VANNES', 326.4, 'PS', 0, 0),
+(29, 'Martin', 'Frédéric', 'Bât A 90 r Bayeux', '70000', 'VESOUL', 506.06, 'PH', 0, 0),
+(30, 'Marie', 'Frédérique', '172 r Caponière', '70000', 'VESOUL', 313.31, 'PO', 0, 0),
+(31, 'Rosenstech', 'Geneviève', '27 r Auvergne', '75000', 'PARIS', 366.82, 'MH', 0, 0),
+(32, 'Pontavice', 'Ghislaine', '8 r Gaillon', '86000', 'POITIERS', 265.58, 'MV', 0, 0),
+(33, 'Leveneur-Mosquet', 'Guillaume', '47 av Robert Schuman', '64000', 'PAU', 184.97, 'PS', 0, 0),
+(34, 'Blanchais', 'Guy', '30 r Authie', '8000', 'SEDAN', 502.48, 'PH', 0, 0),
+(35, 'Leveneur', 'Hugues', '7 pl St Gilles', '62000', 'ARRAS', 7.39, 'PO', 0, 0),
+(36, 'Mosquet', 'Isabelle', '22 r Jules Verne', '76000', 'ROUEN', 77.1, 'MH', 0, 0),
+(37, 'Giraudon', 'Jean-Christophe', '1 r Albert de Mun', '38100', 'VIENNE', 92.62, 'MV', 0, 0),
+(38, 'Marie', 'Jean-Claude', '26 r Hérouville', '69000', 'LYON', 120.1, 'PS', 0, 0),
+(39, 'Maury', 'Jean-François', '5 r Pierre Girard', '71000', 'CHALON SUR SAONE', 13.73, 'PH', 0, 0),
+(40, 'Dennel', 'Jean-Louis', '7 pl St Gilles', '28000', 'CHARTRES', 550.69, 'PO', 0, 0),
+(41, 'Ain', 'Jean-Pierre', '4 résid Olympia', '2000', 'LAON', 5.59, 'MH', 0, 0),
+(42, 'Chemery', 'Jean-Pierre', '51 pl Ancienne Boucherie', '14000', 'CAEN', 396.58, 'MV', 0, 0),
+(43, 'Comoz', 'Jean-Pierre', '35 r Auguste Lechesne', '18000', 'BOURGES', 340.35, 'PS', 0, 0),
+(44, 'Desfaudais', 'Jean-Pierre', '7 pl St Gilles', '29000', 'BREST', 71.76, 'PH', 0, 0),
+(45, 'Phan', 'JérÃ´me', '9 r Clos Caillet', '79000', 'NIORT', 451.61, 'PO', 0, 0),
+(46, 'Riou', 'Line', '43 bd Gén Vanier', '77000', 'MARNE LA VALLEE', 193.25, 'MH', 0, 0),
+(47, 'Chubilleau', 'Louis', '46 r Eglise', '17000', 'SAINTES', 202.07, 'MV', 0, 0),
+(48, 'Lebrun', 'Lucette', '178 r Auge', '54000', 'NANCY', 410.41, 'PS', 0, 0),
+(49, 'Goessens', 'Marc', '6 av 6 Juin', '39000', 'DOLE', 548.57, 'PH', 0, 0),
+(50, 'Laforge', 'Marc', '5 résid Prairie', '50000', 'SAINT LO', 265.05, 'PO', 0, 0),
+(51, 'Millereau', 'Marc', '36 av 6 Juin', '72000', 'LA FERTE BERNARD', 430.42, 'MH', 0, 0),
+(52, 'Dauverne', 'Marie-Christine', '69 av Charlemagne', '21000', 'DIJON', 281.05, 'MV', 0, 0),
+(53, 'Vittorio', 'Myriam', '3 pl Champlain', '94000', 'BOISSY SAINT LEGER', 356.23, 'PS', 0, 0),
+(54, 'Lapasset', 'Nhieu', '31 av 6 Juin', '52000', 'CHAUMONT', 107, 'PH', 0, 0),
+(55, 'Plantet-Besnier', 'Nicole', '10 av 1ère Armée Française', '86000', 'CHATELLEREAULT', 369.94, 'PO', 0, 0),
+(56, 'Chubilleau', 'Pascal', '3 r Hastings', '15000', 'AURRILLAC', 290.75, 'MH', 0, 0),
+(57, 'Robert', 'Pascal', '31 r St Jean', '93000', 'BOBIGNY', 162.41, 'MV', 0, 0),
+(58, 'Jean', 'Pascale', '114 r Authie', '49100', 'SAUMUR', 375.52, 'PS', 0, 0),
+(59, 'Chanteloube', 'Patrice', '14 av Thiès', '13000', 'MARSEILLE', 478.01, 'PH', 0, 0),
+(60, 'Lecuirot', 'Patrice', 'résid St Pères 55 r Pigacière', '54000', 'NANCY', 239.66, 'PO', 0, 0),
+(61, 'Gandon', 'Patrick', '47 av Robert Schuman', '37000', 'TOURS', 599.06, 'MH', 0, 0),
+(62, 'Mirouf', 'Patrick', '22 r Puits Picard', '74000', 'ANNECY', 458.42, 'MV', 0, 0),
+(63, 'Boireaux', 'Philippe', '14 av Thiès', '10000', 'CHALON EN CHAMPAGNE', 454.48, 'PS', 0, 0),
+(64, 'Cendrier', 'Philippe', '7 pl St Gilles', '12000', 'RODEZ', 164.16, 'PH', 0, 0),
+(65, 'Duhamel', 'Philippe', '114 r Authie', '34000', 'MONTPELLIER', 98.62, 'PO', 0, 0),
+(66, 'Grigy', 'Philippe', '15 r Mélingue', '44000', 'CLISSON', 285.1, 'MH', 0, 0),
+(67, 'Linard', 'Philippe', '1 r Albert de Mun', '81000', 'ALBI', 486.3, 'MV', 0, 0),
+(68, 'Lozier', 'Philippe', '8 r Gaillon', '31000', 'TOULOUSE', 48.4, 'PS', 0, 0),
+(69, 'Dechâtre', 'Pierre', '63 av Thiès', '23000', 'MONTLUCON', 253.75, 'PH', 0, 0),
+(70, 'Goessens', 'Pierre', '22 r Jean Romain', '40000', 'MONT DE MARSAN', 426.19, 'PO', 0, 0),
+(71, 'Leménager', 'Pierre', '39 av 6 Juin', '57000', 'METZ', 118.7, 'MH', 0, 0),
+(72, 'Née', 'Pierre', '39 av 6 Juin', '82000', 'MONTAUBAN', 72.54, 'MV', 0, 0),
+(73, 'Guyot', 'Pierre-Laurent', '43 bd Gén Vanier', '48000', 'MENDE', 352.31, 'PS', 0, 0),
+(74, 'Chauchard', 'Roger', '9 r Vaucelles', '13000', 'MARSEILLE', 552.19, 'PH', 0, 0),
+(75, 'Mabire', 'Roland', '11 r Boutiques', '67000', 'STRASBOURG', 422.39, 'PO', 0, 0),
+(76, 'Leroy', 'Soazig', '45 r Boutiques', '61000', 'ALENCON', 570.67, 'MH', 0, 0),
+(77, 'Guyot', 'Stéphane', '26 r Hérouville', '46000', 'FIGEAC', 28.85, 'MV', 0, 0),
+(78, 'Delposen', 'Sylvain', '39 av 6 Juin', '27000', 'DREUX', 292.01, 'PS', 0, 0),
+(79, 'Rault', 'Sylvie', '15 bd Richemond', '2000', 'SOISSON', 526.6, 'PH', 0, 0),
+(80, 'Renouf', 'Sylvie', '98 bd Mar Lyautey', '88000', 'EPINAL', 425.24, 'PO', 0, 0),
+(81, 'Alliet-Grach', 'Thierry', '14 av Thiès', '7000', 'PRIVAS', 451.31, 'MH', 0, 0),
+(82, 'Bayard', 'Thierry', '92 r Falaise', '42000', 'SAINT ETIENNE', 271.71, 'MV', 0, 0),
+(83, 'Gauchet', 'Thierry', '7 r Desmoueux', '38100', 'GRENOBLE', 406.1, 'PS', 0, 0),
+(84, 'Bobichon', 'Tristan', '219 r Caponière', '9000', 'FOIX', 218.36, 'PH', 0, 0),
+(85, 'Duchemin-Laniel', 'Véronique', '130 r St Jean', '33000', 'LIBOURNE', 265.61, 'PO', 0, 0),
+(86, 'Laurent', 'Younès', '34 r Demolombe', '53000', 'MAYENNE', 496.1, 'MH', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -484,10 +596,10 @@ INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA
 
 DROP TABLE IF EXISTS `prescrire`;
 CREATE TABLE IF NOT EXISTS `prescrire` (
-  `TIN_CODE` varchar(5) NOT NULL,
-  `DOS_CODE` varchar(10) NOT NULL,
-  `MED_DEPOTLEGAL` varchar(10) NOT NULL,
-  `PRE_POSOLOGIE` varchar(50) NOT NULL,
+  `TIN_CODE` varchar(5) COLLATE utf8mb3_bin NOT NULL,
+  `DOS_CODE` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `MED_DEPOTLEGAL` varchar(10) COLLATE utf8mb3_bin NOT NULL,
+  `PRE_POSOLOGIE` varchar(50) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`TIN_CODE`,`DOS_CODE`,`MED_DEPOTLEGAL`),
   KEY `FK_prescrire_dosage` (`DOS_CODE`),
   KEY `FK_prescrire_medicament` (`MED_DEPOTLEGAL`)
@@ -504,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `presentation` (
   `PRE_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `PRE_LIBELLE` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`PRE_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -517,10 +629,10 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
   `COL_MATRICULE` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
   `RAP_NUM` int(11) NOT NULL,
   `PRA_NUM` int(11) NOT NULL,
-  `RAP_DATEVISITE` datetime DEFAULT NULL,
+  `RAP_DATEVISITE` date DEFAULT NULL,
   `RAP_BILAN` varchar(255) DEFAULT NULL,
   `RAP_MOTIFAUTRE` varchar(255) DEFAULT NULL,
-  `RAP_DATESAISIE` datetime NOT NULL,
+  `RAP_DATESAISIE` date NOT NULL,
   `MOT_ID` int(11) NOT NULL,
   `PRA_NUM_REMP` int(11) DEFAULT NULL,
   `MED_DEPOTLEGAL_1` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
@@ -533,19 +645,22 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
   KEY `FK_rapport_visite_medicament` (`MED_DEPOTLEGAL_1`),
   KEY `FK_rapport_visite_medicament2` (`MED_DEPOTLEGAL_2`),
   KEY `FK_rapport_visite_motif` (`MOT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `rapport_visite`
 --
 
 INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`, `STATUS`) VALUES
-('a131', 3, 23, '2002-04-18 00:00:00', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
-('a131', 7, 41, '2003-03-23 00:00:00', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
-('a17', 4, 4, '2003-05-21 00:00:00', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12 00:00:00', 3, NULL, NULL, NULL, 'D'),
-('t60', 5, 52, '2022-11-29 00:00:00', 'RAS', NULL, '2022-11-30 00:00:00', 1, NULL, 'BITALV', NULL, 'D'),
-('t60', 6, 52, '2022-11-29 00:00:00', 'RAS doublon', NULL, '2022-11-30 00:00:00', 1, NULL, 'BITALV', NULL, 'D'),
-('t60', 7, 8, NULL, NULL, NULL, '2022-12-07 00:00:00', 2, NULL, NULL, NULL, 'A');
+('a131', 3, 23, '2002-04-18', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
+('a131', 7, 41, '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
+('a17', 4, 4, '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
+('t60', 5, 52, '2022-11-29', 'RAS', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D'),
+('t60', 6, 52, '2022-11-29', 'RAS doublon', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D'),
+('t60', 7, 8, NULL, NULL, NULL, '2022-12-07', 2, NULL, NULL, NULL, 'A'),
+('t60', 8, 38, '2023-01-09', NULL, 'Baisse activité', '2023-01-10', 3, NULL, NULL, NULL, 'A'),
+('t60', 9, 9, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'BITALV', NULL, 'A'),
+('t60', 10, 37, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'DORNOM8', 'APATOUX22', 'D');
 
 -- --------------------------------------------------------
 
@@ -555,9 +670,9 @@ INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVI
 
 DROP TABLE IF EXISTS `region`;
 CREATE TABLE IF NOT EXISTS `region` (
-  `REG_CODE` varchar(2) NOT NULL,
-  `REG_NOM` varchar(50) DEFAULT NULL,
-  `SEC_CODE` varchar(1) NOT NULL,
+  `REG_CODE` varchar(2) COLLATE utf8mb3_bin NOT NULL,
+  `REG_NOM` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
+  `SEC_CODE` varchar(1) COLLATE utf8mb3_bin NOT NULL,
   PRIMARY KEY (`REG_CODE`),
   KEY `region_secteur0_FK` (`SEC_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
@@ -598,8 +713,8 @@ INSERT INTO `region` (`REG_CODE`, `REG_NOM`, `SEC_CODE`) VALUES
 
 DROP TABLE IF EXISTS `secteur`;
 CREATE TABLE IF NOT EXISTS `secteur` (
-  `SEC_CODE` varchar(1) NOT NULL,
-  `SEC_LIBELLE` varchar(15) DEFAULT NULL,
+  `SEC_CODE` varchar(1) COLLATE utf8mb3_bin NOT NULL,
+  `SEC_LIBELLE` varchar(15) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`SEC_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
@@ -625,7 +740,7 @@ CREATE TABLE IF NOT EXISTS `specialite` (
   `SPE_CODE` varchar(5) NOT NULL,
   `SPE_LIBELLE` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`SPE_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `specialite`
@@ -691,7 +806,7 @@ CREATE TABLE IF NOT EXISTS `travailler` (
   PRIMARY KEY (`COL_MATRICULE`,`REG_CODE`),
   KEY `COL_MATRICULE` (`COL_MATRICULE`),
   KEY `REG_CODE` (`REG_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `travailler`
@@ -772,8 +887,8 @@ INSERT INTO `travailler` (`COL_MATRICULE`, `REG_CODE`, `TRA_ROLE`) VALUES
 
 DROP TABLE IF EXISTS `type_individu`;
 CREATE TABLE IF NOT EXISTS `type_individu` (
-  `TIN_CODE` varchar(5) NOT NULL,
-  `TIN_LIBELLE` varchar(50) DEFAULT NULL,
+  `TIN_CODE` varchar(5) COLLATE utf8mb3_bin NOT NULL,
+  `TIN_LIBELLE` varchar(50) COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`TIN_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
 
@@ -789,7 +904,7 @@ CREATE TABLE IF NOT EXISTS `type_praticien` (
   `TYP_LIBELLE` varchar(25) DEFAULT NULL,
   `TYP_LIEU` varchar(35) DEFAULT NULL,
   PRIMARY KEY (`TYP_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `type_praticien`
@@ -858,8 +973,7 @@ ALTER TABLE `posseder`
 -- Contraintes pour la table `praticien`
 --
 ALTER TABLE `praticien`
-  ADD CONSTRAINT `FK_praticien_type_praticien` FOREIGN KEY (`TYP_CODE`) REFERENCES `type_praticien` (`TYP_CODE`),
-  ADD CONSTRAINT `praticien_region0_fk` FOREIGN KEY (`REG_CODE`) REFERENCES `region` (`REG_CODE`);
+  ADD CONSTRAINT `FK_praticien_type_praticien` FOREIGN KEY (`TYP_CODE`) REFERENCES `type_praticien` (`TYP_CODE`);
 
 --
 -- Contraintes pour la table `prescrire`
