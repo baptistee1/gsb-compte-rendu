@@ -197,7 +197,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
 }
 
 /**
- * Undocumented function
+ * Permet de savoir si un rapport de visite non définitif existe dans la base de données
  *
  * @return boolean
  */
@@ -219,6 +219,41 @@ function existeRapNonDef(): bool
     }
     catch(PDOException $e)
     {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
+/**
+ * Fonction permettant de récupérer tous les rapports de visite en fonction d'un matricule
+ *
+ * @param string $matricule le matricule
+ * @return array le tableau contenant la liste des rapports de visite trouvés
+ */
+function getRapportsVisitesNDF(string $matricule){
+
+    try{
+        $monPdo=connexionPDO();
+        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+        INNER JOIN praticien p
+        ON r.PRA_NUM=p.PRA_NUM
+        INNER JOIN motifs m
+        ON r.MOT_ID = m.MOT_ID
+        LEFT JOIN medicament med1
+        ON r.MED_DEPOTLEGAL_1 = med1.MED_DEPOTLEGAL
+        LEFT JOIN medicament med2
+        ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
+        WHERE COL_MATRICULE = :matricule AND STATUS = :carac';
+        
+        $req=$monPdo->prepare($ch);
+        $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
+        $req->bindValue(':carac',"A",PDO::PARAM_STR_CHAR);
+        $req->execute();
+
+        $res=$req->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+    catch (PDOException $e){
         print "Erreur !: " . $e->getMessage();
         die();
     }

@@ -18,7 +18,7 @@
 
             <form action="index.php?uc=rapports&action=afficherRapportNonDefinitif" method="post" class="formulaire-recherche col-12 m-0">
                     <label class="titre-formulaire" for="listepratic">Vos rapports de visite :</label>
-                        <p>Veuiilez choisir une fourchette :</p>
+                        <p>Veuilez choisir une fourchette :</p>
                         <input type="date" name=date1>
                         <input type="date" name=date2>
 

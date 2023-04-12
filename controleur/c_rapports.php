@@ -51,10 +51,29 @@ switch ($action) {
 
             var_dump($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
         }
+
+        // s'il existe des rapports non définitif renvoie vers une page qui les affiche
+        if (existeRapNonDef())
+        {
+            $redirection = "choisirRappNDF";
+        } else {
+            $redirection = "saisirRapp";
+        }
         include("vues/v_choixRapport.php");
         break;
     }
     
+    case 'choisirRappNDF' :
+    {
+        $matricule = $_SESSION['matricule'];
+        // $motifs = getMotifs();
+        // $praticiens = getAllNomPraticien();
+        // $medicaments = getAllNomMedicament();
+        $rapports = getRapportsVisitesNDF($matricule);
+        include("vues/v_choisirRappNonDef.php");
+        break;
+    }
+
     case 'saisirRapp' :
     {
         $matricule = $_SESSION['matricule'];
@@ -88,7 +107,6 @@ switch ($action) {
 
     case 'afficherRapport' :
     {
-
         $date1=$_REQUEST['date1'];
         $date2=$_REQUEST['date2'];
         $matricule=$_SESSION['matricule'];
@@ -106,7 +124,6 @@ switch ($action) {
 
     case 'afficherRapportNonDefinitif' :
         {
-    
             $date1=$_REQUEST['date1'];
             $date2=$_REQUEST['date2'];
             $matricule=$_SESSION['matricule'];
