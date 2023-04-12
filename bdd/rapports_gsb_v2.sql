@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mer. 12 avr. 2023 à 12:42
+-- Généré le : mer. 12 avr. 2023 à 15:09
 -- Version du serveur : 10.6.5-MariaDB
 -- Version de PHP : 8.0.13
 
@@ -116,7 +116,7 @@ INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRE
 ('t43', 'Souron', 'Maryse', '7B r Gay Lussac', '21000', 'DIJON', '1995-03-09 00:00:00', 1, NULL, NULL, NULL),
 ('t47', 'Tiphagne', 'Patrick', '7B r Gay Lussac', '62000', 'ARRAS', '1997-08-29 00:00:00', 1, NULL, NULL, NULL),
 ('t55', 'Tréhet', 'Alain', '7D chem Barral', '12000', 'RODEZ', '1994-11-29 00:00:00', 1, NULL, NULL, NULL),
-('t60', 'Tusseau', 'Josselin', '63 r Bon Repos', '28000', 'CHARTRES', '1991-03-29 00:00:00', 3, 67, NULL, 'CE'),
+('t60', 'Tusseau', 'Josselin', '63 r Bon Repos', '28000', 'CHARTRES', '1991-03-29 00:00:00', 3, 67, NULL, 'RO'),
 ('zzz', 'swiss', 'bourdin', NULL, NULL, NULL, '2003-06-18 00:00:00', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -457,6 +457,18 @@ CREATE TABLE IF NOT EXISTS `offrir` (
   KEY `COL_MATRICULE` (`COL_MATRICULE`,`RAP_NUM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
+--
+-- Déchargement des données de la table `offrir`
+--
+
+INSERT INTO `offrir` (`COL_MATRICULE`, `RAP_NUM`, `MED_DEPOTLEGAL`, `OFF_QTE`) VALUES
+('a55', 1, 'BACTIV13', 3),
+('a55', 1, 'DOLRIL7', 1),
+('t60', 11, 'ADIMOL9', 4),
+('t60', 11, 'BACTIG10', 5),
+('t60', 11, 'DORNOM8', 1),
+('t60', 11, 'INSXT5', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -638,6 +650,7 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
   `MED_DEPOTLEGAL_1` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `MED_DEPOTLEGAL_2` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   `STATUS` char(1) NOT NULL,
+  `RAP_ETAT` char(1) DEFAULT NULL,
   PRIMARY KEY (`COL_MATRICULE`,`RAP_NUM`),
   KEY `PRA_NUM` (`PRA_NUM`),
   KEY `COL_MATRICULE` (`COL_MATRICULE`),
@@ -651,16 +664,18 @@ CREATE TABLE IF NOT EXISTS `rapport_visite` (
 -- Déchargement des données de la table `rapport_visite`
 --
 
-INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`, `STATUS`) VALUES
-('a131', 3, 23, '2002-04-18', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
-('a131', 7, 41, '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
-('a17', 4, 4, '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12', 3, NULL, NULL, NULL, 'D'),
-('t60', 5, 52, '2022-11-29', 'RAS', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D'),
-('t60', 6, 52, '2022-11-29', 'RAS doublon', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D'),
-('t60', 7, 8, NULL, NULL, NULL, '2022-12-07', 2, NULL, NULL, NULL, 'A'),
-('t60', 8, 38, '2023-01-09', NULL, 'Baisse activité', '2023-01-10', 3, NULL, NULL, NULL, 'A'),
-('t60', 9, 9, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'BITALV', NULL, 'A'),
-('t60', 10, 37, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'DORNOM8', 'APATOUX22', 'D');
+INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVISITE`, `RAP_BILAN`, `RAP_MOTIFAUTRE`, `RAP_DATESAISIE`, `MOT_ID`, `PRA_NUM_REMP`, `MED_DEPOTLEGAL_1`, `MED_DEPOTLEGAL_2`, `STATUS`, `RAP_ETAT`) VALUES
+('a131', 3, 23, '2002-04-18', 'Médecin curieux, à recontacer en décembre pour réunion', 'Actualisation annuelle', '2022-10-12', 3, NULL, NULL, NULL, 'D', 'N'),
+('a131', 7, 41, '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12', 3, NULL, NULL, NULL, 'D', 'N'),
+('a17', 4, 4, '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12', 3, NULL, NULL, NULL, 'D', 'N'),
+('a55', 1, 8, '2023-04-12', NULL, 'test', '2023-04-12', 3, NULL, 'BACTIV13', 'DOLRIL7', 'D', NULL),
+('t60', 5, 52, '2022-11-29', 'RAS', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D', 'N'),
+('t60', 6, 52, '2022-11-29', 'RAS doublon', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D', 'N'),
+('t60', 7, 8, NULL, NULL, NULL, '2022-12-07', 2, NULL, NULL, NULL, 'A', 'N'),
+('t60', 8, 38, '2023-01-09', NULL, 'Baisse activité', '2023-01-10', 3, NULL, NULL, NULL, 'A', 'N'),
+('t60', 9, 9, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'BITALV', NULL, 'A', 'N'),
+('t60', 10, 37, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'DORNOM8', 'APATOUX22', 'D', 'N'),
+('t60', 11, 70, '2023-04-12', 'SUPER', 'qsdfghjklmù', '2023-04-12', 3, NULL, 'BACTIV13', 'TXISOL22', 'D', NULL);
 
 -- --------------------------------------------------------
 
