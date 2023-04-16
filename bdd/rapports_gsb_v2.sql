@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : dim. 16 avr. 2023 à 14:38
+-- Généré le : dim. 16 avr. 2023 à 14:55
 -- Version du serveur : 10.10.2-MariaDB
 -- Version de PHP : 8.0.26
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
 INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRESSE`, `COL_CP`, `COL_VILLE`, `COL_DATEEMBAUCHE`, `HAB_ID`, `LOG_ID`, `SEC_CODE`, `REG_CODE`) VALUES
 ('a131', 'Villechalane', 'Louis', '8 cours Lafontaine', '29000', 'BREST', '1992-12-11 00:00:00', 1, 1, 'E', 'BN'),
 ('a17', 'Andre', 'David', '1 r Aimon de Chissée', '38100', 'GRENOBLE', '1991-08-26 00:00:00', 1, 2, NULL, 'RA'),
-('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'RO'),
+('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'BG'),
 ('a93', 'Tusseau', 'Louis', '22 r Renou', '86000', 'POITIERS', '1999-01-02 00:00:00', 2, 4, NULL, 'PC'),
 ('b13', 'Bentot', 'Pascal', '11 av 6 Juin', '67000', 'STRASBOURG', '1996-03-11 00:00:00', 1, NULL, NULL, NULL),
 ('b16', 'Bioret', 'Luc', '1 r Linne', '35000', 'RENNES', '1997-03-21 00:00:00', 1, NULL, NULL, NULL),
@@ -506,8 +506,8 @@ CREATE TABLE IF NOT EXISTS `praticien` (
   `PRA_COEFPRESCRIPTION` float NOT NULL DEFAULT 0,
   `REG_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
   PRIMARY KEY (`PRA_NUM`),
-  KEY `TYP_CODE` (`TYP_CODE`),
-  KEY `FK_praticien_region` (`REG_CODE`)
+  KEY `FK_praticien_region` (`REG_CODE`),
+  KEY `TYP_CODE` (`TYP_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -515,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `praticien` (
 --
 
 INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA_CP`, `PRA_VILLE`, `PRA_COEFNOTORIETE`, `TYP_CODE`, `PRA_COEFFCONFIANCE`, `PRA_COEFPRESCRIPTION`, `REG_CODE`) VALUES
-(1, 'Notini', 'Alain', '114 r Authie', '85000', 'LA ROCHE SUR YON', 290.03, 'MH', 0, 0, 'BG'),
+(1, 'Notini', 'Alain', '114 rue Authie', '45000', 'LA ROCHE SUR YON', 290.03, 'MV', 1, 3, 'BG'),
 (2, 'Gosselin', 'Albert', '13 r Devon', '41000', 'BLOIS', 307.49, 'MV', 0, 0, 'CE'),
 (3, 'Delahaye', 'André', '36 av 6 Juin', '25000', 'BESANCON', 185.79, 'PS', 0, 0, 'BO'),
 (4, 'Leroux', 'André', '47 av Robert Schuman', '60000', 'BEAUVAIS', 172.04, 'PH', 0, 0, 'PI'),
@@ -991,7 +991,8 @@ ALTER TABLE `posseder`
 --
 ALTER TABLE `praticien`
   ADD CONSTRAINT `FK_praticien_region` FOREIGN KEY (`REG_CODE`) REFERENCES `region` (`REG_CODE`),
-  ADD CONSTRAINT `FK_praticien_type_praticien` FOREIGN KEY (`TYP_CODE`) REFERENCES `type_praticien` (`TYP_CODE`);
+  ADD CONSTRAINT `FK_praticien_type_praticien` FOREIGN KEY (`TYP_CODE`) REFERENCES `type_praticien` (`TYP_CODE`),
+  ADD CONSTRAINT `praticien_ibfk_1` FOREIGN KEY (`TYP_CODE`) REFERENCES `type_praticien` (`TYP_CODE`);
 
 --
 -- Contraintes pour la table `prescrire`
