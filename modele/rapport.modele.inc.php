@@ -9,11 +9,12 @@ include_once 'bd.inc.php';
  * @param String $matricule
  * @return $res la liste des rapports de visite
  */
-function getRapportVisite($date1,$date2,$matricule,$pranum,$char){
+function getRapportVisite($date1, $date2, $matricule, $pranum, $char)
+{
 
-    try{
-        $monPdo=connexionPDO();
-        $ch='SELECT RAP_NUM, r.PRA_NUM,p.PRA_NOM, MOT_libelle, RAP_DATESAISIE,MED_DEPOTLEGAL_1, med1.MED_NOMCOMMERCIAL as nomMed1, MED_DEPOTLEGAL_2, med2.MED_NOMCOMMERCIAL as nomMed2 FROM rapport_visite r
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT RAP_NUM, r.PRA_NUM,p.PRA_NOM, MOT_libelle, RAP_DATESAISIE,MED_DEPOTLEGAL_1, med1.MED_NOMCOMMERCIAL as nomMed1, MED_DEPOTLEGAL_2, med2.MED_NOMCOMMERCIAL as nomMed2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs mo
@@ -23,39 +24,76 @@ function getRapportVisite($date1,$date2,$matricule,$pranum,$char){
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2=med2.MED_DEPOTLEGAL
         WHERE COL_MATRICULE= :matricule AND STATUS= :carac ';
-        if(!empty($pranum))
-        {
-            $ch = $ch.'AND r.PRA_NUM=:pranum ';
+        if (!empty($pranum)) {
+            $ch = $ch . 'AND r.PRA_NUM=:pranum ';
         }
-        if(!empty($date1)&& !empty($date2))
-        {
-            $ch= $ch.'AND RAP_DATESAISIE BETWEEN :date1 AND :date2 ';
-        }
-        
-        $req=$monPdo->prepare($ch);
-        $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
-        $req->bindValue(':carac',$char,PDO::PARAM_STR_CHAR);
-        if(!empty($pranum))
-        {
-            $req->bindValue(':pranum',$pranum,PDO::PARAM_INT);
-        }
-        if(!empty($date1)&& !empty($date2))
-        {
-            $req->bindValue(':date1',$date1,PDO::PARAM_STR);
-            $req->bindValue(':date2',$date2,PDO::PARAM_STR);
+        if (!empty($date1) && !empty($date2)) {
+            $ch = $ch . 'AND RAP_DATESAISIE BETWEEN :date1 AND :date2 ';
         }
 
-        
-        
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':carac', $char, PDO::PARAM_STR_CHAR);
+        if (!empty($pranum)) {
+            $req->bindValue(':pranum', $pranum, PDO::PARAM_INT);
+        }
+        if (!empty($date1) && !empty($date2)) {
+            $req->bindValue(':date1', $date1, PDO::PARAM_STR);
+            $req->bindValue(':date2', $date2, PDO::PARAM_STR);
+        }
+
+
+
         $req->execute();
-        $res=$req->fetchAll(PDO::FETCH_ASSOC);
+        $res = $req->fetchAll(PDO::FETCH_ASSOC);
         return $res;
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
+}
 
+
+function getHistoriqueRegion($date1, $date2, $matricule, $region)
+{
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT RAP_DATEVISITE, RAP_NUM, r.PRA_NUM, PRA_NOM, COL_NOM, MOT_LIBELLE, MED_DEPOTLEGAL_1, med1.MED_NOMCOMMERCIAL as nomMed1, MED_DEPOTLEGAL_2, med2.MED_NOMCOMMERCIAL as nomMed2 FROM rapport_visite r
+        INNER JOIN praticien p
+        ON r.PRA_NUM=p.PRA_NUM
+        INNER JOIN collaborateur c 
+        ON r.COL_MATRICULE=c.COL_MATRICULE
+        INNER JOIN motifs m 
+        ON r.MOT_ID=m.MOT_ID
+        LEFT JOIN medicament med1
+                ON r.MED_DEPOTLEGAL_1=med1.MED_DEPOTLEGAL
+                LEFT JOIN medicament med2
+                ON r.MED_DEPOTLEGAL_2=med2.MED_DEPOTLEGAL
+        WHERE c.REG_CODE=:region ';
+        if (!empty($matricule)) {
+            $ch = $ch . 'AND  r.COL_MATRICULE=:matricule';
+        }
+        if (!empty($date1) && !empty($date2)) {
+            $ch = $ch . 'AND RAP_DATESAISIE BETWEEN :date1 AND :date2 ';
+        }
+
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':region', $region, PDO::PARAM_STR);
+        if (!empty($matricule)) {
+            $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        }
+        if (!empty($date1) && !empty($date2)) {
+            $req->bindValue(':date1', $date1, PDO::PARAM_STR);
+            $req->bindValue(':date2', $date2, PDO::PARAM_STR);
+        }
+
+        $req->execute();
+        $res = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
 }
 
 /**
@@ -66,16 +104,13 @@ function getRapportVisite($date1,$date2,$matricule,$pranum,$char){
 function getMotifs()
 {
     try {
-        $monPdo=connexionPDO();
+        $monPdo = connexionPDO();
 
         $req = 'SELECT MOT_ID, MOT_LIBELLE FROM motifs';
         $res = $monPdo->query($req);
         $motifs = $res->fetchAll(PDO::FETCH_ASSOC);
         return $motifs;
-
-    }
-    catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -89,7 +124,7 @@ function getMotifs()
  */
 function testValeurNulle(string $key)
 {
-    if(empty($_POST[$key])) {
+    if (empty($_POST[$key])) {
         $result = NULL;
     } else {
         $result = $_POST[$key];
@@ -105,15 +140,13 @@ function testValeurNulle(string $key)
 function getNbRapByIdCol($idCol)
 {
     try {
-        $monPdo=connexionPDO();
+        $monPdo = connexionPDO();
         $req = $monPdo->prepare('SELECT MAX(RAP_NUM) FROM rapport_visite WHERE COL_MATRICULE = :idCol');
         $req->bindValue(':idCol', $idCol, PDO::PARAM_STR);
         $req->execute();
         $matricule = $req->fetch(PDO::FETCH_ASSOC);
         return $matricule;
-    }
-    catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -136,7 +169,7 @@ function getNbRapByIdCol($idCol)
 function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def)
 {
     try {
-        $monPdo=connexionPDO();
+        $monPdo = connexionPDO();
 
         $numRap = getNbRapByIdCol($matricule);  //numéro du dernier rapport de visite
         $numRap['MAX(RAP_NUM)'] += 1;
@@ -147,40 +180,34 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
         $req->bindValue(':numRapport', $numRap['MAX(RAP_NUM)'], PDO::PARAM_INT);
         $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
-        if(empty($dateVisite))
-        {
+        if (empty($dateVisite)) {
             $req->bindValue(':dateVisite', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
         }
-        if(empty($bilan))
-        {
+        if (empty($bilan)) {
             $req->bindValue(':bilan', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
         }
-        if(empty($motifAutre))
-        {
+        if (empty($motifAutre)) {
             $req->bindValue(':motifAutre', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':motifAutre', $motifAutre, PDO::PARAM_STR);
         }
         $req->bindValue(':dateSaisie', $dateSaisie, PDO::PARAM_STR);
         $req->bindValue(':motif', $motif, PDO::PARAM_INT);
-        if(empty($praticienRemp))
-        {
+        if (empty($praticienRemp)) {
             $req->bindValue(':praticienRemp', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':praticienRemp', $praticienRemp, PDO::PARAM_INT);
         }
-        if(empty($medicament1))
-        {
+        if (empty($medicament1)) {
             $req->bindValue(':med1', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':med1', $medicament1, PDO::PARAM_STR);
         }
-        if(empty($medicament2))
-        {
+        if (empty($medicament2)) {
             $req->bindValue(':med2', null, PDO::PARAM_NULL);
         } else {
             $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
@@ -190,9 +217,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
 
         return $numRap['MAX(RAP_NUM)'];
-    }
-    catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -201,7 +226,7 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
 function insertEchs($matricule, $idR, $medDepolegal, $qte)
 {
     try {
-        $monPdo=connexionPDO();
+        $monPdo = connexionPDO();
         //insertion dans la table offrir
         $req = $monPdo->prepare('INSERT INTO offrir (COL_MATRICULE, RAP_NUM, MED_DEPOTLEGAL, OFF_QTE)
         VALUES (:matricule, :numRapp, :depolegal, :quantite)');
@@ -213,9 +238,7 @@ function insertEchs($matricule, $idR, $medDepolegal, $qte)
 
         $req->execute();
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
-    }
-    catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -229,21 +252,19 @@ function insertEchs($matricule, $idR, $medDepolegal, $qte)
 function existeRapNonDef(): bool
 {
     try {
-        $requete='SELECT COUNT(COL_MATRICULE) FROM rapport_visite WHERE STATUS = "A" GROUP BY COL_MATRICULE;';
-        $monPdo=connexionPDO();
+        $requete = 'SELECT COUNT(COL_MATRICULE) FROM rapport_visite WHERE STATUS = "A" GROUP BY COL_MATRICULE;';
+        $monPdo = connexionPDO();
         $req = $monPdo->prepare($requete);
         $res = $req->execute();
 
         $reussite = $req->fetch(PDO::FETCH_ASSOC);
-        if ($reussite > 0){
+        if ($reussite > 0) {
             $result = true;
         } else {
             $result = false;
         }
-        return $result;        
-    }
-    catch(PDOException $e)
-    {
+        return $result;
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -255,11 +276,12 @@ function existeRapNonDef(): bool
  * @param string $matricule le matricule
  * @return array le tableau contenant la liste des rapports de visite trouvés
  */
-function getRapportsVisitesNDF(string $matricule){
+function getRapportsVisitesNDF(string $matricule)
+{
 
-    try{
-        $monPdo=connexionPDO();
-        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs m
@@ -269,16 +291,15 @@ function getRapportsVisitesNDF(string $matricule){
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
         WHERE COL_MATRICULE = :matricule AND STATUS = :carac';
-        
+
         $req = $monPdo->prepare($ch);
-        $req->bindValue(':matricule',$matricule,PDO::PARAM_STR);
-        $req->bindValue(':carac',"A",PDO::PARAM_STR_CHAR);
+        $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':carac', "A", PDO::PARAM_STR_CHAR);
         $req->execute();
 
         $res = $req->fetchAll(PDO::FETCH_ASSOC);
         return $res;
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -292,9 +313,9 @@ function getRapportsVisitesNDF(string $matricule){
  */
 function getRapportVisiteById(int $idR)
 {
-    try{
-        $monPdo=connexionPDO();
-        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs m
@@ -304,15 +325,14 @@ function getRapportVisiteById(int $idR)
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
         WHERE RAP_NUM = :id';
-        
+
         $req = $monPdo->prepare($ch);
-        $req->bindValue(':id',$idR,PDO::PARAM_INT);
+        $req->bindValue(':id', $idR, PDO::PARAM_INT);
         $req->execute();
 
         $res = $req->fetch(PDO::FETCH_ASSOC);
         return $res;
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -326,21 +346,20 @@ function getRapportVisiteById(int $idR)
  */
 function getRegByLogId($login)
 {
-    try{
-        $monPdo=connexionPDO();
-        $ch='SELECT REG_CODE FROM collaborateur c
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT REG_CODE FROM collaborateur c
             INNER JOIN login l
             ON c.LOG_ID = l.LOG_ID
             WHERE l.LOG_ID = :login';
-        
+
         $req = $monPdo->prepare($ch);
-        $req->bindValue(':login',$login,PDO::PARAM_STR);
+        $req->bindValue(':login', $login, PDO::PARAM_STR);
         $req->execute();
 
         $res = $req->fetch(PDO::FETCH_ASSOC);
         return $res;
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
@@ -354,9 +373,9 @@ function getRegByLogId($login)
  */
 function getRapportVisiteByReg($region)
 {
-    try{
-        $monPdo=connexionPDO();
-        $ch='SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs m
@@ -369,18 +388,37 @@ function getRapportVisiteByReg($region)
         ON r.COL_MATRICULE = c.COL_MATRICULE
         WHERE c.REG_CODE = :region AND RAP_ETAT = "N"
         ORDER BY r.RAP_DATEVISITE';
-        
+
         $req = $monPdo->prepare($ch);
-        $req->bindValue(':region',$region,PDO::PARAM_STR);
+        $req->bindValue(':region', $region, PDO::PARAM_STR);
         $req->execute();
 
         $res = $req->fetchAll(PDO::FETCH_ASSOC);
         return $res;
-    }
-    catch (PDOException $e){
+    } catch (PDOException $e) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
 }
 
-?>
+
+
+
+function getVisiteurReg($region)
+{
+    try {
+        $monPdo = connexionPDO();
+        $ch = 'SELECT r.COL_MATRICULE,COL_NOM,COL_PRENOM FROM collaborateur c 
+        INNER JOIN rapport_visite r ON c.COL_MATRICULE=r.COL_MATRICULE WHERE HAB_ID=1 AND REG_CODE=:region';
+
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':region', $region, PDO::PARAM_STR);
+        $req->execute();
+
+        $res = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}

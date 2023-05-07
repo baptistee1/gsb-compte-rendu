@@ -70,3 +70,5 @@
 <script src="assets/js/isotope.pkgd.js"></script>
 
 <script src="assets/js/custom.js"></script>
+
+<script src="assets/js/js_medecin.js"></script>

@@ -19,7 +19,7 @@
                 <form action="index.php?uc=praticiens&action=afficherpratic" method="post" class="formulaire-recherche col-12 m-0">
                     <label class="titre-formulaire" for="listepratic">Praticiens disponible :</label>
                     <select required name="praticien" class="form-select mt-3">
-                        <option value class="text-center">- Choisissez un praticiens -</option>
+                        <option hidden class="text-center">- Choisissez un praticiens -</option>
                         <?php
                         foreach ($result as $key) {
                             echo '<option value="' . $key['PRA_NOM'] . '" class="form-control">' . $key['PRA_NOM'] . ' - ' . $key['PRA_PRENOM'] . '</option>';

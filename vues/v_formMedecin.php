@@ -15,15 +15,17 @@
                 <form action="index.php?uc=m%C3%A9decins&action=gererMedecin" method="post" class="formulaire-recherche col-12 m-0">
                     <label class="titre-formulaire" for="listepratic">Vos medecins:</label>
 
-                    <select name="medecin" class="form-select mt-3">
-                        <option hidden class="text-center">- Choisissez un medecin -</option>
+                    <select name="medecin" class="form-select mt-3" required>
+                        <option value="" class="text-center" hidden>Choisissez un medecin</option>
                         <?php
-foreach ($result as $key) {
-    echo '<option value="' . $key['PRA_NUM'] . '" class="form-control">' . $key['PRA_NOM'] . ' - ' . $key['PRA_PRENOM'] . '</option>';
-}
-?>
+                        foreach ($result as $key) {
+                            echo '<option value="' . $key['PRA_NUM'] . '" class="form-control">' . $key['PRA_NOM'] . ' - ' . $key['PRA_PRENOM'] . '</option>';
+                        }
+                        ?>
                     </select>
                     <input class="btn btn-info text-light valider" type="submit" value="Gérer">
+                    <a href="index.php?uc=médecins&action=creerMedecin">Créer un nouveau médecin</a>
                 </form>
+
             </div>
 </section>
