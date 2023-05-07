@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : dim. 16 avr. 2023 à 14:55
+-- Généré le : dim. 07 mai 2023 à 23:46
 -- Version du serveur : 10.10.2-MariaDB
 -- Version de PHP : 8.0.26
 
@@ -55,18 +55,18 @@ INSERT INTO `collaborateur` (`COL_MATRICULE`, `COL_NOM`, `COL_PRENOM`, `COL_ADRE
 ('a17', 'Andre', 'David', '1 r Aimon de Chissée', '38100', 'GRENOBLE', '1991-08-26 00:00:00', 1, 2, NULL, 'RA'),
 ('a55', 'Bedos', 'Christian', '1 r Bénédictins', '65000', 'TARBES', '1987-07-17 00:00:00', 2, 3, NULL, 'BG'),
 ('a93', 'Tusseau', 'Louis', '22 r Renou', '86000', 'POITIERS', '1999-01-02 00:00:00', 2, 4, NULL, 'PC'),
-('b13', 'Bentot', 'Pascal', '11 av 6 Juin', '67000', 'STRASBOURG', '1996-03-11 00:00:00', 1, NULL, NULL, NULL),
-('b16', 'Bioret', 'Luc', '1 r Linne', '35000', 'RENNES', '1997-03-21 00:00:00', 1, NULL, NULL, NULL),
-('b19', 'Bunisset', 'Francis', '10 r Nicolas Chorier', '85000', 'LA ROCHE SUR YON', '1999-01-31 00:00:00', 1, NULL, NULL, NULL),
-('b25', 'Bunisset', 'Denise', '1 r Lionne', '49100', 'ANGERS', '1994-07-03 00:00:00', 1, NULL, NULL, NULL),
-('b28', 'Cacheux', 'Bernard', '114 r Authie', '34000', 'MONTPELLIER', '2000-08-02 00:00:00', 1, NULL, NULL, NULL),
-('b34', 'Cadic', 'Eric', '123 r Caponière', '41000', 'BLOIS', '1993-12-06 00:00:00', 1, NULL, 'P', NULL),
-('b4', 'Charoze', 'Catherine', '100 pl Géants', '33000', 'BORDEAUX', '1997-09-25 00:00:00', 1, NULL, NULL, NULL),
+('b13', 'Bentot', 'Pascal', '11 av 6 Juin', '67000', 'STRASBOURG', '1996-03-11 00:00:00', 1, NULL, NULL, 'BG'),
+('b16', 'Bioret', 'Luc', '1 r Linne', '35000', 'RENNES', '1997-03-21 00:00:00', 1, NULL, NULL, 'BG'),
+('b19', 'Bunisset', 'Francis', '10 r Nicolas Chorier', '85000', 'LA ROCHE SUR YON', '1999-01-31 00:00:00', 1, NULL, NULL, 'BG'),
+('b25', 'Bunisset', 'Denise', '1 r Lionne', '49100', 'ANGERS', '1994-07-03 00:00:00', 1, NULL, NULL, 'BG'),
+('b28', 'Cacheux', 'Bernard', '114 r Authie', '34000', 'MONTPELLIER', '2000-08-02 00:00:00', 1, NULL, NULL, 'BG'),
+('b34', 'Cadic', 'Eric', '123 r Caponière', '41000', 'BLOIS', '1993-12-06 00:00:00', 1, NULL, 'P', 'BG'),
+('b4', 'Charoze', 'Catherine', '100 pl Géants', '33000', 'BORDEAUX', '1997-09-25 00:00:00', 1, NULL, NULL, 'BG'),
 ('b50', 'Clepkens', 'Christophe', '12 r Fédérico Garcia Lorca', '13000', 'MARSEILLE', '1998-01-18 00:00:00', 1, NULL, NULL, NULL),
 ('b59', 'Cottin', 'Vincenne', '36 sq Capucins', '5000', 'GAP', '1995-10-21 00:00:00', 1, NULL, NULL, NULL),
 ('c14', 'Daburon', 'François', '13 r Champs Elysées', '6000', 'NICE', '1989-02-01 00:00:00', 1, NULL, NULL, NULL),
 ('c3', 'De', 'Philippe', '13 r Charles Peguy', '10000', 'TROYES', '1992-05-05 00:00:00', 1, NULL, NULL, NULL),
-('c54', 'Debelle', 'Michel', '181 r Caponière', '88000', 'EPINAL', '1991-04-09 00:00:00', 1, NULL, NULL, NULL),
+('c54', 'Debelle', 'Michel', '181 r Caponière', '88000', 'EPINAL', '1991-04-09 00:00:00', 1, NULL, NULL, 'BG'),
 ('d13', 'Debelle', 'Jeanne', '134 r Stalingrad', '44000', 'NANTES', '1991-12-05 00:00:00', 1, NULL, NULL, NULL),
 ('d51', 'Debroise', 'Michel', '2 av 6 Juin', '70000', 'VESOUL', '1997-11-18 00:00:00', 1, NULL, 'E', NULL),
 ('e22', 'Desmarquest', 'Nathalie', '14 r Fédérico Garcia Lorca', '54000', 'NANCY', '1989-03-24 00:00:00', 1, NULL, NULL, NULL),
@@ -479,12 +479,23 @@ DROP TABLE IF EXISTS `posseder`;
 CREATE TABLE IF NOT EXISTS `posseder` (
   `PRA_NUM` int(11) NOT NULL,
   `SPE_CODE` varchar(5) NOT NULL,
-  `POS_DIPLOME` varchar(10) DEFAULT NULL,
+  `POS_DIPLOME` varchar(50) DEFAULT NULL,
   `POS_COEFPRESCRIPTION` float DEFAULT NULL,
   PRIMARY KEY (`PRA_NUM`,`SPE_CODE`),
   KEY `PRA_NUM` (`PRA_NUM`),
   KEY `SPE_CODE` (`SPE_CODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Déchargement des données de la table `posseder`
+--
+
+INSERT INTO `posseder` (`PRA_NUM`, `SPE_CODE`, `POS_DIPLOME`, `POS_COEFPRESCRIPTION`) VALUES
+(1, 'ACP', NULL, NULL),
+(21, 'ACP', NULL, NULL),
+(21, 'ETD', NULL, NULL),
+(89, 'ACP', NULL, NULL),
+(89, 'AMV', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -501,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `praticien` (
   `PRA_CP` varchar(5) DEFAULT NULL,
   `PRA_VILLE` varchar(25) DEFAULT NULL,
   `PRA_COEFNOTORIETE` float DEFAULT NULL,
-  `TYP_CODE` varchar(3) NOT NULL,
+  `TYP_CODE` varchar(3) DEFAULT NULL,
   `PRA_COEFFCONFIANCE` float NOT NULL DEFAULT 0,
   `PRA_COEFPRESCRIPTION` float NOT NULL DEFAULT 0,
   `REG_CODE` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL,
@@ -515,13 +526,13 @@ CREATE TABLE IF NOT EXISTS `praticien` (
 --
 
 INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA_CP`, `PRA_VILLE`, `PRA_COEFNOTORIETE`, `TYP_CODE`, `PRA_COEFFCONFIANCE`, `PRA_COEFPRESCRIPTION`, `REG_CODE`) VALUES
-(1, 'Notini', 'Alain', '114 rue Authie', '45000', 'LA ROCHE SUR YON', 290.03, 'MV', 1, 3, 'BG'),
+(1, 'Notini', 'Alain', '114 rue Authie', '45000', 'LA ROCHE SUR YON', 290.03, 'MV', 3.8, 3, 'BG'),
 (2, 'Gosselin', 'Albert', '13 r Devon', '41000', 'BLOIS', 307.49, 'MV', 0, 0, 'CE'),
 (3, 'Delahaye', 'André', '36 av 6 Juin', '25000', 'BESANCON', 185.79, 'PS', 0, 0, 'BO'),
 (4, 'Leroux', 'André', '47 av Robert Schuman', '60000', 'BEAUVAIS', 172.04, 'PH', 0, 0, 'PI'),
 (5, 'Desmoulins', 'Anne', '31 r St Jean', '30000', 'NIMES', 94.75, 'PO', 0, 0, 'LG'),
 (6, 'Mouel', 'Anne', '27 r Auvergne', '80000', 'AMIENS', 45.2, 'MH', 0, 0, 'PI'),
-(7, 'Desgranges-Lentz', 'Antoine', '1 r Albert de Mun', '29000', 'MORLAIX', 20.07, 'MV', 0, 0, 'BG'),
+(7, 'Desgranges-Lentz', 'Antoine', '1 rue Albert de Mun', '29000', 'MORLAIX', 20.07, 'MH', 1.25, 0.256, 'AL'),
 (8, 'Marcouiller', 'Arnaud', '31 r St Jean', '68000', 'MULHOUSE', 396.52, 'PS', 0, 0, 'AL'),
 (9, 'Dupuy', 'Benoit', '9 r Demolombe', '34000', 'MONTPELLIER', 395.66, 'PH', 0, 0, 'LG'),
 (10, 'Lerat', 'Bernard', '31 r St Jean', '59000', 'LILLE', 257.79, 'PO', 0, 0, 'PI'),
@@ -535,7 +546,7 @@ INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA
 (18, 'Gaffé', 'Dominique', '9 av 1ère Armée Française', '35000', 'RENNES', 213.4, 'PS', 0, 0, 'PL'),
 (19, 'Guenon', 'Dominique', '98 bd Mar Lyautey', '44000', 'NANTES', 175.89, 'PH', 0, 0, 'LI'),
 (20, 'Prévot', 'Dominique', '29 r Lucien Nelle', '87000', 'LIMOGES', 151.36, 'PO', 0, 0, 'PL'),
-(21, 'Houchard', 'Eliane', '9 r Demolombe', '49100', 'ANGERS', 436.96, 'MH', 0, 0, 'BG'),
+(21, 'Houchard', 'Eliane', '9 rue Demolombe', '49100', 'ANGERS', 436.96, 'MH', 3.8, 5.2, 'BG'),
 (22, 'Desmons', 'Elisabeth', '51 r Bernières', '29000', 'QUIMPER', 281.17, 'MV', 0, 0, 'BG'),
 (23, 'Flament', 'Elisabeth', '11 r Pasteur', '35000', 'RENNES', 315.6, 'PS', 0, 0, 'BG'),
 (24, 'Goussard', 'Emmanuel', '9 r Demolombe', '41000', 'BLOIS', 40.72, 'PH', 0, 0, 'CE'),
@@ -600,7 +611,10 @@ INSERT INTO `praticien` (`PRA_NUM`, `PRA_NOM`, `PRA_PRENOM`, `PRA_ADRESSE`, `PRA
 (83, 'Gauchet', 'Thierry', '7 r Desmoueux', '38100', 'GRENOBLE', 406.1, 'PS', 0, 0, NULL),
 (84, 'Bobichon', 'Tristan', '219 r Caponière', '9000', 'FOIX', 218.36, 'PH', 0, 0, NULL),
 (85, 'Duchemin-Laniel', 'Véronique', '130 r St Jean', '33000', 'LIBOURNE', 265.61, 'PO', 0, 0, NULL),
-(86, 'Laurent', 'Younès', '34 r Demolombe', '53000', 'MAYENNE', 496.1, 'MH', 0, 0, NULL);
+(86, 'Laurent', 'Younès', '34 r Demolombe', '53000', 'MAYENNE', 496.1, 'MH', 0, 0, NULL),
+(87, 'Lanchard', 'Leo', '21 Rue de la Paix', '45000', 'Orléans', 0, 'PO', 0, 0, 'BG'),
+(88, 'Larty', 'Matthias', '24 rue de la paix', '45000', 'Orléans', 0, 'MH', 0, 0, 'AL'),
+(89, 'Baptiste', 'Brugoux', '27 Rue du Moulin À Vent', '28130', 'Houx', 0, 'MH', 0, 0, 'BG');
 
 -- --------------------------------------------------------
 
@@ -671,9 +685,12 @@ INSERT INTO `rapport_visite` (`COL_MATRICULE`, `RAP_NUM`, `PRA_NUM`, `RAP_DATEVI
 ('a131', 7, 41, '2003-03-23', 'RAS\r\nChangement de tel : 05 89 89 89 89', 'Rapport Annuel', '2022-10-12', 3, NULL, NULL, NULL, 'D', 'N'),
 ('a17', 4, 4, '2003-05-21', 'Changement de direction, redéfinition de la politique médicamenteuse, recours au générique', 'Baisse activité', '2022-10-12', 3, NULL, NULL, NULL, 'D', 'N'),
 ('a55', 1, 8, '2023-04-12', NULL, 'test', '2023-04-12', 3, NULL, 'BACTIV13', 'DOLRIL7', 'D', NULL),
+('b13', 12, 41, '2023-04-29', NULL, NULL, '2023-04-29', 1, 81, 'ADIMOL9', NULL, 'D', 'N'),
+('b16', 13, 82, '2023-04-29', NULL, NULL, '2023-04-29', 2, 64, 'ADIMOL9', '3MYC7', 'D', 'N'),
+('b19', 14, 84, '2023-04-29', NULL, NULL, '2023-04-29', 1, 47, '3MYC7', NULL, 'D', 'N'),
+('b25', 15, 43, '2023-04-29', NULL, NULL, '2023-04-29', 3, 17, 'APATOUX22', 'AMOX45', 'D', 'N'),
 ('t60', 5, 52, '2022-11-29', 'RAS', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D', 'N'),
 ('t60', 6, 52, '2022-11-29', 'RAS doublon', NULL, '2022-11-30', 1, NULL, 'BITALV', NULL, 'D', 'N'),
-('t60', 7, 8, NULL, NULL, NULL, '2022-12-07', 2, NULL, NULL, NULL, 'A', 'N'),
 ('t60', 8, 38, '2023-01-09', NULL, 'Baisse activité', '2023-01-10', 3, NULL, NULL, NULL, 'A', 'N'),
 ('t60', 9, 9, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'BITALV', NULL, 'A', 'N'),
 ('t60', 10, 37, '2023-04-12', 'ras', 'test', '2023-04-12', 3, NULL, 'DORNOM8', 'APATOUX22', 'D', 'N'),
