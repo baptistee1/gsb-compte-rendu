@@ -79,7 +79,7 @@
                             <label for="med11" class="col-sm-4 col-form-label">Premier médicament présenté :</label>
                             <div class="col-sm-8">
                                 <div>
-                                    <a href='index.php?uc=medicaments&action=affichermedoc&medicament=<?= $rapport['medicament1'] ?>'>
+                                    <a href='index.php?uc=medicaments&action=affichermedoc&medicament=<?= $med1['MED_DEPOTLEGAL'] ?>'>
                                         <input type="text" class="form-control-plaintext" name="medicament1" id="medicament1" value="<?= $rapport['medicament1'] ?>" readonly>
                                     </a>
                                 </div>
@@ -89,7 +89,9 @@
                             <label for="med2" class="col-sm-4 col-form-label">Deuxième médicament présenté :</label>
                             <div class="col-sm-8">
                                 <div>
-                                    <input type="text" class="form-control-plaintext" name="medicament2" id="medicament2" value="<?= $rapport['medicament2'] ?>" readonly>
+                                    <a href='index.php?uc=medicaments&action=affichermedoc&medicament=<?= $med2['MED_DEPOTLEGAL'] ?>'>
+                                        <input type="text" class="form-control-plaintext" name="medicament2" id="medicament2" value="<?= $rapport['medicament2'] ?>" readonly>
+                                    </a>
                                 </div>
                             </div>
                         </div>

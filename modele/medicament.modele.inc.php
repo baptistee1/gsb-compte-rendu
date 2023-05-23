@@ -87,4 +87,22 @@ include_once 'bd.inc.php';
         }
     }
 
+    function getMedDepotLegalByNomCommercial($nomCommercial)
+    {
+        try{
+            $monPdo = connexionPDO();
+            $ch = 'SELECT MED_DEPOTLEGAL FROM medicament WHERE MED_NOMCOMMERCIAL = :nom';
+            $req = $monPdo->prepare($ch);
+            $req->bindValue(':nom', $nomCommercial, PDO::PARAM_STR);
+            $req->execute();
+            $res = $req->fetch();    
+            return $res;
+        } 
+    
+        catch (PDOException $e){
+            print "Erreur !: " . $e->getMessage();
+            die();
+        }
+    }
+
 ?>
