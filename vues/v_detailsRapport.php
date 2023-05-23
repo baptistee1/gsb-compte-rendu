@@ -132,6 +132,9 @@
                         ?>
                     </div>
                 </div>
+                <div>
+                    <a href="index.php?uc=rapports&action=newRappReg" type="button" class="btn btn-primary btn-lg">Retour</a>
+                </div>
             </div>
         </form>
     </div>

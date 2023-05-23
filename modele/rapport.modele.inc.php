@@ -420,3 +420,18 @@ function getVisiteurReg($region)
         die();
     }
 }
+
+function changeRapToRead($idRap)
+{
+    try {
+        $monPdo = connexionPDO();
+        $ch = "UPDATE rapport_visite SET RAP_ETAT = 'C' WHERE RAP_NUM = :id";
+
+        $req = $monPdo->prepare($ch);
+        $req->bindValue(':id', $idRap, PDO::PARAM_INT);
+        $req->execute();
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}

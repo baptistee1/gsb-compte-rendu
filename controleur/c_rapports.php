@@ -102,10 +102,11 @@ switch ($action) {
 
     case 'consulterRapport': {
         if (isset($_GET['idR']) && is_numeric($_GET['idR'])) {
-            $matricule = $_SESSION['matricule'];
-            $rapport = getRapportVisiteById($_GET['idR']);
+            $idRap = $_GET['idR'];
+            $rapport = getRapportVisiteById($idRap);
             $med1 = getMedDepotLegalByNomCommercial($rapport['medicament1']);
             $med2 = getMedDepotLegalByNomCommercial($rapport['medicament2']);
+            changeRapToRead($idRap);
         }
         include("vues/v_detailsRapport.php");
         break;
