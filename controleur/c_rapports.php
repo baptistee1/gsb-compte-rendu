@@ -101,9 +101,16 @@ switch ($action) {
         }
 
     case 'consulterRapport': {
-            include("vues/test.php");
-            break;
+        if (isset($_GET['idR']) && is_numeric($_GET['idR'])) {
+            $matricule = $_SESSION['matricule'];
+            $motifs = getMotifs();
+            $praticiens = getAllNomPraticien();
+            $medicaments = getAllNomMedicament();
+            $rapport = getRapportVisiteById($_GET['idR']);
         }
+        include("vues/v_detailsRapport.php");
+        break;
+    }
 
     case 'formulaireHistorique': {
             $region = getRegByLogId($_SESSION["login"]);
