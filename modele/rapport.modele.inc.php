@@ -386,7 +386,7 @@ function getRapportVisiteByReg($region)
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
         INNER JOIN collaborateur c
         ON r.COL_MATRICULE = c.COL_MATRICULE
-        WHERE c.REG_CODE = :region AND RAP_ETAT = "N"
+        WHERE c.REG_CODE = :region
         ORDER BY r.RAP_DATEVISITE';
 
         $req = $monPdo->prepare($ch);
