@@ -26,7 +26,7 @@
             <td><?php echo $uneLigne['nomMed1'] ?></td>
             <td><a href="index.php?uc=medicaments&action=affichermedoc&medicament=<?= $uneLigne['MED_DEPOTLEGAL_2'] ?>"><?php echo $uneLigne['MED_DEPOTLEGAL_2'] ?></a></td>
             <td><?php echo $uneLigne['nomMed2'] ?></td>
-            <td><a href="">détail</a></td>
+            <td><a href="index.php?uc=rapports&action=consulterRapport&idR=<?= $uneLigne['RAP_NUM'] ?>" type="button">détail</a></td>
         </tr>
 
     <?php
