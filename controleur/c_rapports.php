@@ -130,9 +130,10 @@ switch ($action) {
         }
 
     case 'consulterRapport': {
-        if (isset($_GET['idR']) && is_numeric($_GET['idR'])) {
+        if (isset($_GET['idR']) && is_numeric($_GET['idR']) && isset($_GET['mat'])) {
             $idRap = $_GET['idR'];
-            $rapport = getRapportVisiteById($idRap);
+            $rapport = getRapportVisiteByIdAndMat($idRap, $_GET['mat']);
+            var_dump($rapport);
             $med1 = getMedDepotLegalByNomCommercial($rapport['medicament1']);
             $med2 = getMedDepotLegalByNomCommercial($rapport['medicament2']);
             changeRapToRead($idRap);
