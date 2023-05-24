@@ -89,9 +89,13 @@
                             <label for="med2" class="col-sm-4 col-form-label">Deuxième médicament présenté :</label>
                             <div class="col-sm-8">
                                 <div>
+                                    <?php if (gettype($med2) == "array") { ?>
                                     <a href='index.php?uc=medicaments&action=affichermedoc&medicament=<?= $med2['MED_DEPOTLEGAL'] ?>'>
                                         <input type="text" class="form-control-plaintext" name="medicament2" id="medicament2" value="<?= $rapport['medicament2'] ?>" readonly>
                                     </a>
+                                    <?php } else if (gettype($med2) == "boolean") { ?>
+                                        <input type="text" class="form-control-plaintext" name="medicament2" id="medicament2" value="Pas de deuxième médicament" readonly> 
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
