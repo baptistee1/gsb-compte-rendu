@@ -42,6 +42,11 @@
                         <input type="text" class="form-control" id="praticien" value="<?= $rapport['PRA_NOM'] ?>" readonly>
                     </div>
                 </div>
+                <?php if ($rapport['RAP_ETAT'] == "C") { ?>
+                <div class="row">
+                    <label for="consulte" class="col-sm-12 col-form-label">Le rapport à été consulté par un délégué.</label>
+                </div>
+                <?php } ?>
             </div>
             <div class="mx-2 mb-2 align-items-center">
                 <?php 

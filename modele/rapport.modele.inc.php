@@ -375,7 +375,7 @@ function getRapportVisiteByReg($region)
 {
     try {
         $monPdo = connexionPDO();
-        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, m.MOT_LIBELLE, RAP_ETAT, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs m
