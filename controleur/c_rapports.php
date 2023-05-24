@@ -49,6 +49,35 @@ switch ($action) {
             break;
         }
 
+    case 'updRapp':
+    {
+        $matricule = $_POST['matricule'];
+        $rappNum = $_POST['rappNum'];
+        $motif = $_POST['motif1'];
+        $motifAutre = testValeurNulle('motif2');
+        $dateVisite = testValeurNulle('dateVisite');
+        $dateSaisie = $_POST['dateSaisie'];
+        $praticien = $_POST['praticien'];
+        $praticienRemp = testValeurNulle('praticienRemp');
+        $bilan = testValeurNulle('bilan');
+        $medicament1 = testValeurNulle('med1');
+        $medicament2 = testValeurNulle('med2');
+        if (isset($_POST['checkSaisie'])) {
+            $def = "D";
+        } else {
+            $def = "A";
+        }
+        $nbEchs = testValeurNulle('echantillons');
+
+        updRapp($matricule, $rappNum, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def);
+        
+        
+        $delegue = false;
+        $rapports = getRapportsVisitesNDF($matricule);
+        include("vues/v_choisirRappNDNC.php");
+        break;
+    }
+
     case 'choisirRappNDF': {
             $delegue = false;
             $matricule = $_SESSION['matricule'];
@@ -67,12 +96,12 @@ switch ($action) {
         }
 
     case 'terminerRapport': {
-            if (isset($_GET['idR']) && is_numeric($_GET['idR'])) {
+            if (isset($_GET['idR']) && is_numeric($_GET['idR']) && isset($_GET['mat'])) {
                 $matricule = $_SESSION['matricule'];
                 $motifs = getMotifs();
                 $praticiens = getAllNomPraticien();
                 $medicaments = getAllNomMedicament();
-                $rapport = getRapportVisiteById($_GET['idR']);
+                $rapport = getRapportVisiteByIdAndMat($_GET['idR'], $_GET['mat']);
             }
             include("vues/v_terminerRapport.php");
             break;

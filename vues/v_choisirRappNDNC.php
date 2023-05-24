@@ -49,17 +49,17 @@
                 <?php } ?>
             </div>
             <div class="mx-2 mb-2 align-items-center">
-                <?php 
+                <?php
                 if ($delegue) 
                 {
                     ?>
-                    <a href="index.php?uc=rapports&action=consulterRapport&idR=<?= $rapport['RAP_NUM'] ?>" type="button" class="btn btn-primary btn-lg">
+                    <a href="index.php?uc=rapports&action=consulterRapport&idR=<?= $rapport['RAP_NUM'] ?>&mat=<?= $rapport['COL_MATRICULE'] ?>" type="button" class="btn btn-primary btn-lg">
                         Détails du rapport
                     </a>
                     <?php
                 } else {
                 ?>
-                <a href="index.php?uc=rapports&action=terminerRapport&idR=<?= $rapport['RAP_NUM'] ?>" type="button" class="btn btn-primary btn-lg">
+                <a href="index.php?uc=rapports&action=terminerRapport&idR=<?= $rapport['RAP_NUM'] ?>&mat=<?= $rapport['COL_MATRICULE'] ?>" type="button" class="btn btn-primary btn-lg">
                     Terminer le rapport
                 </a>
                 <?php } ?>

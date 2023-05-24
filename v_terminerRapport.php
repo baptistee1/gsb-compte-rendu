@@ -1,10 +1,9 @@
 <div class="container-fluid">
     <div class="card mb-1">
         <div class="card-header text-center fw-bold">
-            Formulaire de modification du rapport de visite n° <?= $rapport['RAP_NUM'] ?>
+            Formulaire de saisie d'un rapport de visite
         </div>
-        <form action="index.php?uc=rapports&action=updRapp" method="POST">
-            <input type="hidden" id="rappNum" name="rappNum" value="<?= $rapport['RAP_NUM'] ?>">
+        <form action="index.php?uc=rapports&action=choixRapp" method="POST">
             <div class="card-body">
                 <div class="row justify-content-center gap-2 m-1">
                     <div class="card col">
@@ -17,7 +16,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="motif1" class="col-sm-4 col-form-label">Motif* :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="motif1" onchange="testMotifAutre(this.value)" required>
+                                <select class="form-control" onchange="testMotifAutre(this.value)" required>
                                     <?php
                                     foreach ($motifs as $motif) {
                                         if ($motif['MOT_LIBELLE'] == $rapport['MOT_LIBELLE']){
@@ -53,7 +52,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="praticien" class="col-sm-4 col-form-label">Numéro du praticien* :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="praticien" required>
+                                <select class="form-control" required>
                                     <?php
                                     foreach ($praticiens as $praticien) {
                                         if ($praticien['PRA_NOM'] == $rapport['PRA_NOM']){
@@ -86,13 +85,13 @@
                         <div class="mb-3 row mt-3">
                             <label for="bilan" class="form-label">Bilan :</label>
                             <div class="col-sm-12">
-                                <textarea class="form-control" id="bilan" name="bilan" rows="5"><?= $rapport['RAP_BILAN'] ?></textarea>
+                                <textarea class="form-control" id="bilan" name="bilan" value="<?= $rapport['RAP_BILAN'] ?>" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="mb-3 row mt-3">
                             <label for="med11" class="col-sm-4 col-form-label">Premier médicament présenté :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="med1">
+                                <select class="form-control">
                                     <option hidden></option>
                                     <?php
                                     foreach ($medicaments as $medicament) {
@@ -109,7 +108,7 @@
                         <div class="mb-3 row mt-3">
                             <label for="med2" class="col-sm-4 col-form-label">Deuxième médicament présenté :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="med2">
+                                <select class="form-control">
                                     <option hidden></option>
                                     <?php
                                     foreach ($medicaments as $medicament) {
@@ -129,7 +128,7 @@
                             <label for="echantillons" class=" col-sm-4 form-label">Nombre d'échantillons offert :</label>
                             <div class="col-sm-8">
                                 <div class="input-group mb-3">
-                                    <input type="number" class="form-control" id="echantillons" name="echantillons" value="" aria-describedby="buttonAdd" min="0" max="10">
+                                    <input type="number" class="form-control" id="echantillons" name="echantillons" aria-describedby="buttonAdd" min="0" max="10">
                                     <button class="btn btn-outline-secondary" type="button" id="buttonAdd" onclick="discoverEchs(echantillons.value)">Ajouter</button>
                                 </div>
                             </div>
@@ -151,7 +150,7 @@
                                             }
                                             ?>
                                         </datalist>
-                                        <input type="text" placeholder="Quantité" pattern="[0-9]" class="form-control" id="echs<?= $i ?>Qte" name="echantillon<?= $i ?>Qte">
+                                        <input type="text" placeholder="Quantité" pattern="[0-9]{3}" class="form-control" id="echs<?= $i ?>Qte" name="echantillon<?= $i ?>Qte">
                                     </div>
                                 </div>
                             </div>

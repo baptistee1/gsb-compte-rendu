@@ -223,6 +223,69 @@ function insertRapport($matricule, $motif, $motifAutre, $dateVisite, $dateSaisie
     }
 }
 
+function updRapp($matricule, $rappNum, $motif, $motifAutre, $dateVisite, $dateSaisie, $praticien, $praticienRemp, $bilan, $medicament1, $medicament2, $def)
+{
+    try {
+        $monPdo = connexionPDO();
+
+        //modification dans la table rapport_visite
+        $req = $monPdo->prepare('UPDATE rapport_visite 
+            SET PRA_NUM = :praticien,
+            RAP_DATEVISITE = :dateVisite,
+            RAP_BILAN = :bilan,
+            RAP_MOTIFAUTRE =  :motifAutre,
+            RAP_DATESAISIE = :dateSaisie,
+            MOT_ID = :motif,
+            PRA_NUM_REMP = :praticienRemp,
+            MED_DEPOTLEGAL_1 = :med1,
+            MED_DEPOTLEGAL_2 = :med2,
+            STATUS = :status
+            WHERE COL_MATRICULE = :matricule
+            AND RAP_NUM = :numRapport');
+        $req->bindValue(':matricule', $matricule, PDO::PARAM_STR);
+        $req->bindValue(':numRapport', $rappNum, PDO::PARAM_INT);
+        $req->bindValue(':praticien', $praticien, PDO::PARAM_INT);
+        if (empty($dateVisite)) {
+            $req->bindValue(':dateVisite', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':dateVisite', $dateVisite, PDO::PARAM_STR);
+        }
+        if (empty($bilan)) {
+            $req->bindValue(':bilan', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':bilan', $bilan, PDO::PARAM_STR);
+        }
+        if (empty($motifAutre)) {
+            $req->bindValue(':motifAutre', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':motifAutre', $motifAutre, PDO::PARAM_STR);
+        }
+        $req->bindValue(':dateSaisie', $dateSaisie, PDO::PARAM_STR);
+        $req->bindValue(':motif', $motif, PDO::PARAM_INT);
+        if (empty($praticienRemp)) {
+            $req->bindValue(':praticienRemp', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':praticienRemp', $praticienRemp, PDO::PARAM_INT);
+        }
+        if (empty($medicament1)) {
+            $req->bindValue(':med1', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':med1', $medicament1, PDO::PARAM_STR);
+        }
+        if (empty($medicament2)) {
+            $req->bindValue(':med2', null, PDO::PARAM_NULL);
+        } else {
+            $req->bindValue(':med2', $medicament2, PDO::PARAM_STR);
+        }
+        $req->bindValue(':status', $def, PDO::PARAM_STR_CHAR);
+        $req->execute();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+}
+
 function insertEchs($matricule, $idR, $medDepolegal, $qte)
 {
     try {
@@ -281,7 +344,7 @@ function getRapportsVisitesNDF(string $matricule)
 
     try {
         $monPdo = connexionPDO();
-        $ch = 'SELECT RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, RAP_ETAT, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
+        $ch = 'SELECT COL_MATRICULE, RAP_NUM, p.PRA_NOM, RAP_DATEVISITE, RAP_BILAN, RAP_MOTIFAUTRE, RAP_DATESAISIE, RAP_ETAT, m.MOT_LIBELLE, med1.MED_NOMCOMMERCIAL as medicament1, med2.MED_NOMCOMMERCIAL as medicament2 FROM rapport_visite r
         INNER JOIN praticien p
         ON r.PRA_NUM=p.PRA_NUM
         INNER JOIN motifs m
@@ -311,7 +374,7 @@ function getRapportsVisitesNDF(string $matricule)
  * @param integer $idR l'id du rapport
  * @return array un rapport de visite
  */
-function getRapportVisiteById(int $idR)
+function getRapportVisiteByIdAndMat(int $idR, string $mat)
 {
     try {
         $monPdo = connexionPDO();
@@ -324,10 +387,12 @@ function getRapportVisiteById(int $idR)
         ON r.MED_DEPOTLEGAL_1 = med1.MED_DEPOTLEGAL
         LEFT JOIN medicament med2
         ON r.MED_DEPOTLEGAL_2 = med2.MED_DEPOTLEGAL
-        WHERE RAP_NUM = :id';
+        WHERE RAP_NUM = :id
+        AND COL_MATRICULE = :mat';
 
         $req = $monPdo->prepare($ch);
         $req->bindValue(':id', $idR, PDO::PARAM_INT);
+        $req->bindValue(':mat', $mat, PDO::PARAM_STR);
         $req->execute();
 
         $res = $req->fetch(PDO::FETCH_ASSOC);
